@@ -1,0 +1,294 @@
+:root {
+    --fundo: #D9D9D9;
+    --primaria: #102d8d;
+    --credito: #1707FF;
+    --debito: #FF0707;
+    --texto-secundario: #6B7280;
+}
+
+.debito {
+    color: var(--debito);
+}
+
+.credito {
+    color: var(--credito);
+}
+
+#debito {
+    background-color: var(--debito);
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: var(--fundo);
+    color: var(--primaria);
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.main {
+    margin-left: 280px;
+    /* mesma largura da sidebar */
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #FFF;
+    color: var(--primaria);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+
+    width: 850px;
+    /* max-width: 900px; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* melhora espaçamento */
+}
+
+.link {
+    background-color: var(--primaria);
+    color: #FFF;
+    width: 100%;
+    max-width: 500px;
+    /* para alinhar com o container */
+    padding: 10px 0;
+    /* padding vertical para centralizar texto */
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    /* espaço abaixo da barra */
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-size: 22px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 600;
+    width: 100%;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+
+form {
+    background-color: rgba(0, 0, 0, 0.09);
+    width: 500px;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--texto-secundario);
+    border-radius: 6px;
+    background-color: #FFF;
+    color: #000;
+}
+
+input[type="date"] {
+    background-color: #FFF;
+    color: #000;
+    border: 2px solid #000;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: var(--credito);
+    color: #000;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--primaria);
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #273e8b;
+}
+
+.tabela {
+    border-radius: 10px;
+    overflow-x: auto;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    max-width: 1100px;
+    border-collapse: collapse;
+    background: #FFF;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--texto-secundario);
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+th {
+    background: var(--primaria);
+    color: #FFF;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #F3F4F6;
+}
+
+tr:hover {
+    background-color: #E0F2FE;
+}
+
+.resumo-financeiro {
+    width: 100%;
+    /* mesma largura da tabela */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.09);
+}
+
+.resumo-financeiro .box {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.resumo-financeiro .box span {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.resumo-financeiro .box strong {
+    font-size: 20px;
+}
+
+/* alinhamentos individuais */
+.resumo-financeiro .credito {
+    text-align: left;
+    color: var(--credito);
+    /* azul */
+}
+
+.resumo-financeiro .saldo {
+    text-align: right;
+    color: #2e7d32;
+    /* verde */
+}
+
+.resumo-financeiro .debito {
+    text-align: center;
+    color: var(--debito);
+    /* vermelho */
+}
+
+.filtros-tipo {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.filtros-tipo button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: #e5e7eb;
+    font-weight: 600;
+}
+
+.filtros-tipo button.ativo {
+    background: #1e40af;
+    color: #fff;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-conteudo {
+    background: #FFF;
+    padding: 20px;
+    width: 350px;
+    border-radius: 8px;
+    margin: 15% auto;
+    text-align: center;
+    gap: 25px;
+}
+
+.modal-botoes {
+    margin-top: 20px;
+    gap: 25px;
+    display: flex;
+    justify-content: space-between;
+}
