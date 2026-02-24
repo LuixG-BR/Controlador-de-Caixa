@@ -34,7 +34,7 @@ mysqli_stmt_bind_param(
 
 mysqli_stmt_execute($stmt);
 if (mysqli_stmt_execute($stmt)) {
-    header("Location: editar.php?sucesso=1");
+    header("Location: editar_lancamento.php?sucesso=1");
     exit;
 } else {
     echo "Erro ao atualizar.";

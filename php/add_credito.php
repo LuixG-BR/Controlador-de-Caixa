@@ -68,7 +68,7 @@ mysqli_close($conexao);
                 <a href="add_debito.php">➖ Cadastrar Débito</a>
             </li>
             <li>
-                <a href="editar.php">✏️ Atualizar Lançamento</a>
+                <a href="editar_lancamento.php">✏️ Atualizar Lançamento</a>
             </li>
             <hr>
             <li>

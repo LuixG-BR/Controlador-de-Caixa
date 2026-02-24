@@ -106,7 +106,7 @@ if (isset($_POST['buscar'])) {
 
                 <h2>Atualizar Lançamento</h2>
 
-                <form method="POST" action="update_lancamento.php">
+                <form method="POST" action="update_edicao.php">
                     <input type="hidden" name="id" value="<?= $dados['id'] ?>">
 
                     <label>Data:</label>
