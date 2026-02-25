@@ -127,7 +127,10 @@ $saldo = $totalCredito - $totalDebito;
                             <td><?= $lancamento['categoria']; ?></td>
                             <td><?= $lancamento['congregacao']; ?></td>
                             <td><?= $lancamento['nome']; ?></td>
-                            <td>R$ <?= number_format($lancamento['valor'], 2, ',', '.'); ?></td>
+                            <td>R$ <?= number_format($lancamento['valor'], 2, ',', '.'); ?>
+                                <br>
+                                <a href="descricao.php?id=<?= $lancamento['id'] ?>">ver Mais +</a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

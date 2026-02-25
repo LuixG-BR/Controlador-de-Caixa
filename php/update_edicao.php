@@ -34,8 +34,16 @@ mysqli_stmt_bind_param(
 
 mysqli_stmt_execute($stmt);
 if (mysqli_stmt_execute($stmt)) {
-    header("Location: editar_lancamento.php?sucesso=1");
-    exit;
+
+    if (mysqli_stmt_affected_rows($stmt) > 0) {
+        header("Location: editar_lancamento.php?sucesso=1");
+        exit;
+    } else {
+        // ID não encontrado ou nada foi alterado
+        header("Location: editar_lancamento.php?naoencontrado=1");
+        exit;
+    }
 } else {
-    echo "Erro ao atualizar.";
+    header("Location: editar_lancamento.php?erro=1");
+    exit;
 }

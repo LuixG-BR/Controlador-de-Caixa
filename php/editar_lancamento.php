@@ -90,8 +90,18 @@ if (isset($_POST['buscar'])) {
         <div class="container" style="width: 820px">
 
             <?php if (isset($_GET['sucesso'])): ?>
-                <div style="background: #d4edda; padding:10px; margin-bottom:15px;">
+                <div style="background:#d4edda; padding:10px; margin-bottom:15px;">
                     Lançamento atualizado com sucesso!
+                </div>
+
+            <?php elseif (isset($_GET['naoencontrado'])): ?>
+                <div style="background:#fff3cd; padding:10px; margin-bottom:15px;">
+                    ID não encontrado ou nenhum dado foi alterado.
+                </div>
+
+            <?php elseif (isset($_GET['erro'])): ?>
+                <div style="background:#f8d7da; padding:10px; margin-bottom:15px;">
+                    Erro ao atualizar o lançamento.
                 </div>
             <?php endif; ?>
 
@@ -155,6 +165,15 @@ if (isset($_POST['buscar'])) {
                 </form>
 
             <?php endif; ?>
+
+            <h2 class="debito"
+                style="margin-top: 55px;">Deletar Lançamento</h2>
+
+            <form method="POST" action="deletar.php">
+                <input type="number" name="id_delete" placeholder="Digite o ID">
+
+                <button type="submit" id="debito">Deletar</button>
+            </form>
         </div>
     </main>
     <script>
