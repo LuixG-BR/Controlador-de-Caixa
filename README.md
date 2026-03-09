@@ -109,7 +109,3 @@ Campos:
 - Paginacao e ordenacao na listagem
 - Validacoes e sanitizacao adicionais no backend
 - Testes automatizados
-
-## Licenca
-
-Defina aqui a licenca do projeto (ex.: MIT).
