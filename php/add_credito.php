@@ -52,77 +52,108 @@ mysqli_close($conexao);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
     <link rel="stylesheet" href="../css/sidebar.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Cadastrar Credito</title>
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>Controle de Caixa</h2>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Cadastrar Crédito</a>
 
-        <ul>
-            <li>
-                <a href="../principal.html">🏠 Home</a>
-            </li>
-            <hr>
-            <li>
-                <a href="add_debito.php">➖ Cadastrar Débito</a>
-            </li>
-            <li>
-                <a href="editar_lancamento.php">✏️ Atualizar Lançamento</a>
-            </li>
-            <hr>
-            <li>
-                <a href="movimentos.php">Movimentos</a>
-            </li>
-            <li>
-                <a href="relatorios.php">Relatorios</a>
-            </li>
-        </ul>
-    </div>
-    <main class="main">
-        <div class="container">
-            <h1>Cadastrar Creditos/Entrada</h1>
-            <form method="post">
-                <label>Data:</label>
-                <input type="date" name="data" required>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <label>Categoria</label>
-                <select name="categoria">
-                    <option value="Oferta">Oferta</option>
-                    <option value="Dízimo">Dízimo</option>
-                    <option value="Acerto">Acerto</option>
-                    <option value="EBD">EBD</option>
-                    <option value="CIBEM">CIBEM</option>
-                    <option value="Anuidade">Anuidade</option>
-                    <option value="oferta missionaria">oferta missionaria</option>
-                </select>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../principal.html">🏠 Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_debito.php">➖ Débito</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="editar_lancamento.php">✏️ Editar</a>
+                    </li>
+                    <hr>
+                    <li class="nav-item">
+                        <a class="nav-link" href="movimentos.php">Movimentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="relatorios.php">Relatorios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container-fluid px-3 mt-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
 
-                <label>Congregação:</label>
-                <select name="congregacao">
-                    <option value="Sede">Sede</option>
-                    <option value="Jacupiranga">Jacupiranga</option>
-                    <option value="Pariquera">Pariquera</option>
-                    <option value="Iguape">Iguape</option>
-                    <option value="Ilha Comprida">Ilha Comprida</option>
-                    <option value="Itimirim">Itimirim</option>
-                    <option value="Sete Barras">Sete Barras</option>
-                    <option value="Cananeia">Cananéia</option>
-                    <option value="Angatuba">Angatuba</option>
-                    <option value="Serrote">Serrote</option>
-                    <option value="Guaviruva">Guaviruva</option>
-                    <option value="Barra do Ribeirão">Barra do Ribeirão</option>
-                    <option value="Morangaba">Morangaba</option>
-                    <option value="Jardim Alvorada">Jardim Alvorada</option>
-                    <option value="Itapitangui">Itapitangui</option>
-                </select>
+                <h4 class="text-center mb-4">Adicionar Entrada</h4>
 
-                <input type="text" name="nome" placeholder="Digite o Nome">
-                <input type="number" name="valor" step="0.01" placeholder="Digite o valor da Entrada" required>
+                <form method="post">
 
-                <button>Cadastrar</button>
-            </form>
+                    <div class="mb-3">
+                        <label class="form-label">Data</label>
+                        <input type="date" name="data" class="form-control" value="<?= date('Y-m-d') ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <select name="categoria" class="form-select">
+                            <option value="Oferta">Oferta</option>
+                            <option value="Dízimo">Dízimo</option>
+                            <option value="Acerto">Acerto</option>
+                            <option value="EBD">EBD</option>
+                            <option value="CIBEM">CIBEM</option>
+                            <option value="Anuidade">Anuidade</option>
+                            <option value="oferta missionaria">Oferta Missionária</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Congregação</label>
+                        <select name="congregacao" class="form-select">
+                            <option value="Sede">Sede</option>
+                            <option value="Jacupiranga">Jacupiranga</option>
+                            <option value="Pariquera">Pariquera</option>
+                            <option value="Iguape">Iguape</option>
+                            <option value="Ilha Comprida">Ilha Comprida</option>
+                            <option value="Itimirim">Itimirim</option>
+                            <option value="Sete Barras">Sete Barras</option>
+                            <option value="Cananeia">Cananéia</option>
+                            <option value="Angatuba">Angatuba</option>
+                            <option value="Serrote">Serrote</option>
+                            <option value="Guaviruva">Guaviruva</option>
+                            <option value="Barra do Ribeirão">Barra do Ribeirão</option>
+                            <option value="Morangaba">Morangaba</option>
+                            <option value="Jardim Alvorada">Jardim Alvorada</option>
+                            <option value="Itapitangui">Itapitangui</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" name="nome" class="form-control" placeholder="Digite o nome">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Valor</label>
+                        <input type="number" name="valor" step="0.01" class="form-control" placeholder="Digite o valor da entrada" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Cadastrar
+                    </button>
+
+                </form>
+
+            </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

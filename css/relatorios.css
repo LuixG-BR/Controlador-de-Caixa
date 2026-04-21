@@ -8,7 +8,6 @@
 
 .conteudo {
     margin-left: 300px;
-    /* sidebar */
     padding: 40px;
     min-height: 100vh;
     background: var(--fundo);
@@ -121,7 +120,7 @@
 
 .tabela-relatorio table {
     width: 100%;
-    max-width: 850px;
+    max-width: 100%;
     border-collapse: collapse;
 }
 
