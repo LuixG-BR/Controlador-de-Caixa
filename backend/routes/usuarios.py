@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 import models
 from schemas import UsuarioCreate, UsuarioResponse
-from dependencies import usuario_logado
+from dependencies import usuario_logado, verificar_permissao
 
 router = APIRouter(
     prefix="/usuarios",
@@ -38,7 +38,7 @@ def listar_usuarios(
 def criar_usuario(
     usuario: UsuarioCreate,
     db: Session = Depends(get_db),
-    usuario_atual = Depends(usuario_logado)
+    usuario_atual = Depends(verificar_permissao([1]))
 ):
 
     novo_usuario = models.Usuario(

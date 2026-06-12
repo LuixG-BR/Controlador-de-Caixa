@@ -44,3 +44,23 @@ def usuario_logado(
             status_code=401,
             detail="Token inválido"
         )
+        
+def verificar_permissao(perfis_permitidos: list[int]):
+
+    def permissao(
+        usuario = Depends(usuario_logado)
+    ):
+
+        id_perfil = usuario.get("id_perfil")
+
+
+        if id_perfil not in perfis_permitidos:
+
+            raise HTTPException(
+                status_code=403,
+                detail="Sem permissão para acessar este recurso"
+            )
+
+        return usuario
+
+    return permissao
