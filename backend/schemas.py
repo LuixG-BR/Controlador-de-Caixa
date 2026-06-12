@@ -20,3 +20,14 @@ class UsuarioResponse(BaseModel):
 
     class Config:
         from_attributes = True
+        
+
+class Login(BaseModel):
+
+    login: str
+    senha: str
+
+class Token(BaseModel):
+
+    access_token: str
+    token_type: str

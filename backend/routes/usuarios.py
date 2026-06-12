@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 import models
 from schemas import UsuarioCreate, UsuarioResponse
+from dependencies import usuario_logado
 
 router = APIRouter(
     prefix="/usuarios",
@@ -24,7 +25,8 @@ def get_db():
 
 @router.get("/", response_model=list[UsuarioResponse])
 def listar_usuarios(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_atual = Depends(usuario_logado)
 ):
 
     usuarios = db.query(models.Usuario).all()
@@ -35,7 +37,8 @@ def listar_usuarios(
 @router.post("/", response_model=UsuarioResponse)
 def criar_usuario(
     usuario: UsuarioCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_atual = Depends(usuario_logado)
 ):
 
     novo_usuario = models.Usuario(
