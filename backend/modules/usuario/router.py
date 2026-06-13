@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from database import SessionLocal
-import models
-from schemas import UsuarioCreate, UsuarioResponse
+from modules.usuario import model
+from modules.usuario.schema import UsuarioCreate, UsuarioResponse
 from dependencies import usuario_logado, verificar_permissao
 
 router = APIRouter(
@@ -29,7 +29,7 @@ def listar_usuarios(
     usuario_atual = Depends(usuario_logado)
 ):
 
-    usuarios = db.query(models.Usuario).all()
+    usuarios = db.query(model.Usuario).all()
 
     return usuarios
 
@@ -41,7 +41,7 @@ def criar_usuario(
     usuario_atual = Depends(verificar_permissao([1]))
 ):
 
-    novo_usuario = models.Usuario(
+    novo_usuario = model.Usuario(
 
         nome = usuario.nome,
         login = usuario.login,
