@@ -38,3 +38,8 @@ class Congregacao(Base):
         "Usuario",
         back_populates="congregacao"
     )
+    
+    lancamentos = relationship(
+        "Lancamento",
+        back_populates="congregacao"
+    )

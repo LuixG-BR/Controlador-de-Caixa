@@ -64,3 +64,8 @@ class Usuario(Base):
         "Congregacao",
         back_populates="usuarios"
     )
+    
+    lancamentos = relationship(
+    "Lancamento",
+    back_populates="usuario"
+)
