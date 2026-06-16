@@ -67,7 +67,8 @@ def login(
         {
             "sub": usuario.login,
             "id_usuario": usuario.id_usuario,
-            "id_perfil": usuario.id_perfil
+            "id_perfil": usuario.id_perfil,
+            "id_congregacao": usuario.id_congregacao
         }
     )
 

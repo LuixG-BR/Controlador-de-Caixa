@@ -1,6 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from datetime import date
+from typing import Optional
+from fastapi import Query
+
 from database import SessionLocal
 from modules.lancamento import model
 from modules.lancamento.schema import (LancamentoCreate, LancamentoResponse)
@@ -27,12 +31,33 @@ def get_db():
 # LISTAR
 @router.get("/", response_model=list[LancamentoResponse])
 def listar_lancamentos(
+
+    id_congregacao: Optional[int] = None,
+    tipo: Optional[str] = None,
+    data_inicio: Optional[date] = None,
+    data_fim: Optional[date] = None,
+
     db: Session = Depends(get_db),
+
     usuario = Depends(usuario_logado)):
-    
-    return db.query(
-        model.Lancamento
-    ).all()
+    query = db.query(model.Lancamento)
+
+    if usuario["id_perfil"] != 1:
+        query = query.filter(
+        model.Lancamento.id_congregacao == usuario["id_congregacao"]
+    )
+
+    if tipo:
+        query = query.filter(model.Lancamento.tipo == tipo)
+
+    if data_inicio:
+        query = query.filter(model.Lancamento.data >= data_inicio)
+
+    if data_fim:
+        query = query.filter(model.Lancamento.data <= data_fim)
+
+    return query.all()
+
 
 # CRIAR
 @router.post("/", response_model=LancamentoResponse)
@@ -48,7 +73,7 @@ def criar_lancamento(
         descricao=dados.descricao,
         valor=dados.valor,
         data=dados.data,
-        id_congregacao=dados.id_congregacao,
+        id_congregacao=usuario["id_congregacao"],
         id_usuario=usuario["id_usuario"]
 )
     
