@@ -20,3 +20,7 @@ class UsuarioResponse(BaseModel):
 
     class Config:
         from_attributes = True
+        
+class UsuarioStatus(BaseModel):
+
+    status: bool
