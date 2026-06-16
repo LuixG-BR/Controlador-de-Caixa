@@ -4,7 +4,9 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 from modules.usuario import model
 from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus
+
 from dependencies import usuario_logado, verificar_permissao
+from security import criar_hash_senha
 
 router = APIRouter(
     prefix="/usuarios",
@@ -26,9 +28,8 @@ def get_db():
 @router.get("/", response_model=list[UsuarioResponse])
 def listar_usuarios(
     db: Session = Depends(get_db),
-    usuario_atual = Depends(usuario_logado)
-):
-
+    usuario_atual = Depends(verificar_permissao([1]))):
+    
     usuarios = db.query(model.Usuario).all()
 
     return usuarios
@@ -38,14 +39,13 @@ def listar_usuarios(
 def criar_usuario(
     usuario: UsuarioCreate,
     db: Session = Depends(get_db),
-    usuario_atual = Depends(verificar_permissao([1]))
-):
+    usuario_atual = Depends(verificar_permissao([1]))):
 
     novo_usuario = model.Usuario(
 
         nome = usuario.nome,
         login = usuario.login,
-        senha = usuario.senha,
+        senha = criar_hash_senha(usuario.senha),
         id_perfil = usuario.id_perfil,
         id_congregacao = usuario.id_congregacao
     )
@@ -79,8 +79,8 @@ def editar(
         )
 
     usuario.nome = dados.nome
-    usuario.senha = dados.senha
     usuario.login = dados.login
+    usuario.senha = criar_hash_senha(dados.senha)
     usuario.id_perfil = dados.id_perfil
     usuario.id_congregacao = dados.id_congregacao
     
