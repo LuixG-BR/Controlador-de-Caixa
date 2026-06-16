@@ -1,91 +1,59 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-
 from database import SessionLocal
-
 from modules.congregacao import model
-from modules.congregacao.schema import (CongregacaoCreate, CongregacaoResponse)
+from modules.congregacao.schema import (CongregacaoCreate, CongregacaoResponse, CongregacaoStatus)
 from dependencies import verificar_permissao
 
-router = APIRouter(
-
-    prefix="/congregacoes",
-    tags=["Congregações"]
-)
-
+router = APIRouter(prefix="/congregacao", tags=["Congregação"])
 
 def get_db():
 
     db = SessionLocal()
 
     try:
-
         yield db
 
     finally:
-
         db.close()
 
+
 # LISTAR
-@router.get("/",response_model=list[CongregacaoResponse])
-def listar_congregacoes(
-
-    db: Session = Depends(get_db)
-
-):
-
-    congregacoes = db.query(
+@router.get("/", response_model=list[CongregacaoResponse])
+def listar(db: Session = Depends(get_db)):
+    
+    return db.query(
         model.Congregacao
     ).all()
 
-
-    return congregacoes
-
-
 # CRIAR
-@router.post(
-    "/",
-    response_model=CongregacaoResponse
-)
-def criar_congregacao(
-
+@router.post("/", response_model=CongregacaoResponse)
+def criar(
     dados: CongregacaoCreate,
-
     db: Session = Depends(get_db),
+    usuario = Depends(verificar_permissao([1]))):
 
-    usuario = Depends(
-        verificar_permissao([1])
+    nova = model.Congregacao(
+        nome=dados.nome,
+        cidade=dados.cidade
     )
 
-):
-    nova_congregacao = model.Congregacao(
-        nome = dados.nome,
-        cidade = dados.cidade
-    )
-
-    db.add(nova_congregacao)
+    db.add(nova)
     db.commit()
-    db.refresh(nova_congregacao)
+    db.refresh(nova)
 
-    return nova_congregacao
+    return nova
 
-
-# EDITAR
-@router.put(
-    "/{id_congregacao}",
-    response_model=CongregacaoResponse
-)
-def editar_congregacao(
-
-    id_congregacao: int,
+# EDITAR DADOS
+@router.put("/{id_congregacao}", response_model=CongregacaoResponse)
+def editar(
+    id_congregacao:int,
     dados: CongregacaoCreate,
     db: Session = Depends(get_db),
-    usuario = Depends(
-        verificar_permissao([1])
-    )
 
-):
+    usuario = Depends(verificar_permissao([1]))):
+
     congregacao = db.query(
         model.Congregacao
     ).filter(
@@ -95,12 +63,12 @@ def editar_congregacao(
     if not congregacao:
 
         raise HTTPException(
-            status_code=404,
-            detail="Congregação não encontrada"
+            404,
+            "Congregação não encontrada"
         )
 
-
     congregacao.nome = dados.nome
+
     congregacao.cidade = dados.cidade
 
     db.commit()
@@ -108,17 +76,17 @@ def editar_congregacao(
 
     return congregacao
 
-# DELETE
-@router.delete("/{id_congregacao}")
-def deletar_congregacao(
 
-    id_congregacao: int,
+# ALTERAR STATUS
+@router.patch("/{id_congregacao}/status", response_model=CongregacaoResponse)
+def alterar_status(
+
+    id_congregacao:int,
+    dados: CongregacaoStatus,
     db: Session = Depends(get_db),
-    usuario = Depends(
-        verificar_permissao([1])
-    )
 
-):
+    usuario = Depends(verificar_permissao([1]))):
+
     congregacao = db.query(
         model.Congregacao
     ).filter(
@@ -128,15 +96,13 @@ def deletar_congregacao(
     if not congregacao:
 
         raise HTTPException(
-            status_code=404,
-            detail="Congregação não encontrada"
+            404,
+            "Congregação não encontrada"
         )
 
-    db.delete(congregacao)
+    congregacao.status = dados.status
 
     db.commit()
+    db.refresh(congregacao)
 
-    return {
-        "mensagem":
-        "Congregação removida"
-    }
+    return congregacao
