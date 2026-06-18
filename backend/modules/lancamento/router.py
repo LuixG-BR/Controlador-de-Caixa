@@ -32,7 +32,6 @@ def get_db():
 @router.get("/", response_model=list[LancamentoResponse])
 def listar_lancamentos(
 
-    id_congregacao: Optional[int] = None,
     tipo: Optional[str] = None,
     data_inicio: Optional[date] = None,
     data_fim: Optional[date] = None,
@@ -90,13 +89,22 @@ def editar_lancamento(
     id_lancamento:int,
     dados:LancamentoCreate,
     db:Session = Depends(get_db),
-
-    usuario = Depends(verificar_permissao([1,2]))):
-    lancamento = db.query(
+    usuario = Depends(usuario_logado)):
+    
+    if usuario["id_perfil"] != 1:
+        lancamento = db.query(
         model.Lancamento
-    ).filter(
+        ).filter(
+        model.Lancamento.id_lancamento == id_lancamento,
+        model.Lancamento.id_congregacao == usuario["id_congregacao"]
+        ).first()
+        
+    else:
+        lancamento = db.query(
+        model.Lancamento
+        ).filter(
         model.Lancamento.id_lancamento == id_lancamento
-    ).first()
+        ).first()
 
     if not lancamento:
 
@@ -124,13 +132,22 @@ def deletar_lancamento(
     id_lancamento:int,
     db:Session = Depends(get_db),
 
-    usuario = Depends(verificar_permissao([1]))):
+    usuario = Depends(usuario_logado)):
     
-    lancamento = db.query(
+    if usuario["id_perfil"] != 1:
+        lancamento = db.query(
         model.Lancamento
-    ).filter(
+        ).filter(
+        model.Lancamento.id_lancamento == id_lancamento,
+        model.Lancamento.id_congregacao == usuario["id_congregacao"]
+        ).first()
+        
+    else:
+        lancamento = db.query(
+        model.Lancamento
+        ).filter(
         model.Lancamento.id_lancamento == id_lancamento
-    ).first()
+        ).first()
 
     if not lancamento:
 
