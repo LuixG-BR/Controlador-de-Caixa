@@ -10,8 +10,6 @@ from routes import auth
 
 from fastapi.middleware.cors import CORSMiddleware
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="Controlador de Caixa API")
 
 app.include_router(usuarios.router)
