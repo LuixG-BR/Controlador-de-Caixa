@@ -12,38 +12,44 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    
+    
+    async function handleSubmit(e){
 
+    e.preventDefault();
 
-    async function handleSubmit(e) {
+    try{
+        const formData = new FormData();
 
-        e.preventDefault();
+        formData.append("username", email);
+        formData.append("password", senha);
 
-        try {
+        const resposta = await api.post(
+            "/auth/login",
+            formData
+        );
 
-            const resposta = await api.post("/login", {
+        console.log(resposta.data);
 
-                email: email,
-                senha: senha
-            });
+        login({
+            token: resposta.data.access_token,
+            usuario:{
+                login: email
+            }
+        });
 
-            console.log(resposta.data);
+        navigate("/dashboard");
 
-            login({
+    }catch(error){
 
-                token: resposta.data.access_token,
-                usuario: resposta.data.usuario
-            });
+        console.log(
+            "ERRO:",
+            error.response?.data
+        );
 
-            navigate("/dashboard");
-
-        } catch (error) {
-
-            console.log(error);
-
-            alert("Email ou senha inválidos");
-        }
+        alert("Falha no login");
     }
-
+}
 
     return (
 
@@ -56,8 +62,8 @@ function Login() {
             <form onSubmit={handleSubmit}>
 
                 <input
-                    type="email"
-                    placeholder="Email"
+                    type="text"
+                    placeholder="user"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
