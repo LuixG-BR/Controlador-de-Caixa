@@ -1,28 +1,31 @@
 import { createContext, useContext, useState } from "react";
-
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 
-export function AuthProvider({children}){
+export function AuthProvider({ children }) {
 
-    const [usuario,setUsuario] = useState(
+    const [usuario, setUsuario] = useState(
         JSON.parse(localStorage.getItem("usuario")) || null
     );
 
-    const [token,setToken] = useState(
+    const [token, setToken] = useState(
         localStorage.getItem("token") || null
     );
 
 
-    function login(dados){
+    function login(dados) {
 
-        setUsuario(dados.usuario);
+
+        const usuarioToken = jwtDecode(dados.token);
+
+        setUsuario(usuarioToken);
         setToken(dados.token);
 
         localStorage.setItem(
             "usuario",
-            JSON.stringify(dados.usuario)
+            JSON.stringify(usuarioToken)
         );
 
         localStorage.setItem(
@@ -31,7 +34,7 @@ export function AuthProvider({children}){
         );
     }
 
-    function logout(){
+    function logout() {
 
         setUsuario(null);
 
@@ -55,7 +58,7 @@ export function AuthProvider({children}){
     )
 }
 
-export function useAuth(){
+export function useAuth() {
 
     return useContext(AuthContext);
 }

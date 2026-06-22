@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
 
-function Sidebar(){
+function Sidebar() {
 
-    const { logout } = useAuth();
-    
+    const { usuario, logout } = useAuth();
+
 
     return (
         <aside>
@@ -24,9 +24,21 @@ function Sidebar(){
                     Relatórios
                 </Link>
 
-                <Link to="/usuarios">
-                    Usuários
-                </Link>
+                {
+                    usuario?.id_perfil === 1 &&
+
+                    <Link to="/usuarios">
+                        Usuários
+                    </Link>
+                }
+
+                {
+                    usuario?.id_perfil === 1 &&
+
+                    <Link to="/congregacoes">
+                        Congregações
+                    </Link>
+                }
             </nav>
 
             <button onClick={logout}>
