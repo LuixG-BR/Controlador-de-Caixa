@@ -9,8 +9,6 @@ class LancamentoCreate(BaseModel):
     descricao: str | None = None
     valor: Decimal
     data: date
-    id_congregacao: int
-
 
 class LancamentoResponse(BaseModel):
 
