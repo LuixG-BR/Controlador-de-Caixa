@@ -1,5 +1,6 @@
 import CreditoForm from "../components/CreditoForm";
 import DebitoForm from "../components/DebitoForm";
+import TabelaLancamentos from "../components/TabelaLancamentos";
 
 
 function Lancamentos() {
@@ -12,6 +13,8 @@ function Lancamentos() {
             <CreditoForm />
             <hr />
             <DebitoForm />
+            <hr />
+            <TabelaLancamentos />
         </div>
     )
 }
