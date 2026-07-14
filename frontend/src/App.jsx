@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout.jsx";
 
-import Lancamentos from "./pages/Lancamentos";
-import Relatorios from "./pages/Relatorios";
-import Usuarios from "./pages/Usuarios";
-import Congregacoes from './pages/Congregacoes';
+import Dashboard from "./modules/dashboard/pages/Dashboard";
+import Lancamentos from "./modules/lancamentos/pages/Lancamentos";
+import Relatorios from "./modules/relatorios/pages/Relatorios";
+import Usuarios from "./modules/usuarios/pages/Usuarios";
+import Congregacoes from "./modules/congregacoes/pages/Congregacoes";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
 
-import ProtectedRoute from "./routes/ProtectedRoute";
-import PermissionRoute from "./routes/PermissionRoute";
+import PermissionRoute from "./auth/PermissionRoute";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 
 function App() {

@@ -1,78 +1,103 @@
 import { useState } from "react";
-import api from "../../../api/api";
+import lancamentoService from "../services/lancamentoService";
 
+function DebitoForm({ onSuccess }) {
 
-function DebitoForm() {
-
-
-    const [dados, setDados] = useState({
-
+    const [form, setForm] = useState({
         tipo: "debito",
         categoria: "",
         descricao: "",
         valor: "",
         data: ""
-
     });
 
+    function handleChange(e) {
 
-    function alterar(e) {
-
-        setDados({
-
-            ...dados,
-
+        setForm({
+            ...form,
             [e.target.name]: e.target.value
-
         });
     }
 
-    async function salvar(e) {
+    async function handleSubmit(e) {
 
         e.preventDefault();
 
         try {
 
-            await api.post("/lancamentos/", dados);
+            await lancamentoService.criar(form);
 
-            alert("Débito lançado");
+            alert("Débito cadastrado com sucesso!");
 
+            setForm({
+                tipo: "debito",
+                categoria: "",
+                descricao: "",
+                valor: "",
+                data: ""
+            });
 
-        } catch (error) {
-
-            console.log(error.response?.data);
-
-            alert("Erro ao lançar crédito");
+            if (onSuccess) {
+                onSuccess();
+            }
+        } catch (erro) {
+            console.error(erro);
+            alert("Erro ao cadastrar débito.");
         }
     }
 
     return (
 
-        <form onSubmit={salvar}>
+        <form onSubmit={handleSubmit}>
 
-            <h2>Adicionar Débito</h2>
-
-            <select name="categoria" value={dados.categoria} onChange={alterar}>
-                <option value="">Selecione</option>
-                <option value="concessionaria">Concessionaria</option>
+            <label>Categoria</label>
+            <select
+                name="categoria"
+                value={form.categoria}
+                onChange={handleChange}
+            >
+                <option value="">Categoria</option>
+                <option value="concessionaria">Concessionária</option>
                 <option value="imposto">Imposto</option>
                 <option value="prebenda">Prebenda</option>
                 <option value="ajuda de custo">Ajuda de custo</option>
-                <option value="oferta missionaria">Oferta missionaria</option>
-                <option value="despesa bancaria">Despesa bancaria</option>
+                <option value="oferta missionaria">Oferta Missionária</option>
+                <option value="despesa bancaria">Despesa bancária</option>
                 <option value="CIBEM">CIBEM</option>
                 <option value="Anuidade">Anuidade</option>
+
             </select>
 
-            <input name="descricao" placeholder="Descrição" onChange={alterar} />
+            <label>Descrição</label>
+            <input
+                type="text"
+                name="descricao"
+                value={form.descricao}
+                onChange={handleChange}
+            />
 
-            <input type="number" name="valor" step="0.01" placeholder="Valor" onChange={alterar} />
+            <label>Valor</label>
+            <input
+                type="number"
+                step="0.01"
+                name="valor"
+                value={form.valor}
+                onChange={handleChange}
+            />
 
-            <input type="date" name="data" onChange={alterar} />
+            <label>Data</label>
+            <input
+                type="date"
+                name="data"
+                value={form.data}
+                onChange={handleChange}
+            />
 
-            <button>Salvar Débito</button>
+            <button type="submit">
+                Salvar Débito
+            </button>
         </form>
-    )
+    );
 }
 
 export default DebitoForm;

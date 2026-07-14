@@ -1,76 +1,104 @@
 import { useState } from "react";
-import api from "../../../api/api";
+import lancamentoService from "../services/lancamentoService";
 
+function CreditoForm({ onSuccess }) {
 
-function CreditoForm() {
-
-
-    const [dados, setDados] = useState({
-
+    const [form, setForm] = useState({
         tipo: "credito",
         categoria: "",
         descricao: "",
         valor: "",
         data: ""
-
     });
 
+    function handleChange(e) {
 
-    function alterar(e) {
-
-        setDados({
-
-            ...dados,
-
+        setForm({
+            ...form,
             [e.target.name]: e.target.value
-
         });
+
     }
 
-    async function salvar(e) {
+    async function handleSubmit(e) {
 
         e.preventDefault();
 
         try {
 
-            await api.post("/lancamentos/", dados);
+            await lancamentoService.criar(form);
 
-            alert("Crédito lançado");
+            alert("Crédito cadastrado com sucesso!");
 
-        } catch (error) {
+            setForm({
+                tipo: "credito",
+                categoria: "",
+                descricao: "",
+                valor: "",
+                data: ""
+            });
 
-            console.log(error.response?.data);
-
-            alert("Erro ao lançar crédito");
+            if (onSuccess) {
+                onSuccess();
+            }
+        } catch (erro) {
+            console.error(erro);
+            alert("Erro ao cadastrar crédito.");
         }
+
     }
 
     return (
 
-        <form onSubmit={salvar}>
+        <form onSubmit={handleSubmit}>
 
-            <h2>Adicionar Crédito</h2>
-                
-            <select name="categoria" value={dados.categoria} onChange={alterar}>
-                <option value="">Selecione</option>
+            <label>Categoria</label>
+            <select
+                name="categoria"
+                value={form.categoria}
+                onChange={handleChange}
+            >
+                <option value="">Categoria</option>
                 <option value="Oferta">Oferta</option>
                 <option value="Dízimo">Dízimo</option>
                 <option value="Acerto">Acerto</option>
                 <option value="EBD">EBD</option>
                 <option value="CIBEM">CIBEM</option>
-                <option value="Anuidade"> Anuidade</option>
-                <option value="oferta missionaria">Oferta missionária</option>                    
+                <option value="Anuidade">Anuidade</option>
+                <option value="Oferta Missionária">Oferta Missionária</option>
+
             </select>
 
-            <input name="descricao" placeholder="Descrição" onChange={alterar} />
+            <label>Descrição</label>
+            <input
+                type="text"
+                name="descricao"
+                value={form.descricao}
+                onChange={handleChange}
+            />
 
-            <input type="number" name="valor" step="0.01" placeholder="Valor" onChange={alterar} />
+            <label>Valor</label>
+            <input
+                type="number"
+                step="0.01"
+                name="valor"
+                value={form.valor}
+                onChange={handleChange}
+            />
 
-            <input type="date" name="data" onChange={alterar} />
+            <label>Data</label>
+            <input
+                type="date"
+                name="data"
+                value={form.data}
+                onChange={handleChange}
+            />
 
-            <button>Salvar Crédito</button>
+            <button type="submit">
+                Salvar Crédito
+            </button>
         </form>
-    )
+    );
 }
 
 export default CreditoForm;
