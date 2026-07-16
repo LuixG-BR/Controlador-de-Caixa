@@ -1,0 +1,33 @@
+.filtro-lancamentos{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    align-items:flex-end;
+    margin:25px 0;
+    padding:20px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.filtro-lancamentos>div{
+    display:flex;
+    flex-direction:column;
+}
+
+.filtro-lancamentos label{
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.filtro-lancamentos input,
+.filtro-lancamentos select{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.acoes-filtro{
+    display:flex;
+    gap:10px;
+}

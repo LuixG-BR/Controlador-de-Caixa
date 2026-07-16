@@ -7,6 +7,7 @@ import DebitoForm from "../components/DebitoForm";
 import DeleteForm from "../components/DeleteForm";
 import TabelaLancamentos from "../components/TabelaLancamentos";
 import ResumoFinanceiro from "../components/ResumoFinanceiro";
+import FiltroLancamentos from "../components/FiltroLancamentos";
 
 import lancamentoService from "../services/lancamentoService";
 
@@ -20,10 +21,10 @@ function Lancamentos() {
 
     const [lancamentoSelecionado, setLancamentoSelecionado] = useState(null);
 
-    async function buscarLancamentos() {
+    async function buscarLancamentos(filtros = {}) {
 
         try {
-            const dados = await lancamentoService.listar();
+            const dados = await lancamentoService.listar(filtros);
             setLancamentos(dados);
         } catch (erro) {
             console.error(erro);
@@ -96,6 +97,11 @@ function Lancamentos() {
 
             <ResumoFinanceiro
                 lancamentos={lancamentos}
+            />
+
+            <FiltroLancamentos
+                onFiltrar={buscarLancamentos}
+                onLimpar={() => buscarLancamentos()}
             />
 
             <TabelaLancamentos

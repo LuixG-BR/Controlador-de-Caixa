@@ -3,9 +3,15 @@ import api from "../../../api/api";
 class LancamentoService {
 
     async listar(filtros = {}) {
-        const resposta = await api.get("/lancamentos/", {
-            params: filtros
-        });
+        const filtrosLimpos = Object.fromEntries(
+            Object.entries(filtros).filter(
+                ([, valor]) => valor !== ""
+            )
+        );
+
+        const resposta = await api.get(
+            "/lancamentos/", { params: filtrosLimpos }
+        );
         return resposta.data;
     }
 
