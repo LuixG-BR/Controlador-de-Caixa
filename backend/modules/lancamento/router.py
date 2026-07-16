@@ -33,12 +33,14 @@ def get_db():
 def listar_lancamentos(
 
     tipo: Optional[str] = None,
+    categoria: Optional[str] = None,
+    descricao: Optional[str] = None,
     data_inicio: Optional[date] = None,
     data_fim: Optional[date] = None,
 
     db: Session = Depends(get_db),
-
-    usuario = Depends(usuario_logado)):
+    usuario = Depends(usuario_logado)
+):
     query = db.query(model.Lancamento)
 
     if usuario["id_perfil"] != 1:
@@ -48,7 +50,13 @@ def listar_lancamentos(
 
     if tipo:
         query = query.filter(model.Lancamento.tipo == tipo)
+        
+    if categoria:
+        query = query.filter(model.Lancamento.categoria == categoria)
 
+    if descricao:
+        query = query.filter(model.Lancamento.descricao.ilike(f"%{descricao}%"))
+    
     if data_inicio:
         query = query.filter(model.Lancamento.data >= data_inicio)
 
