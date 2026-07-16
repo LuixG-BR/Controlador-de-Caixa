@@ -7,6 +7,7 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
     const estadoInicial = {
         tipo: "",
         categoria: "",
+        descricao: "",
         data_inicio: "",
         data_fim: ""
     };
@@ -37,6 +38,20 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
             onSubmit={handleSubmit}
         >
             <div>
+
+                <label>Pesquisar</label>
+
+                <input
+                    type="text"
+                    name="descricao"
+                    placeholder="Descrição do lançamento"
+                    value={filtro.descricao}
+                    onChange={handleChange}
+                />
+
+            </div>
+
+            <div>
                 <label>Tipo</label>
                 <select
                     name="tipo"
@@ -51,13 +66,33 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
 
             <div>
                 <label>Categoria</label>
-                <input
-                    type="text"
+                <select
                     name="categoria"
-                    placeholder="Categoria"
                     value={filtro.categoria}
                     onChange={handleChange}
-                />
+                >
+                    <option value="">Todas</option>
+                    <optgroup label="Créditos">
+                        <option value="Oferta">Oferta</option>
+                        <option value="Dízimo">Dízimo</option>
+                        <option value="Acerto">Acerto</option>
+                        <option value="EBD">EBD</option>
+                        <option value="CIBEM">CIBEM</option>
+                        <option value="Anuidade">Anuidade</option>
+                        <option value="oferta missionaria">Oferta Missionária</option>
+                    </optgroup>
+
+                    <optgroup label="Débitos">
+                        <option value="concessionaria">Concessionária</option>
+                        <option value="imposto">Imposto</option>
+                        <option value="prebenda">Prebenda</option>
+                        <option value="ajuda de custo">Ajuda de Custo</option>
+                        <option value="despesa bancaria">Despesa Bancária</option>
+                        <option value="oferta missionaria">Oferta Missionária</option>
+                        <option value="CIBEM">CIBEM</option>
+                        <option value="Anuidade">Anuidade</option>
+                    </optgroup>
+                </select>
             </div>
 
             <div>
