@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
 
-function DebitoForm({ onSuccess }) {
+function DebitoForm({ lancamento, onSuccess }) {
 
-    const [form, setForm] = useState({
+    const estadoInicial = {
         tipo: "debito",
         categoria: "",
         descricao: "",
         valor: "",
         data: ""
-    });
+    };
+
+    const [form, setForm] = useState(estadoInicial);
+
+    useEffect(() => {
+
+        if (lancamento) {
+
+            setForm({
+                tipo: lancamento.tipo,
+                categoria: lancamento.categoria,
+                descricao: lancamento.descricao ?? "",
+                valor: lancamento.valor,
+                data: lancamento.data
+            });
+
+        } else {
+
+            setForm(estadoInicial);
+
+        }
+
+    }, [lancamento]);
 
     function handleChange(e) {
 
@@ -25,20 +47,24 @@ function DebitoForm({ onSuccess }) {
 
         try {
 
-            await lancamentoService.criar(form);
+            if (lancamento) {
 
-            alert("Débito cadastrado com sucesso!");
+                await lancamentoService.editar(
+                    lancamento.id_lancamento,
+                    form
+                );
 
-            setForm({
-                tipo: "debito",
-                categoria: "",
-                descricao: "",
-                valor: "",
-                data: ""
-            });
+            } else {
 
-            if (onSuccess) {
-                onSuccess();
+                await lancamentoService.criar(form);
+
+                alert("Débito cadastrado com sucesso!");
+
+                setForm(estadoInicial);
+
+                if (onSuccess) {
+                    onSuccess();
+                }
             }
         } catch (erro) {
             console.error(erro);
@@ -65,7 +91,6 @@ function DebitoForm({ onSuccess }) {
                 <option value="despesa bancaria">Despesa bancária</option>
                 <option value="CIBEM">CIBEM</option>
                 <option value="Anuidade">Anuidade</option>
-
             </select>
 
             <label>Descrição</label>
@@ -94,7 +119,7 @@ function DebitoForm({ onSuccess }) {
             />
 
             <button type="submit">
-                Salvar Débito
+                {lancamento ? "Salvar Alterações" : "Salvar Débito"}
             </button>
         </form>
     );

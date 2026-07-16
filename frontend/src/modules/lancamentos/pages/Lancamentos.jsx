@@ -4,27 +4,28 @@ import Modal from "../../../components/ui/Modal";
 
 import CreditoForm from "../components/CreditoForm";
 import DebitoForm from "../components/DebitoForm";
+import DeleteForm from "../components/DeleteForm";
 import TabelaLancamentos from "../components/TabelaLancamentos";
 
 import lancamentoService from "../services/lancamentoService";
 
 function Lancamentos() {
 
+    const [lancamentos, setLancamentos] = useState([]);
+
     const [openCredito, setOpenCredito] = useState(false);
     const [openDebito, setOpenDebito] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
-    const [lancamentos, setLancamentos] = useState([]);
+    const [lancamentoSelecionado, setLancamentoSelecionado] = useState(null);
 
     async function buscarLancamentos() {
 
         try {
-
             const dados = await lancamentoService.listar();
-
             setLancamentos(dados);
-
         } catch (erro) {
-            console.error("Erro ao buscar lançamentos:", erro);
+            console.error(erro);
         }
     }
 
@@ -32,14 +33,45 @@ function Lancamentos() {
         buscarLancamentos();
     }, []);
 
-    function sucessoCredito() {
-        buscarLancamentos();
-        setOpenCredito(false);
+    function novoCredito() {
+        setLancamentoSelecionado(null);
+        setOpenCredito(true);
     }
 
-    function sucessoDebito() {
-        buscarLancamentos();
+    function novoDebito() {
+        setLancamentoSelecionado(null);
+        setOpenDebito(true);
+    }
+
+    function editarLancamento(item) {
+
+        setLancamentoSelecionado(item);
+
+        if (item.tipo === "credito") {
+            setOpenCredito(true);
+        } else {
+            setOpenDebito(true);
+        }
+    }
+
+    function confirmarExclusao(item) {
+        setLancamentoSelecionado(item);
+        setOpenDelete(true);
+    }
+
+    function fecharCredito() {
+        setOpenCredito(false);
+        setLancamentoSelecionado(null);
+    }
+
+    function fecharDebito() {
         setOpenDebito(false);
+        setLancamentoSelecionado(null);
+    }
+
+    function fecharDelete() {
+        setOpenDelete(false);
+        setLancamentoSelecionado(null);
     }
 
     return (
@@ -51,16 +83,11 @@ function Lancamentos() {
                 <h1>Controle de Caixa</h1>
 
                 <div className="acoes">
-
-                    <button
-                        onClick={() => setOpenCredito(true)}
-                    >
+                    <button onClick={novoCredito}>
                         + Novo Crédito
                     </button>
 
-                    <button
-                        onClick={() => setOpenDebito(true)}
-                    >
+                    <button onClick={novoDebito}>
                         - Novo Débito
                     </button>
                 </div>
@@ -68,25 +95,54 @@ function Lancamentos() {
 
             <TabelaLancamentos
                 lancamentos={lancamentos}
+                onEditar={editarLancamento}
+                onExcluir={confirmarExclusao}
             />
 
             <Modal
                 open={openCredito}
-                onClose={() => setOpenCredito(false)}
-                title="Novo Crédito"
+                onClose={fecharCredito}
+                title={
+                    lancamentoSelecionado ? "Editar Crédito" : "Novo Crédito"
+                }
             >
                 <CreditoForm
-                    onSuccess={sucessoCredito}
+                    lancamento={lancamentoSelecionado}
+                    onSuccess={() => {
+                        buscarLancamentos();
+                        fecharCredito();
+                    }}
                 />
             </Modal>
 
             <Modal
                 open={openDebito}
-                onClose={() => setOpenDebito(false)}
-                title="Novo Débito"
+                onClose={fecharDebito}
+                title={
+                    lancamentoSelecionado ? "Editar Débito" : "Novo Débito"
+                }
             >
                 <DebitoForm
-                    onSuccess={sucessoDebito}
+                    lancamento={lancamentoSelecionado}
+                    onSuccess={() => {
+                        buscarLancamentos();
+                        fecharDebito();
+                    }}
+                />
+            </Modal>
+
+            <Modal
+                open={openDelete}
+                onClose={fecharDelete}
+                title="Excluir lançamento"
+            >
+                <DeleteForm
+                    lancamento={lancamentoSelecionado}
+                    onSuccess={() => {
+                        buscarLancamentos();
+                        fecharDelete();
+                    }}
+                    onCancel={fecharDelete}
                 />
             </Modal>
         </div>

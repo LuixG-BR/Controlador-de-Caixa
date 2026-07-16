@@ -1,5 +1,4 @@
-function TabelaLancamentos({ lancamentos }) {
-
+function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
     return (
         <table>
             <thead>
@@ -9,17 +8,24 @@ function TabelaLancamentos({ lancamentos }) {
                     <th>Categoria</th>
                     <th>Descrição</th>
                     <th>Valor</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
             <tbody>
                 {lancamentos.map((item) => (
                     <tr key={item.id_lancamento}>
-                        <td>{item.data}</td>
+                        <td>{new Date(item.data).toLocaleDateString("pt-BR")}</td>
                         <td>{item.tipo}</td>
                         <td>{item.categoria}</td>
                         <td>{item.descricao}</td>
-                        <td>{item.valor}</td>
+                        <td>{Number(item.valor).toLocaleString("pt-BR",
+                            { style: "currency", currency: "BRL" })}
+                        </td>
+                        <td>
+                            <button onClick={() => onEditar(item)}>✏️</button>
+                            <button onClick={() => onExcluir(item)}>🗑️</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>

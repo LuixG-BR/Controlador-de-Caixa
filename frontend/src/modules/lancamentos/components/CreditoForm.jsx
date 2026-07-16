@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
 
-function CreditoForm({ onSuccess }) {
+function CreditoForm({ lancamento, onSuccess }) {
 
-    const [form, setForm] = useState({
+    const estadoInicial = {
         tipo: "credito",
         categoria: "",
         descricao: "",
         valor: "",
         data: ""
-    });
+    };
+
+    const [form, setForm] = useState(estadoInicial);
+
+    useEffect(() => {
+
+        if (lancamento) {
+
+            setForm({
+                tipo: lancamento.tipo,
+                categoria: lancamento.categoria,
+                descricao: lancamento.descricao ?? "",
+                valor: lancamento.valor,
+                data: lancamento.data
+            });
+
+        } else {
+
+            setForm(estadoInicial);
+
+        }
+
+    }, [lancamento]);
 
     function handleChange(e) {
 
@@ -25,22 +47,27 @@ function CreditoForm({ onSuccess }) {
         e.preventDefault();
 
         try {
+            if (lancamento) {
 
-            await lancamentoService.criar(form);
+                await lancamentoService.editar(
+                    lancamento.id_lancamento,
+                    form
+                );
 
-            alert("Crédito cadastrado com sucesso!");
+            } else {
 
-            setForm({
-                tipo: "credito",
-                categoria: "",
-                descricao: "",
-                valor: "",
-                data: ""
-            });
+                await lancamentoService.criar(form);
 
-            if (onSuccess) {
-                onSuccess();
+                alert("Crédito cadastrado com sucesso!");
+
+                setForm(estadoInicial);
+
+                if (onSuccess) {
+                    onSuccess();
+                }
             }
+
+
         } catch (erro) {
             console.error(erro);
             alert("Erro ao cadastrar crédito.");
@@ -66,7 +93,6 @@ function CreditoForm({ onSuccess }) {
                 <option value="CIBEM">CIBEM</option>
                 <option value="Anuidade">Anuidade</option>
                 <option value="Oferta Missionária">Oferta Missionária</option>
-
             </select>
 
             <label>Descrição</label>
@@ -95,7 +121,7 @@ function CreditoForm({ onSuccess }) {
             />
 
             <button type="submit">
-                Salvar Crédito
+                {lancamento ? "Salvar Alterações" : "Salvar Crédito"}
             </button>
         </form>
     );
