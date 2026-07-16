@@ -6,6 +6,7 @@ import CreditoForm from "../components/CreditoForm";
 import DebitoForm from "../components/DebitoForm";
 import DeleteForm from "../components/DeleteForm";
 import TabelaLancamentos from "../components/TabelaLancamentos";
+import ResumoFinanceiro from "../components/ResumoFinanceiro";
 
 import lancamentoService from "../services/lancamentoService";
 
@@ -92,6 +93,10 @@ function Lancamentos() {
                     </button>
                 </div>
             </div>
+
+            <ResumoFinanceiro
+                lancamentos={lancamentos}
+            />
 
             <TabelaLancamentos
                 lancamentos={lancamentos}
