@@ -9,7 +9,8 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
         categoria: "",
         descricao: "",
         data_inicio: "",
-        data_fim: ""
+        data_fim: "",
+        ordenar: "data_desc"
     };
 
     const [filtro, setFiltro] = useState(estadoInicial);
@@ -38,9 +39,7 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
             onSubmit={handleSubmit}
         >
             <div>
-
                 <label>Pesquisar</label>
-
                 <input
                     type="text"
                     name="descricao"
@@ -48,7 +47,6 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
                     value={filtro.descricao}
                     onChange={handleChange}
                 />
-
             </div>
 
             <div>
@@ -113,6 +111,22 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
                     value={filtro.data_fim}
                     onChange={handleChange}
                 />
+            </div>
+
+            <div>
+                <label>Ordenar por</label>
+                <select
+                    name="ordenar"
+                    value={filtro.ordenar}
+                    onChange={handleChange}
+                >
+                    <option value="data_desc">Mais recentes</option>
+                    <option value="data_asc">Mais antigos</option>
+                    <option value="valor_desc">Maior valor</option>
+                    <option value="valor_asc">Menor valor</option>
+                    <option value="categoria_asc">Categoria A-Z</option>
+                    <option value="categoria_desc">Categoria Z-A</option>
+                </select>
             </div>
 
             <div className="acoes-filtro">
