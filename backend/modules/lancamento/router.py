@@ -37,6 +37,7 @@ def listar_lancamentos(
     descricao: Optional[str] = None,
     data_inicio: Optional[date] = None,
     data_fim: Optional[date] = None,
+    ordenar: Optional[str] = None,
 
     db: Session = Depends(get_db),
     usuario = Depends(usuario_logado)
@@ -62,7 +63,10 @@ def listar_lancamentos(
 
     if data_fim:
         query = query.filter(model.Lancamento.data <= data_fim)
-
+        
+    if ordenar == "data_desc":
+        query = query.order_by(model.Lancamento.data.desc())
+    
     return query.all()
 
 
