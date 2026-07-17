@@ -66,6 +66,21 @@ def listar_lancamentos(
         
     if ordenar == "data_desc":
         query = query.order_by(model.Lancamento.data.desc())
+
+    elif ordenar == "data_asc":
+        query = query.order_by(model.Lancamento.data.asc())
+
+    elif ordenar == "valor_desc":
+        query = query.order_by(model.Lancamento.valor.desc())
+
+    elif ordenar == "valor_asc":
+        query = query.order_by(model.Lancamento.valor.asc())
+
+    elif ordenar == "categoria_asc":
+        query = query.order_by(model.Lancamento.categoria.asc())
+
+    elif ordenar == "categoria_desc":
+        query = query.order_by(model.Lancamento.categoria.desc())
     
     return query.all()
 
