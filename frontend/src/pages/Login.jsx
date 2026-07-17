@@ -3,6 +3,7 @@ import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 import api from "../api/api";
+import notificacoes from "../utils/toast";
 
 
 function Login() {
@@ -12,44 +13,38 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    
-    
-    async function handleSubmit(e){
 
-    e.preventDefault();
 
-    try{
-        const formData = new FormData();
+    async function handleSubmit(e) {
 
-        formData.append("username", email);
-        formData.append("password", senha);
+        e.preventDefault();
 
-        const resposta = await api.post(
-            "/auth/login",
-            formData
-        );
+        try {
+            const formData = new FormData();
 
-        console.log(resposta.data);
+            formData.append("username", email);
+            formData.append("password", senha);
 
-        login({
-            token: resposta.data.access_token,
-            usuario:{
-                login: email
-            }
-        });
+            const resposta = await api.post(
+                "/auth/login",
+                formData
+            );
 
-        navigate("/dashboard");
+            // console.log(resposta.data);
 
-    }catch(error){
+            login({
+                token: resposta.data.access_token,
+                usuario: {
+                    login: email
+                }
+            });
 
-        console.log(
-            "ERRO:",
-            error.response?.data
-        );
+            navigate("/dashboard");
 
-        alert("Falha no login");
+        } catch (error) {
+            notificacoes.erro("Falha no login");
+        }
     }
-}
 
     return (
 

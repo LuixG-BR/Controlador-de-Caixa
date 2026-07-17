@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
+import notificacoes from "../../../utils/toast";
 
 function DebitoForm({ lancamento, onSuccess }) {
 
@@ -58,7 +59,7 @@ function DebitoForm({ lancamento, onSuccess }) {
 
                 await lancamentoService.criar(form);
 
-                alert("Débito cadastrado com sucesso!");
+                notificacoes.sucesso("Débito cadastrado com sucesso!");
 
                 setForm(estadoInicial);
 
@@ -68,7 +69,7 @@ function DebitoForm({ lancamento, onSuccess }) {
             }
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao cadastrar débito.");
+            notificacoes.erro("Erro ao cadastrar débito.");
         }
     }
 

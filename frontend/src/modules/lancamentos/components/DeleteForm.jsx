@@ -1,3 +1,4 @@
+import notificacoes from "../../../utils/toast";
 import lancamentoService from "../services/lancamentoService";
 
 function DeleteForm({ lancamento, onSuccess, onCancel }) {
@@ -9,14 +10,14 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
         try {
             await lancamentoService.excluir(lancamento.id_lancamento);
 
-            alert("Lançamento excluído com sucesso!");
+            notificacoes.sucesso("Lançamento excluído com sucesso!");
 
             if (onSuccess) {
                 onSuccess();
             }
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao excluir lançamento.");
+            notificacoes.erro("Erro ao excluir lançamento.");
         }
     }
 

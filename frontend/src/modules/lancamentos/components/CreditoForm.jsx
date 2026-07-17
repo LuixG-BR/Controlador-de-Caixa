@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
+import notificacoes from "../../../utils/toast";
 
 function CreditoForm({ lancamento, onSuccess }) {
 
@@ -58,7 +59,7 @@ function CreditoForm({ lancamento, onSuccess }) {
 
                 await lancamentoService.criar(form);
 
-                alert("Crédito cadastrado com sucesso!");
+                notificacoes.sucesso("Crédito cadastrado com sucesso!");
 
                 setForm(estadoInicial);
 
@@ -67,10 +68,9 @@ function CreditoForm({ lancamento, onSuccess }) {
                 }
             }
 
-
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao cadastrar crédito.");
+            notificacoes.erro("Erro ao cadastrar crédito.");
         }
 
     }

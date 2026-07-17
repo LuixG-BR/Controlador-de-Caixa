@@ -10,6 +10,7 @@ import ResumoFinanceiro from "../components/ResumoFinanceiro";
 import FiltroLancamentos from "../components/FiltroLancamentos";
 
 import lancamentoService from "../services/lancamentoService";
+import notificacoes from "../../../utils/toast";
 
 function Lancamentos() {
 
@@ -28,6 +29,7 @@ function Lancamentos() {
             setLancamentos(dados);
         } catch (erro) {
             console.error(erro);
+            notificacoes.erro("Erro ao carregar os lançamentos");
         }
     }
 
