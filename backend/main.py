@@ -6,6 +6,7 @@ import models
 from modules.usuario import router as usuarios
 from modules.congregacao import router as congregacoes
 from modules.lancamento import router as lancamentos
+from modules.relatorio import router as relatorio
 from routes import auth
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,6 +16,7 @@ app = FastAPI(title="Controlador de Caixa API")
 app.include_router(usuarios.router)
 app.include_router(congregacoes.router)
 app.include_router(lancamentos.router)
+app.include_router(relatorio.router)
 app.include_router(auth.router)
 
 app.add_middleware(
