@@ -5,6 +5,8 @@ import ResumoRelatorio from "../components/ResumoRelatorio";
 import PreviewRelatorio from "../components/PreviewRelatorio";
 import CardAcoesRelatorio from "../components/cardAcoesRelatorio";
 import gerarRelatorioPDF from "../../../utils/pdf/gerarRelatorioPDF";
+import usuarioService from "../../usuarios/services/usuarioService";
+import notificacoes from "../../../utils/toast";
 
 function Relatorios() {
 
@@ -17,14 +19,27 @@ function Relatorios() {
         data_fim: ""
     });
 
+    useEffect(() => {
+        async function carregarUsuario() {
+            try {
+                const dados = await usuarioService.perfil();
+                setUsuario(dados);
+            }
+            catch (erro) {
+                notificacoes.error(erro);
+            }
+        }
+        carregarUsuario();
+    }, []);
+
     function exportarPDF() {
 
         if (!relatorio) return;
 
         gerarRelatorioPDF({
             usuario: {
-                nome: "Usuário",
-                congregacao: "Congregação"
+                nome: usuario,
+                congregacao: congregacao
             },
             filtros,
             resumo: relatorio.resumo,

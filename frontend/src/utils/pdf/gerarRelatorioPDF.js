@@ -173,6 +173,7 @@ export default function gerarRelatorioPDF({
 
     }
 
-    doc.save("RelatorioFinanceiro.pdf");
-
+    const hoje = new Date();
+    const nomeArquivo = `Relatorio_${hoje.toISOString().slice(0, 10)}.pdf`;
+    doc.save(nomeArquivo);
 }
