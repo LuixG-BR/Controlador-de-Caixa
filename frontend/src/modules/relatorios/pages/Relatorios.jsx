@@ -6,7 +6,7 @@ import PreviewRelatorio from "../components/PreviewRelatorio";
 
 function Relatorios() {
 
-    const [resumo, setResumo] = useState(null);
+    const [relatorio, setRelatorio] = useState(null);
 
     return (
 
@@ -15,11 +15,11 @@ function Relatorios() {
             <h1>Relatórios Financeiros</h1>
 
             <FiltroRelatorio
-                setResumo={setResumo}
+                setRelatorio={setRelatorio}
             />
 
             <ResumoRelatorio
-                resumo={resumo}
+                resumo={relatorio}
             />
 
             <PreviewRelatorio

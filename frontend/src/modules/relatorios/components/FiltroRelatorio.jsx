@@ -3,7 +3,7 @@ import { useState } from "react";
 import relatorioService from "../services/relatorioService";
 import notificacoes from "../../../utils/toast";
 
-function FiltroRelatorio({ setResumo }) {
+function FiltroRelatorio({ setRelatorio }) {
 
     const [filtro, setFiltro] = useState({
         data_inicio: "",
@@ -26,7 +26,7 @@ function FiltroRelatorio({ setResumo }) {
         try {
             const dados = await relatorioService.gerarRelatorio(filtro);
             
-            setResumo(dados);
+            setRelatorio(dados);
             notificacoes.sucesso("Relatório carregado.");
         }
         catch (erro) {
