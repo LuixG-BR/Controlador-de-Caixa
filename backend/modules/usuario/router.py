@@ -34,6 +34,34 @@ def listar_usuarios(
 
     return usuarios
 
+@router.get("/me")
+def obter_usuario_logado(
+    usuario=Depends(usuario_logado),
+    db: Session = Depends(get_db)
+):
+    usuario_db = db.query(model.Usuario).filter(
+        model.Usuario.id_usuario == usuario["id_usuario"]
+    ).first()
+
+    if not usuario_db:
+        raise HTTPException(
+            status_code=404,
+            detail="Usuário não encontrado."
+        )
+        
+    if usuario["status"] == False:
+        raise HTTPException(
+            status_code=404,
+            detail="Usuário Desativado."
+        )
+        
+    return {
+        "id_usuario": usuario_db.id_usuario,
+        "nome": usuario_db.nome,
+        "login": usuario_db.login,
+        "id_perfil": usuario_db.id_perfil,
+        "id_congregacao": usuario_db.id_congregacao
+    }
 
 @router.post("/", response_model=UsuarioResponse)
 def criar_usuario(
