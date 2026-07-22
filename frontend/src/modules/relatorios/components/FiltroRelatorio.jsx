@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import relatorioService from "../services/relatorioService";
+import notificacoes from "../../../utils/toast";
+
 function FiltroRelatorio({ setResumo }) {
 
     const [filtro, setFiltro] = useState({
@@ -9,16 +12,27 @@ function FiltroRelatorio({ setResumo }) {
         categoria: ""
     });
 
-    function handleChange(e){
+    function handleChange(e) {
         setFiltro({
             ...filtro,
             [e.target.name]: e.target.value
         });
     }
 
-    function gerarResumo(e){
+    async function gerarResumo(e) {
+
         e.preventDefault();
-        console.log(filtro);
+
+        try {
+            const dados = await relatorioService.gerarRelatorio(filtro);
+            
+            setResumo(dados);
+            notificacoes.sucesso("Relatório carregado.");
+        }
+        catch (erro) {
+            console.error(erro);
+            notificacoes.erro("Erro ao carregar relatório.");
+        }
     }
 
     return (

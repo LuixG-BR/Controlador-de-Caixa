@@ -2,15 +2,27 @@ import api from "../../../api/api";
 
 class RelatorioService {
 
-    async gerarResumo(filtros){
+    async gerarRelatorio(filtros = {}) {
+
+        const filtrosLimpos = {};
+
+        Object.keys(filtros).forEach((chave) => {
+
+            if (
+                filtros[chave] !== "" &&
+                filtros[chave] !== null &&
+                filtros[chave] !== undefined
+            ) {
+                filtrosLimpos[chave] = filtros[chave];
+            }
+        });
 
         const resposta = await api.get(
-            "/relatorios/resumo",
+            "/relatorios/",
             {
-                params: filtros
+                params: filtrosLimpos
             }
         );
-
         return resposta.data;
     }
 }
