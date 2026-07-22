@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import FiltroRelatorio from "../components/FiltroRelatorio";
 import ResumoRelatorio from "../components/ResumoRelatorio";
+import PreviewRelatorio from "../components/PreviewRelatorio";
 
 function Relatorios() {
 
@@ -20,7 +21,11 @@ function Relatorios() {
             <ResumoRelatorio
                 resumo={resumo}
             />
-            
+
+            <PreviewRelatorio
+                lancamentos={relatorio?.lancamentos}
+            />
+
         </div>
     );
 }
