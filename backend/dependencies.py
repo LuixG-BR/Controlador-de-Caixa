@@ -14,10 +14,19 @@ oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/auth/login"
 )
 
+def get_db():
+
+    db = SessionLocal()
+
+    try:
+        yield db
+
+    finally:
+        db.close()
 
 def usuario_logado(
     token: str = Depends(oauth2_scheme),
-    db: Session = Depends(SessionLocal)
+    db: Session = Depends(get_db)
 ):
 
     payload = verificar_token(token)
