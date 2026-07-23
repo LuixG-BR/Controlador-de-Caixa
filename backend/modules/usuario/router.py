@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from database import SessionLocal
 from modules.usuario import model
-from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus
+from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus, UsuarioMeResponse
+from modules.usuario.service import UsuarioService
 
 from dependencies import usuario_logado, verificar_permissao
 from security import criar_hash_senha
@@ -34,34 +35,15 @@ def listar_usuarios(
 
     return usuarios
 
-@router.get("/me")
-def obter_usuario_logado(
-    usuario=Depends(usuario_logado),
-    db: Session = Depends(get_db)
+@router.get("/me", response_model=UsuarioMeResponse)
+def usuario_me(
+    db: Session = Depends(get_db),
+    usuario=Depends(usuario_logado)
 ):
-    usuario_db = db.query(model.Usuario).filter(
-        model.Usuario.id_usuario == usuario["id_usuario"]
-    ).first()
-
-    if not usuario_db:
-        raise HTTPException(
-            status_code=404,
-            detail="Usuário não encontrado."
-        )
-        
-    if usuario["status"] == False:
-        raise HTTPException(
-            status_code=404,
-            detail="Usuário Desativado."
-        )
-        
-    return {
-        "id_usuario": usuario_db.id_usuario,
-        "nome": usuario_db.nome,
-        "login": usuario_db.login,
-        "id_perfil": usuario_db.id_perfil,
-        "id_congregacao": usuario_db.id_congregacao
-    }
+    return UsuarioService.obter_usuario_logado(
+        db,
+        usuario
+    )
 
 @router.post("/", response_model=UsuarioResponse)
 def criar_usuario(

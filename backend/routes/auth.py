@@ -61,7 +61,12 @@ def login(
             status_code=401,
             detail="Senha inválida"
         )
-
+    
+    if not usuario.status:
+        raise HTTPException(
+        status_code=403,
+        detail="Usuário desativado."
+    )
 
     token = criar_token(
         {
