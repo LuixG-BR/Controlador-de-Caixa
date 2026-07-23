@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 
-from database import get_db
+from database import SessionLocal
 from modules.usuario import model
 from sqlalchemy.orm import Session
 from security import verificar_token
@@ -15,13 +15,9 @@ oauth2_scheme = OAuth2PasswordBearer(
 )
 
 
-
 def usuario_logado(
-
     token: str = Depends(oauth2_scheme),
-
-    db: Session = Depends(get_db)
-
+    db: Session = Depends(SessionLocal)
 ):
 
     payload = verificar_token(token)
