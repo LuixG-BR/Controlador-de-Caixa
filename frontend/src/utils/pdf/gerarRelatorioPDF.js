@@ -4,7 +4,7 @@ import autoTable from "jspdf-autotable";
 export default function gerarRelatorioPDF(
     relatorio,
     usuario,
-    filtros
+    filtros = {}
 ) {
 
     const doc = new jsPDF();
@@ -173,7 +173,7 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
 
     doc.text(
-        formatarMoeda(relatorio.total_creditos),
+        formatarMoeda(relatorio.resumo.creditos),
         55,
         y
     );
@@ -187,7 +187,7 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
 
     doc.text(
-        formatarMoeda(relatorio.total_debitos),
+        formatarMoeda(relatorio.resumo.debitos),
         55,
         y
     );
@@ -201,7 +201,7 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
 
     doc.text(
-        formatarMoeda(relatorio.saldo),
+        formatarMoeda(relatorio.resumo.saldo),
         55,
         y
     );

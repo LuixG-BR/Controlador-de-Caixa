@@ -12,7 +12,6 @@ function Relatorios() {
 
     const [relatorio, setRelatorio] = useState(null);
     const [usuario, setUsuario] = useState(null);
-    const [congregacao, setCongregacao] = useState(null);
     const [filtros, setFiltros] = useState({
         tipo: "",
         categoria: "",
@@ -30,21 +29,18 @@ function Relatorios() {
                 console.error(erro);
             }
         }
+        carregarUsuario();
     }, []);
 
     function exportarPDF() {
 
         if (!relatorio) return;
 
-        gerarRelatorioPDF({
-            usuario: {
-                nome: usuario,
-                congregacao: congregacao
-            },
-            filtros,
-            resumo: relatorio.resumo,
-            lancamentos: relatorio.lancamentos
-        });
+        gerarRelatorioPDF(
+            relatorio,
+            usuario,
+            filtros
+        );
     }
 
     return (
@@ -55,7 +51,7 @@ function Relatorios() {
 
             <FiltroRelatorio
                 setRelatorio={setRelatorio}
-                filtros={filtros}
+                setFiltros={setFiltros}
                 setFiltros={setFiltros}
             />
 

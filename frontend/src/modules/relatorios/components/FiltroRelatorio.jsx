@@ -3,7 +3,7 @@ import { useState } from "react";
 import relatorioService from "../services/relatorioService";
 import notificacoes from "../../../utils/toast";
 
-function FiltroRelatorio({ setRelatorio }) {
+function FiltroRelatorio({ setRelatorio, setFiltros }) {
 
     const [filtro, setFiltro] = useState({
         data_inicio: "",
@@ -24,6 +24,8 @@ function FiltroRelatorio({ setRelatorio }) {
         e.preventDefault();
 
         try {
+            setFiltros(filtro)
+
             const dados = await relatorioService.gerarRelatorio(filtro);
             
             setRelatorio(dados);
