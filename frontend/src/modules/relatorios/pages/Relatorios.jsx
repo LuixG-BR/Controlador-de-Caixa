@@ -11,6 +11,8 @@ import notificacoes from "../../../utils/toast";
 function Relatorios() {
 
     const [relatorio, setRelatorio] = useState(null);
+    const [usuario, setUsuario] = useState(null);
+    const [congregacao, setCongregacao] = useState(null);
     const [filtros, setFiltros] = useState({
         tipo: "",
         categoria: "",
@@ -24,12 +26,10 @@ function Relatorios() {
             try {
                 const dados = await usuarioService.perfil();
                 setUsuario(dados);
-            }
-            catch (erro) {
-                console.log(erro);
+            } catch (erro) {
+                console.error(erro);
             }
         }
-        carregarUsuario();
     }, []);
 
     function exportarPDF() {
