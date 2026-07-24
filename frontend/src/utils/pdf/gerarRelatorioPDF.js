@@ -1,127 +1,212 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-export default function gerarRelatorioPDF({
+export default function gerarRelatorioPDF(
+    relatorio,
     usuario,
-    filtros,
-    resumo,
-    lancamentos
-}) {
+    filtros
+) {
 
     const doc = new jsPDF();
 
-    // Cabeçalho
+    // FORMATAÇÕES
+    const formatarMoeda = (valor) =>
+        Number(valor || 0).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        );
+
+    const formatarData = (data) =>
+        new Date(data).toLocaleDateString("pt-BR");
+
+    const agora = new Date();
+
+    const dataGeracao = agora.toLocaleDateString("pt-BR");
+
+    const horaGeracao = agora.toLocaleTimeString("pt-BR");
+
+    // CABEÇALHO
+    doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("CONTROLADOR DE CAIXA", 105, 15, { align: "center" });
-
-    doc.setFontSize(13);
-    doc.text("Relatório Financeiro", 105, 23, { align: "center" });
-
-    doc.line(15, 28, 195, 28);
-
-    // Informações
-    doc.setFontSize(11);
-
-    let y = 38;
-
-    doc.text(`Congregação: ${usuario.congregacao}`, 15, y);
-
-    y += 8;
 
     doc.text(
-        `Período: ${filtros.data_inicio || "--"
-        } até ${filtros.data_fim || "--"
-        }`,
-        15,
+        "CONTROLADOR DE CAIXA",
+        105,
+        18,
+        { align: "center" }
+    );
+
+    doc.setFontSize(12);
+
+    doc.text(
+        "Relatório Financeiro",
+        105,
+        26,
+        { align: "center" }
+    );
+
+    doc.line(15, 32, 195, 32);
+
+    // DADOS DO RELATÓRIO
+    let y = 42;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+
+    doc.text("Congregação:", 15, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(
+        usuario?.congregacao || "-",
+        55,
         y
     );
 
-    y += 8;
+    y += 7;
 
+    doc.setFont("helvetica", "bold");
+    doc.text("Gerado por:", 15, y);
+    doc.setFont("helvetica", "normal");
     doc.text(
-        `Tipo: ${filtros.tipo || "Todos"
-        }`,
-        15,
+        usuario?.nome || "-",
+        55,
         y
     );
 
-    y += 8;
+    y += 7;
 
-    doc.text(
-        `Categoria: ${filtros.categoria || "Todas"
-        }`,
-        15,
-        y
-    );
+    doc.setFont("helvetica", "bold");
+    doc.text("Data:", 15, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(dataGeracao, 55, y);
 
-    y += 8;
+    y += 7;
 
-    doc.text(
-        `Descrição: ${filtros.descricao || "Todas"
-        }`,
-        15,
-        y
-    );
+    doc.setFont("helvetica", "bold");
+    doc.text("Hora:", 15, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(horaGeracao, 55, y);
 
-    // Usuário
+    // FILTROS
     y += 12;
 
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+
+    doc.text("Filtros Utilizados", 15, y);
+
+    y += 7;
+
+    doc.setFontSize(10);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Tipo:", 15, y);
+
+    doc.setFont("helvetica", "normal");
     doc.text(
-        `Gerado por: ${usuario.nome}`,
+        filtros.tipo || "Todos",
+        55,
+        y
+    );
+
+    y += 6;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Categoria:", 15, y);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(
+        filtros.categoria || "Todas",
+        55,
+        y
+    );
+
+    y += 6;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Descrição:", 15, y);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(
+        filtros.descricao || "Todas",
+        55,
+        y
+    );
+
+    y += 6;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Período:", 15, y);
+
+    doc.setFont("helvetica", "normal");
+
+    const periodo =
+        filtros.data_inicio && filtros.data_fim
+            ? `${formatarData(filtros.data_inicio)} até ${formatarData(filtros.data_fim)}`
+            : "Todo o período";
+
+    doc.text(periodo, 55, y);
+
+    // RESUMO
+    y += 14;
+
+    doc.setFontSize(12);
+
+    doc.setFont("helvetica", "bold");
+
+    doc.text(
+        "Resumo Financeiro",
         15,
         y
     );
 
     y += 8;
 
+    doc.setFontSize(10);
+
+    doc.setFont("helvetica", "bold");
+
+    doc.text("Entradas:", 15, y);
+
+    doc.setFont("helvetica", "normal");
+
     doc.text(
-        `Emitido em: ${new Date().toLocaleString("pt-BR")}`,
-        15,
+        formatarMoeda(relatorio.total_creditos),
+        55,
         y
     );
 
-    // Resumo
-    y += 15;
+    y += 6;
 
-    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
 
-    doc.text("Resumo Financeiro", 15, y);
+    doc.text("Saídas:", 15, y);
 
-    doc.setFontSize(11);
-
-    y += 10;
+    doc.setFont("helvetica", "normal");
 
     doc.text(
-        `Créditos: R$ ${Number(resumo.creditos).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-        15,
+        formatarMoeda(relatorio.total_debitos),
+        55,
         y
     );
 
-    y += 7;
+    y += 6;
+
+    doc.setFont("helvetica", "bold");
+
+    doc.text("Saldo:", 15, y);
+
+    doc.setFont("helvetica", "normal");
 
     doc.text(
-        `Débitos: R$ ${Number(resumo.debitos).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-        15,
+        formatarMoeda(relatorio.saldo),
+        55,
         y
     );
 
-    y += 7;
-
-    doc.text(
-        `Saldo: R$ ${Number(resumo.saldo).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-        15,
-        y
-    );
-
-    y += 7;
-
-    doc.text(
-        `Quantidade: ${resumo.quantidade}`,
-        15,
-        y
-    );
-
-    // Tabela
+    // TABELA
     autoTable(doc, {
 
         startY: y + 12,
@@ -134,29 +219,26 @@ export default function gerarRelatorioPDF({
             "Valor"
         ]],
 
-        body: lancamentos.map(item => [
-
-            new Date(item.data).toLocaleDateString("pt-BR"),
-
+        body: relatorio.lancamentos.map(item => [
+            formatarData(item.data),
             item.tipo,
-
             item.categoria,
+            item.descricao,
+            formatarMoeda(item.valor)
+        ]),
 
-            item.descricao ?? "",
+        styles: {
+            fontSize: 9
+        },
 
-            Number(item.valor).toLocaleString(
-                "pt-BR",
-                {
-                    minimumFractionDigits: 2
-                }
-            )
-
-        ])
+        headStyles: {
+            fillColor: [41, 128, 185]
+        }
 
     });
 
-    // Rodapé
-    const paginas = doc.getNumberOfPages();
+    // RODAPÉ
+    const paginas = doc.internal.getNumberOfPages();
 
     for (let i = 1; i <= paginas; i++) {
 
@@ -165,15 +247,26 @@ export default function gerarRelatorioPDF({
         doc.setFontSize(9);
 
         doc.text(
-            `Controlador de Caixa - Página ${i}/${paginas}`,
+            "Documento gerado automaticamente pelo Controlador de Caixa",
             105,
-            290,
-            { align: "center" }
+            287,
+            {
+                align: "center"
+            }
+        );
+
+        doc.text(
+            `Página ${i} de ${paginas}`,
+            195,
+            293,
+            {
+                align: "right"
+            }
         );
 
     }
 
-    const hoje = new Date();
-    const nomeArquivo = `Relatorio_${hoje.toISOString().slice(0, 10)}.pdf`;
-    doc.save(nomeArquivo);
+    // NOME DO ARQUIVO
+    const dataArquivo = agora.toISOString().slice(0, 10);
+    doc.save(`Relatorio_${dataArquivo}.pdf`);
 }

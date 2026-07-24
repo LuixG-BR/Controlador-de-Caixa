@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FiltroRelatorio from "../components/FiltroRelatorio";
 import ResumoRelatorio from "../components/ResumoRelatorio";
@@ -26,7 +26,7 @@ function Relatorios() {
                 setUsuario(dados);
             }
             catch (erro) {
-                notificacoes.error(erro);
+                console.log(erro);
             }
         }
         carregarUsuario();
