@@ -74,97 +74,7 @@ export default function gerarRelatorioPDF(
     doc.setDrawColor(220);
     doc.line(15, 50, 195, 50);
 
-    // DADOS DO RELATÓRIO
     let y = 60;
-
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-
-    doc.text("Congregação:", 15, y);
-    doc.setFont("helvetica", "normal");
-    doc.text(
-        usuario?.congregacao || "-",
-        45,
-        y
-    );
-
-    y += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Gerado por:", 15, y);
-    doc.setFont("helvetica", "normal");
-    doc.text(
-        usuario?.nome || "-",
-        45,
-        y
-    );
-
-    y += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Emitido em:", 15, y);
-    doc.setFont("helvetica", "normal");
-    doc.text(dataGeracao + " às " + horaGeracao, 45, y);
-
-    // FILTROS
-    y += 12;
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-
-    doc.text("Filtros Utilizados", 15, y);
-
-    y += 8;
-
-    doc.setFontSize(10);
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Tipo:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-    doc.text(
-        filtros.tipo || "Todos",
-        45,
-        y
-    );
-
-    y += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Categoria:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-    doc.text(
-        filtros.categoria || "Todas",
-        45,
-        y
-    );
-
-    y += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Descrição:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-    doc.text(
-        filtros.descricao || "Todas",
-        45,
-        y
-    );
-
-    y += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Período:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-
-    const periodo =
-        filtros.data_inicio && filtros.data_fim
-            ? `${formatarData(filtros.data_inicio)} até ${formatarData(filtros.data_fim)}`
-            : "Todo o período";
-
-    doc.text(periodo, 45, y);
 
     // RESUMO
     y += 12;
@@ -230,7 +140,62 @@ export default function gerarRelatorioPDF(
     });
 
     // Atualiza o eixo Y para iniciar a próxima tabela logo abaixo
-    y = doc.lastAutoTable.finalY + 12;
+    y = doc.lastAutoTable.finalY + 10;
+
+    // DADOS DA EMISSÃO
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+
+    doc.text("Dados do Relatório", 13, y);
+
+    y += 6;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+
+    // Linha única
+    doc.text(`Emitido por: ${usuario?.nome || "-"}`, 15, y);
+
+    doc.text(`Congregação: ${usuario?.congregacao || "-"}`, 85, y);
+
+    doc.text(`Data: ${dataGeracao} ${horaGeracao}`, 130, y);
+
+    y += 8;
+
+    // FILTROS UTILIZADOS
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+
+    doc.text("Filtros Utilizados", 13, y);
+
+    y += 6;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+
+    doc.text(
+        `Tipo: ${filtros.tipo || "Todos"}    |    Categoria: ${filtros.categoria || "Todas"}`,
+        15, y
+    );
+
+    doc.text(
+        `Descrição: ${filtros.descricao || "Todas"}`,
+        85, y
+    );
+
+    doc.text(
+        `Período: ${filtros.data_inicio
+            ? formatarData(filtros.data_inicio)
+            : "Início"
+        } até ${filtros.data_fim
+            ? formatarData(filtros.data_fim)
+            : "Hoje"
+        }`, 130, y
+    );
+
+    y += 15;
+
+    y = doc.lastAutoTable.finalY + 35;
 
     // TABELA
     autoTable(doc, {
