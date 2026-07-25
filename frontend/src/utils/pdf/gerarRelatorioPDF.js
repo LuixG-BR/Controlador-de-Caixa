@@ -29,29 +29,53 @@ export default function gerarRelatorioPDF(
     const horaGeracao = agora.toLocaleTimeString("pt-BR");
 
     // CABEÇALHO
+    const titulo = "CONTROLADOR DE CAIXA";
+    const subtitulo = "Sistema de Gestão Financeira";
+    const documento = "Relatório Financeiro";
+
+    doc.setDrawColor(30, 41, 59);
+    doc.setLineWidth(0.8);
+    doc.line(15, 15, 195, 15);
+
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
+    doc.setFontSize(20);
 
     doc.text(
-        "CONTROLADOR DE CAIXA",
+        titulo,
         105,
-        18,
+        24,
         { align: "center" }
     );
 
-    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
 
     doc.text(
-        "Relatório Financeiro",
+        subtitulo,
         105,
-        26,
+        31,
         { align: "center" }
     );
 
-    doc.line(15, 32, 195, 32);
+    doc.setDrawColor(180);
+    doc.setLineWidth(0.3);
+    doc.line(15, 36, 195, 36);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(15);
+
+    doc.text(
+        documento,
+        105,
+        45,
+        { align: "center" }
+    );
+
+    doc.setDrawColor(220);
+    doc.line(15, 50, 195, 50);
 
     // DADOS DO RELATÓRIO
-    let y = 42;
+    let y = 60;
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
@@ -60,34 +84,27 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
     doc.text(
         usuario?.congregacao || "-",
-        55,
+        45,
         y
     );
 
-    y += 7;
+    y += 8;
 
     doc.setFont("helvetica", "bold");
     doc.text("Gerado por:", 15, y);
     doc.setFont("helvetica", "normal");
     doc.text(
         usuario?.nome || "-",
-        55,
+        45,
         y
     );
 
-    y += 7;
+    y += 8;
 
     doc.setFont("helvetica", "bold");
-    doc.text("Data:", 15, y);
+    doc.text("Emitido em:", 15, y);
     doc.setFont("helvetica", "normal");
-    doc.text(dataGeracao, 55, y);
-
-    y += 7;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("Hora:", 15, y);
-    doc.setFont("helvetica", "normal");
-    doc.text(horaGeracao, 55, y);
+    doc.text(dataGeracao + " às " + horaGeracao, 45, y);
 
     // FILTROS
     y += 12;
@@ -97,7 +114,7 @@ export default function gerarRelatorioPDF(
 
     doc.text("Filtros Utilizados", 15, y);
 
-    y += 7;
+    y += 8;
 
     doc.setFontSize(10);
 
@@ -107,11 +124,11 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
     doc.text(
         filtros.tipo || "Todos",
-        55,
+        45,
         y
     );
 
-    y += 6;
+    y += 8;
 
     doc.setFont("helvetica", "bold");
     doc.text("Categoria:", 15, y);
@@ -119,11 +136,11 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
     doc.text(
         filtros.categoria || "Todas",
-        55,
+        45,
         y
     );
 
-    y += 6;
+    y += 8;
 
     doc.setFont("helvetica", "bold");
     doc.text("Descrição:", 15, y);
@@ -131,11 +148,11 @@ export default function gerarRelatorioPDF(
     doc.setFont("helvetica", "normal");
     doc.text(
         filtros.descricao || "Todas",
-        55,
+        45,
         y
     );
 
-    y += 6;
+    y += 8;
 
     doc.setFont("helvetica", "bold");
     doc.text("Período:", 15, y);
@@ -147,64 +164,73 @@ export default function gerarRelatorioPDF(
             ? `${formatarData(filtros.data_inicio)} até ${formatarData(filtros.data_fim)}`
             : "Todo o período";
 
-    doc.text(periodo, 55, y);
+    doc.text(periodo, 45, y);
 
     // RESUMO
-    y += 14;
-
-    doc.setFontSize(12);
+    y += 12;
 
     doc.setFont("helvetica", "bold");
-
+    doc.setFontSize(13);
     doc.text(
-        "Resumo Financeiro",
-        15,
-        y
+        "RESUMO FINANCEIRO",
+        105,
+        y,
+        { align: "center" }
     );
 
-    y += 8;
+    autoTable(doc, {
+        startY: y + 6,
+        theme: "grid",
+        styles: {
+            fontSize: 10,
+            cellPadding: 3,
+            halign: "left"
+        },
+        columnStyles: {
+            0: {
+                halign: "left",
+                fontStyle: "bold",
+                cellWidth: 90
+            },
+            1: {
+                halign: "right",
+                cellWidth: 70
+            }
+        },
 
-    doc.setFontSize(10);
+        head: [[
+            "Descrição",
+            "Valor"
+        ]],
 
-    doc.setFont("helvetica", "bold");
+        body: [
+            [
+                "Entradas",
+                formatarMoeda(relatorio.resumo.creditos)
+            ],
+            [
+                "Saídas",
+                formatarMoeda(relatorio.resumo.debitos)
+            ],
+            [
+                "Saldo Atual",
+                formatarMoeda(relatorio.resumo.saldo)
+            ],
+            [
+                "Quantidade de Lançamentos",
+                relatorio.resumo.quantidade.toString()
+            ]
+        ],
 
-    doc.text("Entradas:", 15, y);
+        headStyles: {
+            fillColor: [30, 41, 59],
+            textColor: 255,
+            fontStyle: "bold"
+        }
+    });
 
-    doc.setFont("helvetica", "normal");
-
-    doc.text(
-        formatarMoeda(relatorio.resumo.creditos),
-        55,
-        y
-    );
-
-    y += 6;
-
-    doc.setFont("helvetica", "bold");
-
-    doc.text("Saídas:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-
-    doc.text(
-        formatarMoeda(relatorio.resumo.debitos),
-        55,
-        y
-    );
-
-    y += 6;
-
-    doc.setFont("helvetica", "bold");
-
-    doc.text("Saldo:", 15, y);
-
-    doc.setFont("helvetica", "normal");
-
-    doc.text(
-        formatarMoeda(relatorio.resumo.saldo),
-        55,
-        y
-    );
+    // Atualiza o eixo Y para iniciar a próxima tabela logo abaixo
+    y = doc.lastAutoTable.finalY + 12;
 
     // TABELA
     autoTable(doc, {
@@ -266,7 +292,6 @@ export default function gerarRelatorioPDF(
 
     }
 
-    // NOME DO ARQUIVO
     const dataArquivo = agora.toISOString().slice(0, 10);
     doc.save(`Relatorio_${dataArquivo}.pdf`);
 }
