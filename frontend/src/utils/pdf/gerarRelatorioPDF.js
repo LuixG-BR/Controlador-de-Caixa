@@ -199,8 +199,53 @@ export default function gerarRelatorioPDF(
 
     // TABELA
     autoTable(doc, {
+        startY: y,
+        theme: "grid",
 
-        startY: y + 12,
+        styles: {
+            font: "helvetica",
+            fontSize: 9,
+            cellPadding: 3,
+            lineColor: [220, 220, 220],
+            lineWidth: 0.1,
+            valign: "middle"
+        },
+
+        headStyles: {
+            fillColor: [30, 41, 59],
+            textColor: [255, 255, 255],
+            fontStyle: "bold",
+            halign: "center"
+        },
+
+        alternateRowStyles: {
+            fillColor: [248, 249, 250]
+        },
+
+        bodyStyles: {
+            textColor: [40, 40, 40]
+        },
+
+        columnStyles: {
+            0: {
+                cellWidth: 24,
+                halign: "center"
+            },
+            1: {
+                cellWidth: 24,
+                halign: "center"
+            },
+            2: {
+                cellWidth: 38
+            },
+            3: {
+                cellWidth: 72
+            },
+            4: {
+                cellWidth: 32,
+                halign: "right"
+            }
+        },
 
         head: [[
             "Data",
@@ -210,22 +255,16 @@ export default function gerarRelatorioPDF(
             "Valor"
         ]],
 
-        body: relatorio.lancamentos.map(item => [
-            formatarData(item.data),
-            item.tipo,
-            item.categoria,
-            item.descricao,
-            formatarMoeda(item.valor)
-        ]),
+        body: relatorio.lancamentos.map(l => [
+            formatarData(l.data),
+            l.tipo === "credito"
+                ? "Crédito"
+                : "Débito",
 
-        styles: {
-            fontSize: 9
-        },
-
-        headStyles: {
-            fillColor: [41, 128, 185]
-        }
-
+            l.categoria,
+            l.descricao,
+            formatarMoeda(l.valor)
+        ])
     });
 
     // RODAPÉ
