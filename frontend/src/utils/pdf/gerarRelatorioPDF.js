@@ -74,15 +74,15 @@ export default function gerarRelatorioPDF(
     doc.setDrawColor(220);
     doc.line(15, 50, 195, 50);
 
-    let y = 60;
+    let y = 50;
 
     // RESUMO
-    y += 12;
+    y += 10;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
     doc.text(
-        "RESUMO FINANCEIRO",
+        "RESUMO",
         105,
         y,
         { align: "center" }
