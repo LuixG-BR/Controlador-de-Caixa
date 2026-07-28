@@ -195,7 +195,7 @@ export default function gerarRelatorioPDF(
 
     y += 15;
 
-    y = doc.lastAutoTable.finalY + 35;
+    y = doc.lastAutoTable.finalY + 40;
 
     // TABELA
     autoTable(doc, {
@@ -268,30 +268,30 @@ export default function gerarRelatorioPDF(
     });
 
     // RODAPÉ
-    const paginas = doc.internal.getNumberOfPages();
+    const totalPaginas = doc.internal.getNumberOfPages();
 
-    for (let i = 1; i <= paginas; i++) {
+    for (let pagina = 1; pagina <= totalPaginas; pagina++) {
 
-        doc.setPage(i);
+        doc.setPage(pagina);
 
-        doc.setFontSize(9);
+        doc.setDrawColor(200);
+        doc.setLineWidth(0.2);
+        doc.line(15, 285, 195, 285);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
 
         doc.text(
             "Documento gerado automaticamente pelo Controlador de Caixa",
-            105,
-            287,
-            {
-                align: "center"
-            }
+            15,
+            290
         );
 
         doc.text(
-            `Página ${i} de ${paginas}`,
+            `Página ${pagina} de ${totalPaginas}`,
             195,
-            293,
-            {
-                align: "right"
-            }
+            290,
+            { align: "right" }
         );
 
     }
