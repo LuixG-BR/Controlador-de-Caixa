@@ -1,20 +1,34 @@
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 import Sidebar from "./Sidebar";
 
+import "./Layout.css";
 
-function Layout(){
+function Layout() {
+
+    const [menuAberto, setMenuAberto] = useState(false);
 
     return (
 
-        <div>
-            <Sidebar />
+        <div className="layout">
+            <button
+                className="btn-menu"
+                onClick={() => setMenuAberto(!menuAberto)}
+            >
+                ☰
+            </button>
 
-            <main>
+            <Sidebar
+                menuAberto={menuAberto}
+                fecharMenu={() => setMenuAberto(false)}
+            />
+
+            <main className="conteudo">
                 <Outlet />
             </main>
         </div>
-
-    )
+    );
 }
+
 export default Layout;

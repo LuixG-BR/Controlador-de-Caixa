@@ -1,0 +1,56 @@
+.sidebar {
+    width: 260px;
+    background: #1e293b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 22px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+.menu a:hover {
+    background: #334155;
+}
+
+.btn-sair {
+    margin-top: auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media(max-width:768px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        z-index: 1000;
+        transition: .3s;
+    }
+
+    .sidebar.aberta {
+        left: 0;
+    }
+}
