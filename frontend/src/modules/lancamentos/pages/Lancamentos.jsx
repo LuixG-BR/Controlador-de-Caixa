@@ -87,11 +87,11 @@ function Lancamentos() {
                 <h1>Controle de Caixa</h1>
 
                 <div className="acoes">
-                    <button onClick={novoCredito}>
+                    <button onClick={novoCredito} className="btn btn-success">
                         + Novo Crédito
                     </button>
 
-                    <button onClick={novoDebito}>
+                    <button onClick={novoDebito} className="btn btn-danger">
                         - Novo Débito
                     </button>
                 </div>

@@ -7,7 +7,7 @@ import Lancamentos from "./modules/lancamentos/pages/Lancamentos";
 import Relatorios from "./modules/relatorios/pages/Relatorios";
 import Usuarios from "./modules/usuarios/pages/Usuarios";
 import Congregacoes from "./modules/congregacoes/pages/Congregacoes";
-import Login from "./pages/Login";
+import Login from "./modules/auth/pages/Login.jsx";
 
 import PermissionRoute from "./auth/PermissionRoute";
 import ProtectedRoute from "./auth/ProtectedRoute";

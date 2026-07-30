@@ -76,6 +76,7 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
                 <button
                     type="button"
                     onClick={handleDelete}
+                    
                 >
                     Excluir
                 </button>

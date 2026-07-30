@@ -119,7 +119,7 @@ function DebitoForm({ lancamento, onSuccess }) {
                 onChange={handleChange}
             />
 
-            <button type="submit">
+            <button type="submit" className="btn btn-success">
                 {lancamento ? "Salvar Alterações" : "Salvar Débito"}
             </button>
         </form>

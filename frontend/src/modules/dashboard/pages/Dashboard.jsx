@@ -4,7 +4,7 @@ import { useAuth } from "../../../auth/AuthContext";
 function Dashboard() {
 
 
-    const { usuario, logout } = useAuth();
+    const { logout } = useAuth();
 
     return (
 
@@ -12,7 +12,7 @@ function Dashboard() {
 
             <h1>Dashboard</h1>
 
-            <h2>Bem vindo, {usuario?.nome}</h2>
+            <h2>Bem-vindo</h2>
 
             <button onClick={logout}>Sair</button>
             

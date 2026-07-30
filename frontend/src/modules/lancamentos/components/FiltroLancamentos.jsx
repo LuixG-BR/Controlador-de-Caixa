@@ -130,13 +130,12 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
             </div>
 
             <div className="acoes-filtro">
-                <button type="submit">
+                <button type="submit" className="btn btn-primary">
                     Filtrar
                 </button>
 
                 <button
-                    type="button"
-                    onClick={limpar}
+                    type="button" onClick={limpar} className="btn btn-secondary"
                 >
                     Limpar
                 </button>

@@ -58,7 +58,7 @@ function Sidebar({ menuAberto, fecharMenu }) {
             </nav>
 
             <button
-                className="btn-sair"
+                className="btn btn-sair"
                 onClick={() => {
                     fecharMenu();
                     logout();

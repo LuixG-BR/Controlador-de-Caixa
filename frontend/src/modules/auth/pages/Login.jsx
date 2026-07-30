@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-import api from "../api/api";
-import notificacoes from "../utils/toast";
+import api from "../../../api/api";
+import notificacoes from "../../../utils/toast";
 
 
 function Login() {
@@ -70,7 +70,7 @@ function Login() {
                     onChange={(e) => setSenha(e.target.value)}
                 />
 
-                <button type="submit">
+                <button type="submit" className="btn btn-primary">
                     Entrar
                 </button>
 

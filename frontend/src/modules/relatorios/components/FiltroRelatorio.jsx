@@ -85,7 +85,7 @@ function FiltroRelatorio({ setRelatorio, setFiltros }) {
                 />
             </div>
 
-            <button type="submit">Gerar Relatorio</button>
+            <button type="submit" className="btn btn-primary">Gerar Relatorio</button>
         </form>
     );
 }

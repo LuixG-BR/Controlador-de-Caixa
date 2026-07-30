@@ -120,7 +120,7 @@ function CreditoForm({ lancamento, onSuccess }) {
                 onChange={handleChange}
             />
 
-            <button type="submit">
+            <button type="submit" className="btn btn-success">
                 {lancamento ? "Salvar Alterações" : "Salvar Crédito"}
             </button>
         </form>

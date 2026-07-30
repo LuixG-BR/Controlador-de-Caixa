@@ -25,8 +25,12 @@ function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
                                 { style: "currency", currency: "BRL" })}
                             </td>
                             <td>
-                                <button onClick={() => onEditar(item)}>✏️</button>
-                                <button onClick={() => onExcluir(item)}>🗑️</button>
+                                <button
+                                    onClick={() => onEditar(item)}
+                                    className="btn btn-warning">✏️</button>
+                                <button
+                                    onClick={() => onExcluir(item)}
+                                    className="btn btn-danger">🗑️</button>
                             </td>
                         </tr>
                     ))}

@@ -5,6 +5,7 @@ import './index.css';
 import "./styles/global.css";
 import "./styles/variables.css";
 import "./styles/typography.css";
+import "./styles/buttons.css";
 
 import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';

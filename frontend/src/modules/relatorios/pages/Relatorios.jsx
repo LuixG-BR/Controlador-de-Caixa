@@ -52,7 +52,6 @@ function Relatorios() {
             <FiltroRelatorio
                 setRelatorio={setRelatorio}
                 setFiltros={setFiltros}
-                setFiltros={setFiltros}
             />
 
             <ResumoRelatorio
