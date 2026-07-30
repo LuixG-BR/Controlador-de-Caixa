@@ -65,13 +65,15 @@ def verificar_token(token: str):
 
         id_usuario = payload.get("id_usuario")
         id_perfil = payload.get("id_perfil")
+        id_congregacao = payload.get("id_congregacao")
 
         if id_usuario is None:
             raise credenciais_invalidas
 
         return {
             "id_usuario": id_usuario,
-            "id_perfil": id_perfil
+            "id_perfil": id_perfil,
+            "id_congregacao": id_congregacao
         }
 
     except JWTError:
