@@ -75,53 +75,67 @@ function DebitoForm({ lancamento, onSuccess }) {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formulario">
 
-            <label>Categoria</label>
-            <select
-                name="categoria"
-                value={form.categoria}
-                onChange={handleChange}
-            >
-                <option value="">Categoria</option>
-                <option value="concessionaria">Concessionária</option>
-                <option value="imposto">Imposto</option>
-                <option value="prebenda">Prebenda</option>
-                <option value="ajuda de custo">Ajuda de custo</option>
-                <option value="oferta missionaria">Oferta Missionária</option>
-                <option value="despesa bancaria">Despesa bancária</option>
-                <option value="CIBEM">CIBEM</option>
-                <option value="Anuidade">Anuidade</option>
-            </select>
+            <div className="form-row">
+                <div className="form-group">
+                    <label>Categoria</label>
+                    <select
+                        name="categoria"
+                        value={form.categoria}
+                        onChange={handleChange}
+                    >
+                        <option value="">Categoria</option>
+                        <option value="concessionaria">Concessionária</option>
+                        <option value="imposto">Imposto</option>
+                        <option value="prebenda">Prebenda</option>
+                        <option value="ajuda de custo">Ajuda de custo</option>
+                        <option value="oferta missionaria">Oferta Missionária</option>
+                        <option value="despesa bancaria">Despesa bancária</option>
+                        <option value="CIBEM">CIBEM</option>
+                        <option value="Anuidade">Anuidade</option>
+                    </select>
+                </div>
 
-            <label>Descrição</label>
-            <input
-                type="text"
-                name="descricao"
-                value={form.descricao}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label>Descrição</label>
+                    <input
+                        type="text"
+                        name="descricao"
+                        value={form.descricao}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label>Valor</label>
-            <input
-                type="number"
-                step="0.01"
-                name="valor"
-                value={form.valor}
-                onChange={handleChange}
-            />
 
-            <label>Data</label>
-            <input
-                type="date"
-                name="data"
-                value={form.data}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label>Valor</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="valor"
+                        value={form.valor}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <button type="submit" className="btn btn-success">
-                {lancamento ? "Salvar Alterações" : "Salvar Débito"}
-            </button>
+                <div className="form-group">
+                    <label>Data</label>
+                    <input
+                        type="date"
+                        name="data"
+                        value={form.data}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
+
+            <div className="form-acoes">
+                <button type="submit" className="btn btn-success">
+                    {lancamento ? "Salvar Alterações" : "Salvar Débito"}
+                </button>
+            </div>
+
         </form>
     );
 }

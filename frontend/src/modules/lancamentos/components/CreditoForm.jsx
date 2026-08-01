@@ -77,52 +77,65 @@ function CreditoForm({ lancamento, onSuccess }) {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="formulario">
 
-            <label>Categoria</label>
-            <select
-                name="categoria"
-                value={form.categoria}
-                onChange={handleChange}
-            >
-                <option value="">Categoria</option>
-                <option value="Oferta">Oferta</option>
-                <option value="Dízimo">Dízimo</option>
-                <option value="Acerto">Acerto</option>
-                <option value="EBD">EBD</option>
-                <option value="CIBEM">CIBEM</option>
-                <option value="Anuidade">Anuidade</option>
-                <option value="Oferta Missionária">Oferta Missionária</option>
-            </select>
+            <div className="form-row">
 
-            <label>Descrição</label>
-            <input
-                type="text"
-                name="descricao"
-                value={form.descricao}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label>Categoria</label>
+                    <select
+                        name="categoria"
+                        value={form.categoria}
+                        onChange={handleChange}
+                    >
+                        <option value="">Categoria</option>
+                        <option value="Oferta">Oferta</option>
+                        <option value="Dízimo">Dízimo</option>
+                        <option value="Acerto">Acerto</option>
+                        <option value="EBD">EBD</option>
+                        <option value="CIBEM">CIBEM</option>
+                        <option value="Anuidade">Anuidade</option>
+                        <option value="Oferta Missionária">Oferta Missionária</option>
+                    </select>
+                </div>
 
-            <label>Valor</label>
-            <input
-                type="number"
-                step="0.01"
-                name="valor"
-                value={form.valor}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label>Descrição</label>
+                    <input
+                        type="text"
+                        name="descricao"
+                        value={form.descricao}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label>Data</label>
-            <input
-                type="date"
-                name="data"
-                value={form.data}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label>Valor</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="valor"
+                        value={form.valor}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <button type="submit" className="btn btn-success">
-                {lancamento ? "Salvar Alterações" : "Salvar Crédito"}
-            </button>
+                <div className="form-group">
+                    <label>Data</label>
+                    <input
+                        type="date"
+                        name="data"
+                        value={form.data}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
+            <div className="form-acoes">
+                <button type="submit" className="btn btn-success">
+                    {lancamento ? "Salvar Alterações" : "Salvar Crédito"}
+                </button>
+            </div>
+
         </form>
     );
 }

@@ -8,7 +8,9 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
         if (!lancamento) return;
 
         try {
-            await lancamentoService.excluir(lancamento.id_lancamento);
+            await lancamentoService.excluir(
+                lancamento.id_lancamento
+            );
 
             notificacoes.sucesso("Lançamento excluído com sucesso!");
 
@@ -22,26 +24,31 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
     }
 
     return (
-
         <div className="delete-form">
+
             <p>
                 Deseja realmente excluir este lançamento?
             </p>
 
             {lancamento && (
-                <>
+
+                <div className="delete-info">
+
                     <hr />
 
                     <p>
-                        <strong>Tipo:</strong> {lancamento.tipo}
+                        <strong>Tipo:</strong>{" "}
+                        {lancamento.tipo}
                     </p>
 
                     <p>
-                        <strong>Categoria:</strong> {lancamento.categoria}
+                        <strong>Categoria:</strong>{" "}
+                        {lancamento.categoria}
                     </p>
 
                     <p>
-                        <strong>Descrição:</strong> {lancamento.descricao || "-"}
+                        <strong>Descrição:</strong>{" "}
+                        {lancamento.descricao || "-"}
                     </p>
 
                     <p>
@@ -54,21 +61,19 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
                             }
                         )}
                     </p>
+
                     <hr />
-                </>
+
+                </div>
+
             )}
 
-            <div
-                style={{
-                    display: "flex",
-                    gap: "10px",
-                    justifyContent: "flex-end",
-                    marginTop: "20px"
-                }}
-            >
+            <div className="delete-acoes">
+
                 <button
                     type="button"
                     onClick={onCancel}
+                    className="btn btn-secondary"
                 >
                     Cancelar
                 </button>
@@ -76,7 +81,7 @@ function DeleteForm({ lancamento, onSuccess, onCancel }) {
                 <button
                     type="button"
                     onClick={handleDelete}
-                    
+                    className="btn btn-danger"
                 >
                     Excluir
                 </button>

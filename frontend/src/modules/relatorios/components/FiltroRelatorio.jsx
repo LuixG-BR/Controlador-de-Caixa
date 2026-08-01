@@ -27,7 +27,7 @@ function FiltroRelatorio({ setRelatorio, setFiltros }) {
             setFiltros(filtro)
 
             const dados = await relatorioService.gerarRelatorio(filtro);
-            
+
             setRelatorio(dados);
             notificacoes.sucesso("Relatório carregado.");
         }
@@ -38,54 +38,59 @@ function FiltroRelatorio({ setRelatorio, setFiltros }) {
     }
 
     return (
-        <form onSubmit={gerarResumo}>
+        <form onSubmit={gerarResumo} className="formulario">
 
             <h2>Filtros</h2>
 
-            <div>
-                <label>Data Inicial</label>
-                <input
-                    type="date"
-                    name="data_inicio"
-                    value={filtro.data_inicio}
-                    onChange={handleChange}
-                />
+            <div className="form-row">
+                <div className="form-group">
+                    <label>Data Inicial</label>
+                    <input
+                        type="date"
+                        name="data_inicio"
+                        value={filtro.data_inicio}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Data Final</label>
+                    <input
+                        type="date"
+                        name="data_fim"
+                        value={filtro.data_fim}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Tipo</label>
+                    <select
+                        name="tipo"
+                        value={filtro.tipo}
+                        onChange={handleChange}
+                    >
+                        <option value="">Todos</option>
+                        <option value="credito">Crédito</option>
+                        <option value="debito">Débito</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Categoria</label>
+                    <input
+                        type="text"
+                        name="categoria"
+                        value={filtro.categoria}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
+            
+            <div className="form-acoes">
+                <button type="submit" className="btn btn-primary">Gerar Relatorio</button>
             </div>
 
-            <div>
-                <label>Data Final</label>
-                <input
-                    type="date"
-                    name="data_fim"
-                    value={filtro.data_fim}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div>
-                <label>Tipo</label>
-                <select
-                    name="tipo"
-                    value={filtro.tipo}
-                    onChange={handleChange}
-                >
-                    <option value="">Todos</option>
-                    <option value="credito">Crédito</option>
-                    <option value="debito">Débito</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Categoria</label>
-                <input
-                    type="text"
-                    name="categoria"
-                    value={filtro.categoria}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <button type="submit" className="btn btn-primary">Gerar Relatorio</button>
         </form>
     );
 }

@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import "./FiltroLancamentos.css";
-
 function FiltroLancamentos({ onFiltrar, onLimpar }) {
 
     const estadoInicial = {
@@ -34,102 +32,101 @@ function FiltroLancamentos({ onFiltrar, onLimpar }) {
 
     return (
 
-        <form
-            className="filtro-lancamentos"
-            onSubmit={handleSubmit}
-        >
-            <div>
-                <label>Pesquisar</label>
-                <input
-                    type="text"
-                    name="descricao"
-                    placeholder="Descrição do lançamento"
-                    value={filtro.descricao}
-                    onChange={handleChange}
-                />
+        <form className="formulario filtro-container" onSubmit={handleSubmit}>
+            <div className="form-row">
+                <div className="form-group">
+                    <label>Pesquisar</label>
+                    <input
+                        type="text"
+                        name="descricao"
+                        placeholder="Descrição do lançamento"
+                        value={filtro.descricao}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Tipo</label>
+                    <select
+                        name="tipo"
+                        value={filtro.tipo}
+                        onChange={handleChange}
+                    >
+                        <option value="">Todos</option>
+                        <option value="credito">Crédito</option>
+                        <option value="debito">Débito</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Categoria</label>
+                    <select
+                        name="categoria"
+                        value={filtro.categoria}
+                        onChange={handleChange}
+                    >
+                        <option value="">Todas</option>
+                        <optgroup label="Créditos">
+                            <option value="Oferta">Oferta</option>
+                            <option value="Dízimo">Dízimo</option>
+                            <option value="Acerto">Acerto</option>
+                            <option value="EBD">EBD</option>
+                            <option value="CIBEM">CIBEM</option>
+                            <option value="Anuidade">Anuidade</option>
+                            <option value="oferta missionaria">Oferta Missionária</option>
+                        </optgroup>
+
+                        <optgroup label="Débitos">
+                            <option value="concessionaria">Concessionária</option>
+                            <option value="imposto">Imposto</option>
+                            <option value="prebenda">Prebenda</option>
+                            <option value="ajuda de custo">Ajuda de Custo</option>
+                            <option value="despesa bancaria">Despesa Bancária</option>
+                            <option value="oferta missionaria">Oferta Missionária</option>
+                            <option value="CIBEM">CIBEM</option>
+                            <option value="Anuidade">Anuidade</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Data Inicial</label>
+                    <input
+                        type="date"
+                        name="data_inicio"
+                        value={filtro.data_inicio}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Data Final</label>
+                    <input
+                        type="date"
+                        name="data_fim"
+                        value={filtro.data_fim}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Ordenar por</label>
+                    <select
+                        name="ordenar"
+                        value={filtro.ordenar}
+                        onChange={handleChange}
+                    >
+                        <option value="data_desc">Mais recentes</option>
+                        <option value="data_asc">Mais antigos</option>
+                        <option value="valor_desc">Maior valor</option>
+                        <option value="valor_asc">Menor valor</option>
+                        <option value="categoria_asc">Categoria A-Z</option>
+                        <option value="categoria_desc">Categoria Z-A</option>
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <label>Tipo</label>
-                <select
-                    name="tipo"
-                    value={filtro.tipo}
-                    onChange={handleChange}
-                >
-                    <option value="">Todos</option>
-                    <option value="credito">Crédito</option>
-                    <option value="debito">Débito</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Categoria</label>
-                <select
-                    name="categoria"
-                    value={filtro.categoria}
-                    onChange={handleChange}
-                >
-                    <option value="">Todas</option>
-                    <optgroup label="Créditos">
-                        <option value="Oferta">Oferta</option>
-                        <option value="Dízimo">Dízimo</option>
-                        <option value="Acerto">Acerto</option>
-                        <option value="EBD">EBD</option>
-                        <option value="CIBEM">CIBEM</option>
-                        <option value="Anuidade">Anuidade</option>
-                        <option value="oferta missionaria">Oferta Missionária</option>
-                    </optgroup>
-
-                    <optgroup label="Débitos">
-                        <option value="concessionaria">Concessionária</option>
-                        <option value="imposto">Imposto</option>
-                        <option value="prebenda">Prebenda</option>
-                        <option value="ajuda de custo">Ajuda de Custo</option>
-                        <option value="despesa bancaria">Despesa Bancária</option>
-                        <option value="oferta missionaria">Oferta Missionária</option>
-                        <option value="CIBEM">CIBEM</option>
-                        <option value="Anuidade">Anuidade</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <div>
-                <label>Data Inicial</label>
-                <input
-                    type="date"
-                    name="data_inicio"
-                    value={filtro.data_inicio}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div>
-                <label>Data Final</label>
-                <input
-                    type="date"
-                    name="data_fim"
-                    value={filtro.data_fim}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div>
-                <label>Ordenar por</label>
-                <select
-                    name="ordenar"
-                    value={filtro.ordenar}
-                    onChange={handleChange}
-                >
-                    <option value="data_desc">Mais recentes</option>
-                    <option value="data_asc">Mais antigos</option>
-                    <option value="valor_desc">Maior valor</option>
-                    <option value="valor_asc">Menor valor</option>
-                    <option value="categoria_asc">Categoria A-Z</option>
-                    <option value="categoria_desc">Categoria Z-A</option>
-                </select>
-            </div>
-
-            <div className="acoes-filtro">
+            <div className="form-acoes">
                 <button type="submit" className="btn btn-primary">
                     Filtrar
                 </button>

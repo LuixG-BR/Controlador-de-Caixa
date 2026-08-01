@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../api/api";
 import notificacoes from "../../../utils/toast";
 
+import "./Login.css"
 
 function Login() {
 
@@ -48,34 +49,40 @@ function Login() {
 
     return (
 
-        <div>
+        <div className="login-container">
+            <div className="login-card">
 
-            <h1>
-                Controlador de Caixa
-            </h1>
+                <h1>Controlador de Caixa</h1>
 
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Login</label>
+                        <input
+                            type="text"
+                            placeholder="User"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
 
-                <input
-                    type="text"
-                    placeholder="user"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                    <div className="form-group">
+                        <label>Senha</label>
+                        <input
+                            type="password"
+                            placeholder="Senha"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                        />
+                    </div>
 
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                />
 
-                <button type="submit" className="btn btn-primary">
-                    Entrar
-                </button>
-
-            </form>
-
+                    <div className="form-acoes">
+                        <button type="submit" className="btn btn-primary">
+                            Entrar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

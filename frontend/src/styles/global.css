@@ -1,23 +1,23 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background:var(--cor-fundo);
+body {
+    background: var(--cor-fundo);
 }
 
-a{
-    text-decoration:none;
+a {
+    text-decoration: none;
 }
 
-button{
-    font-family:inherit;
+button {
+    font-family: inherit;
 }
 
 input,
 select,
-textarea{
-    font-family:inherit;
+textarea {
+    font-family: inherit;
 }
