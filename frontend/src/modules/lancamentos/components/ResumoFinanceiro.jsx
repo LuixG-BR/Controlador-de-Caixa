@@ -32,12 +32,12 @@ function ResumoFinanceiro({ lancamentos }) {
     return (
         <div className="resumo-financeiro">
 
-            <div className="card-resumo entrada">
+            <div className="card-resumo credito">
                 <h3>Entradas</h3>
                 <p>{formatar(resumo.entradas)}</p>
             </div>
 
-            <div className="card-resumo saida">
+            <div className="card-resumo debito">
                 <h3>Saídas</h3>
                 <p>{formatar(resumo.saidas)}</p>
             </div>

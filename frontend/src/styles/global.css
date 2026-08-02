@@ -21,3 +21,18 @@ select,
 textarea {
     font-family: inherit;
 }
+
+.credito {
+    border-left: 6px solid var(--cor-sucesso);
+    color: var(--cor-sucesso);
+}
+
+.debito {
+    border-left: 6px solid var(--cor-perigo);
+    color: var(--cor-perigo);
+}
+
+.saldo {
+    border-left: 6px solid var(--cor-info);
+    color: var(--cor-info);
+}

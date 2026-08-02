@@ -23,15 +23,3 @@
     font-size: 28px;
     font-weight: bold;
 }
-
-.entrada {
-    border-left: 6px solid #16a34a;
-}
-
-.saida {
-    border-left: 6px solid #dc2626;
-}
-
-.saldo {
-    border-left: 6px solid #2563eb;
-}
