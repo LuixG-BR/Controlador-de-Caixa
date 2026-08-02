@@ -1,8 +1,9 @@
-import "../../../components/Table.css";
+import { Pencil, Trash } from "@phosphor-icons/react";
+
 function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
     return (
-        <div className="tabela-container">
-            <table>
+        <div className="table-container">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Data</th>
@@ -18,19 +19,48 @@ function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
                     {lancamentos.map((item) => (
                         <tr key={item.id_lancamento}>
                             <td>{new Date(item.data).toLocaleDateString("pt-BR")}</td>
-                            <td>{item.tipo}</td>
+                            <td
+                                className={`tipo ${item.tipo === "credito"
+                                    ? "credito"
+                                    : "debito"
+                                    }`}
+                            >
+                                {item.tipo}</td>
                             <td>{item.categoria}</td>
                             <td>{item.descricao}</td>
-                            <td>{Number(item.valor).toLocaleString("pt-BR",
-                                { style: "currency", currency: "BRL" })}
+                            <td
+                                className={`valor ${item.tipo === "credito"
+                                    ? "credito"
+                                    : "debito"
+                                    }`}
+                            >
+                                {Number(item.valor).toLocaleString("pt-BR",
+                                    { style: "currency", currency: "BRL" })}
                             </td>
                             <td>
-                                <button
-                                    onClick={() => onEditar(item)}
-                                    className="btn btn-warning">✏️</button>
-                                <button
-                                    onClick={() => onExcluir(item)}
-                                    className="btn btn-danger">🗑️</button>
+
+                                <div className="acoes">
+
+                                    <button
+                                        type="button"
+                                        className="acao-icon editar"
+                                        onClick={() => onEditar(item)}
+                                        title="Editar lançamento"
+                                    >
+                                        <Pencil size={30} weight="regular" />
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="acao-icon excluir"
+                                        onClick={() => onExcluir(item)}
+                                        title="Excluir lançamento"
+                                    >
+                                        <Trash size={30} weight="regular" />
+                                    </button>
+
+                                </div>
+
                             </td>
                         </tr>
                     ))}

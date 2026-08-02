@@ -8,6 +8,7 @@ import "./styles/typography.css";
 import "./styles/buttons.css";
 import "./styles/form.css";
 import "./styles/cards.css";
+import "./styles/tables.css";
 
 import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';

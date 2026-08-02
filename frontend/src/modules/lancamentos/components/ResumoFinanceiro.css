@@ -23,3 +23,18 @@
     font-size: 28px;
     font-weight: bold;
 }
+
+.border-credito {
+    border-left: 6px solid var(--cor-sucesso);
+    color: var(--cor-sucesso);
+}
+
+.border-debito {
+    border-left: 6px solid var(--cor-perigo);
+    color: var(--cor-perigo);
+}
+
+.border-saldo {
+    border-left: 6px solid var(--cor-info);
+    color: var(--cor-info);
+}
