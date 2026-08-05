@@ -10,6 +10,7 @@ from modules.lancamento import model
 from modules.lancamento.schema import (LancamentoCreate, LancamentoResponse)
 from dependencies import (usuario_logado,verificar_permissao)
 
+from typing import Optional
 
 router = APIRouter(
     prefix="/lancamentos",
@@ -38,13 +39,21 @@ def listar_lancamentos(
     data_inicio: Optional[date] = None,
     data_fim: Optional[date] = None,
     ordenar: Optional[str] = None,
+    id_congregacao: Optional[int] = None,
 
     db: Session = Depends(get_db),
     usuario = Depends(usuario_logado)
 ):
     query = db.query(model.Lancamento)
 
-    if usuario["id_perfil"] != 1:
+    if usuario["id_perfil"] == 1:
+        
+        if id_congregacao is not None:
+            query = query.filter(
+            model.Lancamento.id_congregacao == id_congregacao
+        )
+
+    else:
         query = query.filter(
         model.Lancamento.id_congregacao == usuario["id_congregacao"]
     )

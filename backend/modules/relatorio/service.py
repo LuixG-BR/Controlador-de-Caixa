@@ -23,12 +23,21 @@ class RelatorioService:
         categoria: Optional[str] = None,
         descricao: Optional[str] = None,
         data_inicio: Optional[date] = None,
-        data_fim: Optional[date] = None
+        data_fim: Optional[date] = None,
+        id_congregacao: Optional[int] = None
     ) -> RelatorioResponse:
-
+    
         query = db.query(model.Lancamento)
 
-        if usuario["id_perfil"] != 1:
+        if usuario["id_perfil"] == 1:
+
+            if id_congregacao is not None:
+                query = query.filter(
+                    model.Lancamento.id_congregacao ==
+                    id_congregacao
+                )
+
+        else:
             query = query.filter(
                 model.Lancamento.id_congregacao ==
                 usuario["id_congregacao"]
@@ -46,7 +55,9 @@ class RelatorioService:
 
         if descricao:
             query = query.filter(
-                model.Lancamento.descricao.ilike(f"%{descricao}%")
+                model.Lancamento.descricao.ilike(
+                    f"%{descricao}%"
+                )
             )
 
         if data_inicio:

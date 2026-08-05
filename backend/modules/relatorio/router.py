@@ -34,6 +34,7 @@ def gerar_relatorio(
     descricao: Optional[str] = None,
     data_inicio: Optional[date] = None,
     data_fim: Optional[date] = None,
+    id_congregacao: Optional[int] = None,
 
     db: Session = Depends(get_db),
     usuario=Depends(usuario_logado)
@@ -46,5 +47,6 @@ def gerar_relatorio(
         categoria=categoria,
         descricao=descricao,
         data_inicio=data_inicio,
-        data_fim=data_fim
+        data_fim=data_fim,
+        id_congregacao=id_congregacao
     )
