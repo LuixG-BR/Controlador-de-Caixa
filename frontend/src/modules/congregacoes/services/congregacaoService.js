@@ -1,12 +1,14 @@
 import api from "../../../api/api";
 
-const congregacaoService = {
+class CongregacaoService {
 
     async listar() {
-        const resposta = await api.get("/congregacao/");
+
+        const resposta =
+            await api.get("/congregacao/");
+
         return resposta.data;
     }
+}
 
-};
-
-export default congregacaoService;
+export default new CongregacaoService();

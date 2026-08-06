@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import relatorioService from "../services/relatorioService";
 import notificacoes from "../../../utils/toast";
+import SeletorCongregacao from "./SeletorCongregacao";
 
 function FiltroRelatorio({ setRelatorio, setFiltros }) {
 
@@ -9,7 +10,8 @@ function FiltroRelatorio({ setRelatorio, setFiltros }) {
         data_inicio: "",
         data_fim: "",
         tipo: "",
-        categoria: ""
+        categoria: "",
+        id_congregacao: ""
     });
 
     function handleChange(e) {
@@ -85,8 +87,18 @@ function FiltroRelatorio({ setRelatorio, setFiltros }) {
                         onChange={handleChange}
                     />
                 </div>
+
+                <SeletorCongregacao
+                    valor={filtro.id_congregacao}
+                    onChange={(valor) =>
+                        setFiltro({
+                            ...filtro,
+                            id_congregacao: valor
+                        })
+                    }
+                />
             </div>
-            
+
             <div className="form-acoes">
                 <button type="submit" className="btn btn-primary">Gerar Relatorio</button>
             </div>

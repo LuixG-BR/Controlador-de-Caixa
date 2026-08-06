@@ -4,23 +4,27 @@ import FiltroRelatorio from "../components/FiltroRelatorio";
 import ResumoRelatorio from "../components/ResumoRelatorio";
 import PreviewRelatorio from "../components/PreviewRelatorio";
 import CardAcoesRelatorio from "../components/cardAcoesRelatorio";
+
 import gerarRelatorioPDF from "../../../utils/pdf/gerarRelatorioPDF";
 import usuarioService from "../../usuarios/services/usuarioService";
-import notificacoes from "../../../utils/toast";
+
 
 function Relatorios() {
 
     const [relatorio, setRelatorio] = useState(null);
     const [usuario, setUsuario] = useState(null);
+
     const [filtros, setFiltros] = useState({
         tipo: "",
         categoria: "",
         descricao: "",
         data_inicio: "",
-        data_fim: ""
+        data_fim: "",
+        id_congregacao: ""
     });
 
     useEffect(() => {
+
         async function carregarUsuario() {
             try {
                 const dados = await usuarioService.perfil();
@@ -33,9 +37,7 @@ function Relatorios() {
     }, []);
 
     function exportarPDF() {
-
         if (!relatorio) return;
-
         gerarRelatorioPDF(
             relatorio,
             usuario,
@@ -52,6 +54,7 @@ function Relatorios() {
             <FiltroRelatorio
                 setRelatorio={setRelatorio}
                 setFiltros={setFiltros}
+                filtros={filtros}
             />
 
             <ResumoRelatorio
@@ -59,14 +62,15 @@ function Relatorios() {
             />
 
             <PreviewRelatorio
-                lancamentos={relatorio?.lancamentos}
+                lancamentos={
+                    relatorio?.lancamentos
+                }
             />
 
             <CardAcoesRelatorio
                 relatorio={relatorio}
                 exportarPDF={exportarPDF}
             />
-
         </div>
     );
 }
