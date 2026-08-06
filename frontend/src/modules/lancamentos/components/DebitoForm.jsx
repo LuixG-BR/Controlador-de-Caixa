@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
 import notificacoes from "../../../utils/toast";
 
+import { useCongregacao } from "../../../context/CongregacaoContext";
+
 function DebitoForm({ lancamento, onSuccess }) {
+
+    const { congregacaoSelecionada } = useCongregacao();
 
     const estadoInicial = {
         tipo: "debito",
@@ -57,7 +61,15 @@ function DebitoForm({ lancamento, onSuccess }) {
 
             } else {
 
-                await lancamentoService.criar(form);
+                const dados = {
+                    ...form
+                };
+
+                if (congregacaoSelecionada !== null) {
+                    dados.id_congregacao = congregacaoSelecionada;
+                }
+
+                await lancamentoService.criar(dados);
 
                 notificacoes.sucesso("Débito cadastrado com sucesso!");
 

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import lancamentoService from "../services/lancamentoService";
 import notificacoes from "../../../utils/toast";
 
+import { useCongregacao } from "../../../context/CongregacaoContext";
+
 function CreditoForm({ lancamento, onSuccess }) {
+
+    const { congregacaoSelecionada } = useCongregacao();
 
     const estadoInicial = {
         tipo: "credito",
@@ -57,7 +61,17 @@ function CreditoForm({ lancamento, onSuccess }) {
 
             } else {
 
-                await lancamentoService.criar(form);
+                const dados = {
+                    ...form
+                };
+
+                if (
+                    congregacaoSelecionada !== null
+                ) {
+                    dados.id_congregacao = congregacaoSelecionada;
+                }
+
+                await lancamentoService.criar(dados);
 
                 notificacoes.sucesso("Crédito cadastrado com sucesso!");
 
