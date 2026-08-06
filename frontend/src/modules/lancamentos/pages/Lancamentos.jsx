@@ -12,6 +12,9 @@ import FiltroLancamentos from "../components/FiltroLancamentos";
 import lancamentoService from "../services/lancamentoService";
 import notificacoes from "../../../utils/toast";
 
+import { useCongregacao } from "../../../context/CongregacaoContext";
+
+
 function Lancamentos() {
 
     const [lancamentos, setLancamentos] = useState([]);
@@ -22,20 +25,37 @@ function Lancamentos() {
 
     const [lancamentoSelecionado, setLancamentoSelecionado] = useState(null);
 
+    const { congregacaoSelecionada } = useCongregacao();
+
     async function buscarLancamentos(filtros = {}) {
 
         try {
-            const dados = await lancamentoService.listar(filtros);
+            const filtrosBusca = {
+                ...filtros
+            };
+
+            if (congregacaoSelecionada !== null) {
+                filtrosBusca.id_congregacao =
+                    congregacaoSelecionada;
+            }
+
+            const dados =
+                await lancamentoService.listar(
+                    filtrosBusca
+                );
             setLancamentos(dados);
         } catch (erro) {
             console.error(erro);
-            notificacoes.erro("Erro ao carregar os lançamentos");
+            notificacoes.erro(
+                "Erro ao carregar os lançamentos"
+            );
         }
     }
 
     useEffect(() => {
         buscarLancamentos();
-    }, []);
+
+    }, [congregacaoSelecionada]);
 
     function novoCredito() {
         setLancamentoSelecionado(null);
@@ -87,11 +107,17 @@ function Lancamentos() {
                 <h1>Controle de Caixa</h1>
 
                 <div className="acoes">
-                    <button onClick={novoCredito} className="btn btn-success">
+                    <button
+                        onClick={novoCredito}
+                        className="btn btn-success"
+                    >
                         + Novo Crédito
                     </button>
 
-                    <button onClick={novoDebito} className="btn btn-danger">
+                    <button
+                        onClick={novoDebito}
+                        className="btn btn-danger"
+                    >
                         - Novo Débito
                     </button>
                 </div>
@@ -116,7 +142,9 @@ function Lancamentos() {
                 open={openCredito}
                 onClose={fecharCredito}
                 title={
-                    lancamentoSelecionado ? "Editar Crédito" : "Novo Crédito"
+                    lancamentoSelecionado
+                        ? "Editar Crédito"
+                        : "Novo Crédito"
                 }
             >
                 <CreditoForm
@@ -132,7 +160,9 @@ function Lancamentos() {
                 open={openDebito}
                 onClose={fecharDebito}
                 title={
-                    lancamentoSelecionado ? "Editar Débito" : "Novo Débito"
+                    lancamentoSelecionado
+                        ? "Editar Débito"
+                        : "Novo Débito"
                 }
             >
                 <DebitoForm

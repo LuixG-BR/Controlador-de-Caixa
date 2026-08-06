@@ -13,6 +13,8 @@ import "./styles/tables.css";
 import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';
 
+import { CongregacaoProvider } from "./context/CongregacaoContext";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,11 +22,13 @@ import "react-toastify/dist/ReactToastify.css";
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
+      <CongregacaoProvider>
 
-      <App />
+        <App />
 
-      <ToastContainer />
+        <ToastContainer />
 
+      </CongregacaoProvider>
     </AuthProvider>
   </StrictMode>
 )
