@@ -86,29 +86,29 @@ function Dashboard() {
                     Carregando dados...
                 </p>
             ) : (
-                <div>
-                    <div>
+                <div className="resumo-financeiro">
+                    <div className="card-resumo border-credito">
                         <h3>Créditos</h3>
                         <p>
                             {formatarMoeda(creditos)}
                         </p>
                     </div>
 
-                    <div>
+                    <div className="card-resumo border-debito">
                         <h3>Débitos</h3>
                         <p>
                             {formatarMoeda(debitos)}
                         </p>
                     </div>
 
-                    <div>
+                    <div className="card-resumo border-saldo">
                         <h3>Saldo</h3>
                         <p>
                             {formatarMoeda(saldo)}
                         </p>
                     </div>
 
-                    <div>
+                    <div className="card-resumo">
                         <h3>Lançamentos</h3>
                         <p>
                             {lancamentos.length}
