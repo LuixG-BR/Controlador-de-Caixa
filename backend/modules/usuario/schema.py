@@ -24,3 +24,19 @@ class UsuarioResponse(BaseModel):
 class UsuarioStatus(BaseModel):
 
     status: bool
+    
+class UsuarioMeResponse(BaseModel):
+
+    id_usuario: int
+    nome: str
+    login: str
+    status: bool
+
+    id_perfil: int
+    perfil: str
+
+    id_congregacao: int
+    congregacao: str
+
+    class Config:
+        from_attributes = True

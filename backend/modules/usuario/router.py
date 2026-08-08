@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from database import SessionLocal
 from modules.usuario import model
-from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus
+from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus, UsuarioMeResponse
+from modules.usuario.service import UsuarioService
 
 from dependencies import usuario_logado, verificar_permissao
 from security import criar_hash_senha
@@ -34,6 +35,15 @@ def listar_usuarios(
 
     return usuarios
 
+@router.get("/me", response_model=UsuarioMeResponse)
+def usuario_me(
+    db: Session = Depends(get_db),
+    usuario=Depends(usuario_logado)
+):
+    return UsuarioService.obter_usuario_logado(
+        db,
+        usuario
+    )
 
 @router.post("/", response_model=UsuarioResponse)
 def criar_usuario(

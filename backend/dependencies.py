@@ -2,6 +2,11 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 
+from database import SessionLocal
+from modules.usuario import model
+from sqlalchemy.orm import Session
+from security import verificar_token
+
 from security import SECRET_KEY, ALGORITHM
 
 
@@ -9,41 +14,41 @@ oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/auth/login"
 )
 
+def get_db():
 
-
-def usuario_logado(
-    token: str = Depends(oauth2_scheme)
-):
+    db = SessionLocal()
 
     try:
+        yield db
 
-        payload = jwt.decode(
-            token,
-            SECRET_KEY,
-            algorithms=[ALGORITHM]
-        )
+    finally:
+        db.close()
 
+def usuario_logado(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db)
+):
 
-        usuario = payload.get("sub")
+    payload = verificar_token(token)
 
+    usuario_db = (
+        db.query(model.Usuario).filter(
+            model.Usuario.id_usuario == payload["id_usuario"]
+        ).first()
+    )
 
-        if usuario is None:
-
-            raise HTTPException(
-                status_code=401,
-                detail="Token inválido"
-            )
-
-
-        return payload
-
-
-    except JWTError:
-
+    if not usuario_db:
         raise HTTPException(
             status_code=401,
-            detail="Token inválido"
+            detail="Usuário inválido."
         )
+
+    if not usuario_db.status:
+        raise HTTPException(
+            status_code=403,
+            detail="Usuário desativado."
+        )
+    return payload
         
 def verificar_permissao(perfis_permitidos: list[int]):
 
