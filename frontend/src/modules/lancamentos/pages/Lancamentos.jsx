@@ -104,7 +104,7 @@ function Lancamentos() {
 
             <div className="cabecalho-lancamentos">
 
-                <h1>Controle de Caixa</h1>
+                <h1>Controlador de Caixa - Lançamentos</h1>
 
                 <div className="acoes">
                     <button

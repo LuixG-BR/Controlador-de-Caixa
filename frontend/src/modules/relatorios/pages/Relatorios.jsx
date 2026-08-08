@@ -49,7 +49,7 @@ function Relatorios() {
 
         <div className="pagina-relatorios">
 
-            <h1>Relatórios Financeiros</h1>
+            <h1>Controlador de Caixa - Relatórios</h1>
 
             <FiltroRelatorio
                 setRelatorio={setRelatorio}
