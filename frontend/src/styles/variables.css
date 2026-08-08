@@ -1,0 +1,27 @@
+:root{
+    --cor-primaria:#1E293B;
+    --cor-secundaria:#334155;
+
+    --cor-sucesso:#16A34A;
+    --cor-perigo:#DC2626;
+    --cor-aviso:#F59E0B;
+    --cor-info:#2563EB;
+
+    --cor-fundo:#F8FAFC;
+    --cor-card:#FFFFFF;
+    --cor-borda:#CBD5E1;
+
+    --cor-texto:#1E293B;
+    --cor-texto-secundario:#64748B;
+
+    --radius:10px;
+
+    --shadow:0 2px 8px rgba(0,0,0,.08);
+
+    --esp-1:8px;
+    --esp-2:16px;
+    --esp-3:24px;
+    --esp-4:32px;
+
+    --font:"Segoe UI",sans-serif;
+}

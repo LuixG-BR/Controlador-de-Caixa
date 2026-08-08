@@ -1,0 +1,28 @@
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--esp-2);
+    background: var(--cor-fundo);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: var(--esp-4);
+    background: var(--cor-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: var(--esp-2);
+    }
+
+    .login-card {
+        padding: var(--esp-3);
+        max-width: 100%;
+    }
+}

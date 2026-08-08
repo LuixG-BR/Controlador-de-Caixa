@@ -1,0 +1,36 @@
+.layout{
+    display:flex;
+    min-height:100vh;
+    background:var(--cor-fundo);
+}
+
+.conteudo{
+    flex:1;
+    padding:30px;
+    overflow:auto;
+}
+
+.btn-menu{
+    display:none;
+    position:fixed;
+    top:15px;
+    left:15px;
+    z-index:1001;
+    background:#1e293b;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:22px;
+    cursor:pointer;
+}
+
+@media(max-width:768px){
+    .btn-menu{
+        display:block;
+    }
+    
+    .conteudo{
+        padding:70px 20px 20px;
+    }
+}

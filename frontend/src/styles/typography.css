@@ -1,0 +1,21 @@
+body{
+    font-family:var(--font);
+    color:var(--cor-texto);
+}
+
+h1{
+    font-size:30px;
+    margin-bottom:var(--esp-3);
+}
+
+h2{
+    font-size:24px;
+}
+
+h3{
+    font-size:20px;
+}
+
+p{
+    line-height:1.6;
+}
