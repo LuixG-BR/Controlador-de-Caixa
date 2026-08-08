@@ -29,7 +29,6 @@ def get_db():
 
         db.close()
 
-# LISTAR
 @router.get("/", response_model=list[LancamentoResponse])
 def listar_lancamentos(
 
@@ -46,79 +45,114 @@ def listar_lancamentos(
 ):
     query = db.query(model.Lancamento)
 
-    if usuario["id_perfil"] == 1:
-        
-        if id_congregacao is not None:
-            query = query.filter(
-            model.Lancamento.id_congregacao == id_congregacao
+    if usuario["id_perfil"] != 1:
+        query = query.filter(
+            model.Lancamento.id_congregacao ==
+            usuario["id_congregacao"]
         )
 
     else:
-        query = query.filter(
-        model.Lancamento.id_congregacao == usuario["id_congregacao"]
-    )
+        if id_congregacao is not None:
+            query = query.filter(
+                model.Lancamento.id_congregacao ==
+                id_congregacao
+            )
 
     if tipo:
-        query = query.filter(model.Lancamento.tipo == tipo)
-        
+        query = query.filter(
+            model.Lancamento.tipo == tipo
+        )
+
     if categoria:
-        query = query.filter(model.Lancamento.categoria == categoria)
+        query = query.filter(
+            model.Lancamento.categoria == categoria
+        )
 
     if descricao:
-        query = query.filter(model.Lancamento.descricao.ilike(f"%{descricao}%"))
-    
+        query = query.filter(
+            model.Lancamento.descricao.ilike(
+                f"%{descricao}%"
+            )
+        )
+
     if data_inicio:
-        query = query.filter(model.Lancamento.data >= data_inicio)
+        query = query.filter(
+            model.Lancamento.data >= data_inicio
+        )
 
     if data_fim:
-        query = query.filter(model.Lancamento.data <= data_fim)
-        
+        query = query.filter(
+            model.Lancamento.data <= data_fim
+        )
+
     if ordenar == "data_desc":
-        query = query.order_by(model.Lancamento.data.desc())
+        query = query.order_by(
+            model.Lancamento.data.desc()
+        )
 
     elif ordenar == "data_asc":
-        query = query.order_by(model.Lancamento.data.asc())
+        query = query.order_by(
+            model.Lancamento.data.asc()
+        )
 
     elif ordenar == "valor_desc":
-        query = query.order_by(model.Lancamento.valor.desc())
+        query = query.order_by(
+            model.Lancamento.valor.desc()
+        )
 
     elif ordenar == "valor_asc":
-        query = query.order_by(model.Lancamento.valor.asc())
+        query = query.order_by(
+            model.Lancamento.valor.asc()
+        )
 
     elif ordenar == "categoria_asc":
-        query = query.order_by(model.Lancamento.categoria.asc())
+        query = query.order_by(
+            model.Lancamento.categoria.asc()
+        )
 
     elif ordenar == "categoria_desc":
-        query = query.order_by(model.Lancamento.categoria.desc())
-    
+        query = query.order_by(
+            model.Lancamento.categoria.desc()
+        )
+
     return query.all()
 
 
-# CRIAR
 @router.post("/", response_model=LancamentoResponse)
 def criar_lancamento(
     dados: LancamentoCreate,
     db: Session = Depends(get_db),
-    usuario = Depends(verificar_permissao([1,2]))):
+    usuario = Depends(verificar_permissao([1, 2]))
+):
+
+    if usuario["id_perfil"] != 1:
+        id_congregacao = usuario["id_congregacao"]
+
+    else:
+        id_congregacao = (
+            dados.id_congregacao
+            if dados.id_congregacao is not None
+            else usuario["id_congregacao"]
+        )
 
     novo = model.Lancamento(
-
         tipo=dados.tipo,
         categoria=dados.categoria,
         descricao=dados.descricao,
         valor=dados.valor,
         data=dados.data,
-        id_congregacao=usuario["id_congregacao"],
+
+        id_congregacao=id_congregacao,
+
         id_usuario=usuario["id_usuario"]
-)
-    
+    )
+
     db.add(novo)
     db.commit()
     db.refresh(novo)
-    
+
     return novo
 
-# EDITAR
 @router.put("/{id_lancamento}",response_model=LancamentoResponse)
 def editar_lancamento(
 
