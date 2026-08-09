@@ -31,9 +31,24 @@ def listar_usuarios(
     db: Session = Depends(get_db),
     usuario_atual = Depends(verificar_permissao([1]))
 ):
+
     usuarios = db.query(model.Usuario).all()
 
-    return usuarios
+    return [
+        UsuarioListResponse(
+            id_usuario=usuario.id_usuario,
+            nome=usuario.nome,
+            login=usuario.login,
+            status=usuario.status,
+
+            id_perfil=usuario.id_perfil,
+            perfil=usuario.perfil.nome,
+
+            id_congregacao=usuario.id_congregacao,
+            congregacao=usuario.congregacao.nome
+        )
+        for usuario in usuarios
+    ]
 
 @router.get("/me", response_model=UsuarioMeResponse)
 def usuario_me(
