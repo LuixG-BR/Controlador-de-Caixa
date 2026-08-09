@@ -26,8 +26,8 @@ function TabelaUsuarios({ usuarios }) {
                         <tr key={usuario.id_usuario}>
                             <td>{usuario.nome}</td>
                             <td>{usuario.login}</td>
-                            <td>{usuario.id_perfil}</td>
-                            <td>{usuario.id_congregacao}</td>
+                            <td>{usuario.perfil}</td>
+                            <td>{usuario.congregacao}</td>
                             <td>
                                 <span
                                     className={
