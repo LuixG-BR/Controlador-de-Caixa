@@ -21,6 +21,22 @@ class UsuarioResponse(BaseModel):
     class Config:
         from_attributes = True
         
+class UsuarioListResponse(BaseModel):
+
+    id_usuario: int
+    nome: str
+    login: str
+    status: bool
+
+    id_perfil: int
+    perfil: str
+
+    id_congregacao: int
+    congregacao: str
+
+    class Config:
+        from_attributes = True
+        
 class UsuarioStatus(BaseModel):
 
     status: bool

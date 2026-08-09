@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from database import SessionLocal
 from modules.usuario import model
-from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus, UsuarioMeResponse
+from modules.usuario.schema import UsuarioCreate, UsuarioResponse, UsuarioStatus, UsuarioMeResponse, UsuarioListResponse
 from modules.usuario.service import UsuarioService
 
 from dependencies import usuario_logado, verificar_permissao
@@ -26,11 +26,11 @@ def get_db():
         db.close()
         
 
-@router.get("/", response_model=list[UsuarioResponse])
+@router.get("/", response_model=list[UsuarioListResponse])
 def listar_usuarios(
     db: Session = Depends(get_db),
-    usuario_atual = Depends(verificar_permissao([1]))):
-    
+    usuario_atual = Depends(verificar_permissao([1]))
+):
     usuarios = db.query(model.Usuario).all()
 
     return usuarios
