@@ -1,5 +1,12 @@
 function PreviewRelatorio({ lancamentos }) {
 
+    function formatarData(data) {
+        if (!data) return "-";
+
+        const [ano, mes, dia] = data.split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
     if (!lancamentos || lancamentos.length === 0) {
         return (
             <p>Nenhum lançamento encontrado.</p>
@@ -23,7 +30,7 @@ function PreviewRelatorio({ lancamentos }) {
                     {lancamentos.map((item, index) => (
                         <tr key={index}>
                             <td>
-                                {new Date(item.data).toLocaleDateString("pt-BR")}
+                                {formatarData(item.data)}
                             </td>
                             <td
                                 className={`tipo ${item.tipo === "credito"

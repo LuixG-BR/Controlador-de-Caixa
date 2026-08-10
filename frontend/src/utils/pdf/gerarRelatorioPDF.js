@@ -19,8 +19,12 @@ export default function gerarRelatorioPDF(
             }
         );
 
-    const formatarData = (data) =>
-        new Date(data).toLocaleDateString("pt-BR");
+    const formatarData = (data) => {
+        if (!data) return "-";
+
+        const [ano, mes, dia] = data.split("-");
+        return `${dia}/${mes}/${ano}`;
+    };
 
     const agora = new Date();
 

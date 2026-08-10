@@ -1,6 +1,14 @@
 import { Pencil, Trash } from "@phosphor-icons/react";
 
 function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
+
+    function formatarData(data) {
+        if (!data) return "-";
+
+        const [ano, mes, dia] = data.split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
     return (
         <div className="table-container">
             <table className="table">
@@ -18,7 +26,7 @@ function TabelaLancamentos({ lancamentos, onEditar, onExcluir }) {
                 <tbody>
                     {lancamentos.map((item) => (
                         <tr key={item.id_lancamento}>
-                            <td>{new Date(item.data).toLocaleDateString("pt-BR")}</td>
+                            <td>{formatarData(item.data)}</td>
                             <td
                                 className={`tipo ${item.tipo === "credito"
                                     ? "credito"

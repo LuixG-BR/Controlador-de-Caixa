@@ -98,12 +98,12 @@ function DebitoForm({ lancamento, onSuccess }) {
                         onChange={handleChange}
                     >
                         <option value="">Categoria</option>
-                        <option value="concessionaria">Concessionária</option>
-                        <option value="imposto">Imposto</option>
-                        <option value="prebenda">Prebenda</option>
-                        <option value="ajuda de custo">Ajuda de custo</option>
-                        <option value="oferta missionaria">Oferta Missionária</option>
-                        <option value="despesa bancaria">Despesa bancária</option>
+                        <option value="Concessionaria">Concessionária</option>
+                        <option value="Imposto">Imposto</option>
+                        <option value="Prebenda">Prebenda</option>
+                        <option value="Ajuda de custo">Ajuda de custo</option>
+                        <option value="Oferta missionaria">Oferta Missionária</option>
+                        <option value="Despesa bancaria">Despesa bancária</option>
                         <option value="CIBEM">CIBEM</option>
                         <option value="Anuidade">Anuidade</option>
                     </select>
