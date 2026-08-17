@@ -98,6 +98,7 @@ function DebitoForm({ lancamento, onSuccess }) {
                         onChange={handleChange}
                     >
                         <option value="">Categoria</option>
+                        <option value="Acerto">Acerto</option>
                         <option value="Serviços/Manutenção">Serviços/Manutenção</option>
                         <option value="Material">Material</option>
                         <option value="Concessionaria">Concessionária</option>
