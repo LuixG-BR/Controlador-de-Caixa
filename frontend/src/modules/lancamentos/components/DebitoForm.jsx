@@ -51,7 +51,6 @@ function DebitoForm({ lancamento, onSuccess }) {
         e.preventDefault();
 
         try {
-
             if (lancamento) {
 
                 await lancamentoService.editar(
@@ -59,19 +58,27 @@ function DebitoForm({ lancamento, onSuccess }) {
                     form
                 );
 
+                notificacoes.sucesso("Lançamento editado com sucesso!");
+
+                if (onSuccess) {
+                    onSuccess();
+                }
+
             } else {
 
                 const dados = {
                     ...form
                 };
 
-                if (congregacaoSelecionada !== null) {
+                if (
+                    congregacaoSelecionada !== null
+                ) {
                     dados.id_congregacao = congregacaoSelecionada;
                 }
 
                 await lancamentoService.criar(dados);
 
-                notificacoes.sucesso("Débito cadastrado com sucesso!");
+                notificacoes.sucesso("débito cadastrado com sucesso!");
 
                 setForm(estadoInicial);
 
@@ -80,8 +87,14 @@ function DebitoForm({ lancamento, onSuccess }) {
                 }
             }
         } catch (erro) {
+
             console.error(erro);
-            notificacoes.erro("Erro ao cadastrar débito.");
+
+            notificacoes.erro(
+                lancamento
+                    ? "Erro ao editar lançamento."
+                    : "Erro ao cadastrar débito."
+            );
         }
     }
 

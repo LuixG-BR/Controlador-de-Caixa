@@ -59,6 +59,12 @@ function CreditoForm({ lancamento, onSuccess }) {
                     form
                 );
 
+                notificacoes.sucesso("Lançamento editado com sucesso!");
+
+                if (onSuccess) {
+                    onSuccess();
+                }
+                
             } else {
 
                 const dados = {
@@ -81,10 +87,15 @@ function CreditoForm({ lancamento, onSuccess }) {
                     onSuccess();
                 }
             }
-
         } catch (erro) {
+
             console.error(erro);
-            notificacoes.erro("Erro ao cadastrar crédito.");
+
+            notificacoes.erro(
+                lancamento
+                    ? "Erro ao editar lançamento."
+                    : "Erro ao cadastrar crédito."
+            );
         }
 
     }
