@@ -29,7 +29,7 @@ def get_db():
 
         db.close()
 
-@router.get("/", response_model=list[LancamentoResponse])
+@router.get("/")
 def listar_lancamentos(
 
     tipo: Optional[str] = None,
@@ -40,10 +40,22 @@ def listar_lancamentos(
     ordenar: Optional[str] = None,
     id_congregacao: Optional[int] = None,
 
+    pagina: int = Query(
+        default=1,
+        ge=1
+    ),
+
+    limite: int = Query(
+        default=10,
+        ge=1,
+        le=100
+    ),
+
     db: Session = Depends(get_db),
-    usuario = Depends(usuario_logado)
+    usuario=Depends(usuario_logado)
 ):
     query = db.query(model.Lancamento)
+
 
     if usuario["id_perfil"] != 1:
         query = query.filter(
@@ -85,6 +97,8 @@ def listar_lancamentos(
             model.Lancamento.data <= data_fim
         )
 
+    total_registros = query.count()
+
     if ordenar == "data_desc":
         query = query.order_by(
             model.Lancamento.data.desc()
@@ -115,7 +129,35 @@ def listar_lancamentos(
             model.Lancamento.categoria.desc()
         )
 
-    return query.all()
+    else:
+        query = query.order_by(
+            model.Lancamento.data.desc(),
+            model.Lancamento.id_lancamento.desc()
+        )
+
+
+    # PAGINAÇÃO
+    offset = (pagina - 1) * limite
+
+    lancamentos = (
+        query
+        .offset(offset)
+        .limit(limite)
+        .all()
+    )
+
+    total_paginas = (total_registros + limite - 1) // limite
+
+    return {
+        "dados": lancamentos,
+
+        "paginacao": {
+            "pagina_atual": pagina,
+            "por_pagina": limite,
+            "total_registros": total_registros,
+            "total_paginas": total_paginas
+        }
+    }
 
 
 @router.post("/", response_model=LancamentoResponse)
