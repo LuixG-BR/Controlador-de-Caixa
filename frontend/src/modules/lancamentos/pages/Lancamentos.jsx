@@ -23,39 +23,128 @@ function Lancamentos() {
     const [openDebito, setOpenDebito] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const [lancamentoSelecionado, setLancamentoSelecionado] = useState(null);
+    const [
+        lancamentoSelecionado,
+        setLancamentoSelecionado
+    ] = useState(null);
 
     const { congregacaoSelecionada } = useCongregacao();
 
-    async function buscarLancamentos(filtros = {}) {
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [totalPaginas, setTotalPaginas] = useState(1);
+    const [totalRegistros, setTotalRegistros] = useState(0);
+
+    const limite = 10;
+
+    const [filtrosAtivos, setFiltrosAtivos] = useState({});
+
+
+    async function buscarLancamentos(
+        filtros = filtrosAtivos,
+        pagina = paginaAtual
+    ) {
 
         try {
             const filtrosBusca = {
-                ...filtros
+                ...filtros,
+                pagina,
+                limite
             };
 
             if (congregacaoSelecionada !== null) {
+
                 filtrosBusca.id_congregacao =
                     congregacaoSelecionada;
             }
 
-            const dados =
+            const resultado =
                 await lancamentoService.listar(
                     filtrosBusca
                 );
-            setLancamentos(dados);
+
+            setLancamentos(
+                resultado.dados
+            );
+
+            setPaginaAtual(
+                resultado.paginacao.pagina_atual
+            );
+
+            setTotalPaginas(
+                resultado.paginacao.total_paginas
+            );
+
+            setTotalRegistros(
+                resultado.paginacao.total_registros
+            );
+
         } catch (erro) {
             console.error(erro);
-            notificacoes.erro(
-                "Erro ao carregar os lançamentos"
-            );
+
+            notificacoes.erro("Erro ao carregar os lançamentos");
         }
     }
 
     useEffect(() => {
-        buscarLancamentos();
+        setPaginaAtual(1);
+
+        buscarLancamentos(filtrosAtivos, 1);
 
     }, [congregacaoSelecionada]);
+
+
+    function aplicarFiltros(filtros) {
+        setFiltrosAtivos(filtros);
+        setPaginaAtual(1);
+
+        buscarLancamentos(
+            filtros,
+            1
+        );
+    }
+
+    function limparFiltros() {
+        setFiltrosAtivos({});
+        setPaginaAtual(1);
+
+        buscarLancamentos(
+            {},
+            1
+        );
+    }
+
+    function paginaAnterior() {
+
+        if (paginaAtual <= 1) {
+            return;
+        }
+
+        const novaPagina = paginaAtual - 1;
+
+        setPaginaAtual(novaPagina);
+
+        buscarLancamentos(
+            filtrosAtivos,
+            novaPagina
+        );
+
+    }
+
+    function proximaPagina() {
+
+        if (paginaAtual >= totalPaginas) {
+            return;
+        }
+
+        const novaPagina = paginaAtual + 1;
+
+        setPaginaAtual(novaPagina);
+
+        buscarLancamentos(
+            filtrosAtivos,
+            novaPagina
+        );
+    }
 
     function novoCredito() {
         setLancamentoSelecionado(null);
@@ -98,6 +187,13 @@ function Lancamentos() {
         setLancamentoSelecionado(null);
     }
 
+    function atualizarLancamentos() {
+        buscarLancamentos(
+            filtrosAtivos,
+            paginaAtual
+        );
+    }
+
     return (
 
         <div className="pagina-lancamentos">
@@ -128,14 +224,22 @@ function Lancamentos() {
             />
 
             <FiltroLancamentos
-                onFiltrar={buscarLancamentos}
-                onLimpar={() => buscarLancamentos()}
+                onFiltrar={aplicarFiltros}
+                onLimpar={limparFiltros}
             />
 
             <TabelaLancamentos
                 lancamentos={lancamentos}
+
                 onEditar={editarLancamento}
                 onExcluir={confirmarExclusao}
+
+                paginaAtual={paginaAtual}
+                totalPaginas={totalPaginas}
+                totalRegistros={totalRegistros}
+
+                onPaginaAnterior={paginaAnterior}
+                onProximaPagina={proximaPagina}
             />
 
             <Modal
@@ -148,9 +252,12 @@ function Lancamentos() {
                 }
             >
                 <CreditoForm
-                    lancamento={lancamentoSelecionado}
+                    lancamento={
+                        lancamentoSelecionado
+                    }
+
                     onSuccess={() => {
-                        buscarLancamentos();
+                        atualizarLancamentos();
                         fecharCredito();
                     }}
                 />
@@ -166,9 +273,12 @@ function Lancamentos() {
                 }
             >
                 <DebitoForm
-                    lancamento={lancamentoSelecionado}
+                    lancamento={
+                        lancamentoSelecionado
+                    }
+
                     onSuccess={() => {
-                        buscarLancamentos();
+                        atualizarLancamentos();
                         fecharDebito();
                     }}
                 />
@@ -180,9 +290,12 @@ function Lancamentos() {
                 title="Excluir lançamento"
             >
                 <DeleteForm
-                    lancamento={lancamentoSelecionado}
+                    lancamento={
+                        lancamentoSelecionado
+                    }
+
                     onSuccess={() => {
-                        buscarLancamentos();
+                        atualizarLancamentos();
                         fecharDelete();
                     }}
                     onCancel={fecharDelete}

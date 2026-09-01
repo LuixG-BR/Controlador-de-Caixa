@@ -5,12 +5,18 @@ class LancamentoService {
     async listar(filtros = {}) {
         const filtrosLimpos = Object.fromEntries(
             Object.entries(filtros).filter(
-                ([, valor]) => valor !== ""
+                ([, valor]) =>
+                    valor !== "" &&
+                    valor !== null &&
+                    valor !== undefined
             )
         );
 
         const resposta = await api.get(
-            "/lancamentos/", { params: filtrosLimpos }
+            "/lancamentos/",
+            {
+                params: filtrosLimpos
+            }
         );
         return resposta.data;
     }
