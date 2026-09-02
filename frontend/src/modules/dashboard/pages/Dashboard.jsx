@@ -19,7 +19,11 @@ function Dashboard() {
                 const dados = await dashboardService.listarLancamentos(
                     congregacaoSelecionada
                 );
-                setLancamentos(dados);
+                setLancamentos(
+                    Array.isArray(dados)
+                        ? dados
+                        : []
+                );
 
             } catch (erro) {
                 console.error(

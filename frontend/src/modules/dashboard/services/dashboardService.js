@@ -4,7 +4,9 @@ const dashboardService = {
 
     async listarLancamentos(idCongregacao = null) {
 
-        const params = {};
+        const params = {
+            limite: 100
+        };
 
         if (idCongregacao !== null) {
             params.id_congregacao = idCongregacao;
@@ -15,7 +17,7 @@ const dashboardService = {
             { params }
         );
 
-        return resposta.data;
+        return resposta.data.dados ?? [];
     }
 };
 
