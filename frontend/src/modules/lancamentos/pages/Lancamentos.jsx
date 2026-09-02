@@ -18,6 +18,7 @@ import { useCongregacao } from "../../../context/CongregacaoContext";
 function Lancamentos() {
 
     const [lancamentos, setLancamentos] = useState([]);
+    const [lancamentosResumo, setLancamentosResumo] = useState([]);
 
     const [openCredito, setOpenCredito] = useState(false);
     const [openDebito, setOpenDebito] = useState(false);
@@ -95,11 +96,50 @@ function Lancamentos() {
         }
     }
 
+    async function buscarResumo(filtros = {}) {
+
+        try {
+
+            const filtrosResumo = {
+                ...filtros,
+                pagina: 1,
+                limite: 100
+            };
+
+            if (congregacaoSelecionada !== null) {
+
+                filtrosResumo.id_congregacao =
+                    congregacaoSelecionada;
+
+            }
+
+            const resultado =
+                await lancamentoService.listar(
+                    filtrosResumo
+                );
+
+            setLancamentosResumo(
+                resultado.dados ?? []
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao carregar resumo:",
+                erro
+            );
+
+            setLancamentosResumo([]);
+
+        }
+    }
+
     useEffect(() => {
         setPaginaAtual(1);
 
         buscarLancamentos(filtrosAtivos, 1);
 
+        buscarResumo(filtrosAtivos);
     }, [congregacaoSelecionada]);
 
 
@@ -111,6 +151,10 @@ function Lancamentos() {
             filtros,
             1
         );
+
+        buscarResumo(
+            filtros
+        );
     }
 
     function limparFiltros() {
@@ -121,6 +165,8 @@ function Lancamentos() {
             {},
             1
         );
+
+        buscarResumo({});
     }
 
     function paginaAnterior() {
@@ -129,7 +175,8 @@ function Lancamentos() {
             return;
         }
 
-        const novaPagina = paginaAtual - 1;
+        const novaPagina =
+            paginaAtual - 1;
 
         setPaginaAtual(novaPagina);
 
@@ -137,7 +184,6 @@ function Lancamentos() {
             filtrosAtivos,
             novaPagina
         );
-
     }
 
     function proximaPagina() {
@@ -146,7 +192,8 @@ function Lancamentos() {
             return;
         }
 
-        const novaPagina = paginaAtual + 1;
+        const novaPagina =
+            paginaAtual + 1;
 
         setPaginaAtual(novaPagina);
 
@@ -230,7 +277,7 @@ function Lancamentos() {
             </div>
 
             <ResumoFinanceiro
-                lancamentos={lancamentos}
+                lancamentos={lancamentosResumo}
             />
 
             <FiltroLancamentos
