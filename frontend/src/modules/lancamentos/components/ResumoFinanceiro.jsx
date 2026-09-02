@@ -1,6 +1,6 @@
 import "./ResumoFinanceiro.css";
 
-function ResumoFinanceiro({ lancamentos }) {
+function ResumoFinanceiro({ lancamentos = [] }) {
 
     const resumo = lancamentos.reduce(
 

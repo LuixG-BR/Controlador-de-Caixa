@@ -62,20 +62,30 @@ function Lancamentos() {
                     filtrosBusca
                 );
 
-            setLancamentos(
-                resultado.dados
-            );
+            const dados =
+                Array.isArray(resultado.dados)
+                    ? resultado.dados
+                    : [];
+
+            const paginacao =
+                resultado.paginacao ?? {
+                    pagina_atual: 1,
+                    total_paginas: 1,
+                    total_registros: dados.length
+                };
+
+            setLancamentos(dados);
 
             setPaginaAtual(
-                resultado.paginacao.pagina_atual
+                paginacao.pagina_atual
             );
 
             setTotalPaginas(
-                resultado.paginacao.total_paginas
+                paginacao.total_paginas
             );
 
             setTotalRegistros(
-                resultado.paginacao.total_registros
+                paginacao.total_registros
             );
 
         } catch (erro) {

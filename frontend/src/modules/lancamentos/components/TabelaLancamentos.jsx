@@ -1,7 +1,7 @@
 import { Pencil, Trash, CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 function TabelaLancamentos({
-    lancamentos,
+    lancamentos = [],
     onEditar,
     onExcluir,
 
