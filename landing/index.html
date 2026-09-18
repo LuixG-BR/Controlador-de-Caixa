@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kosmos | Sistema de Gerenciamento Financeiro</title>
+<!-- BEGIN: External Fonts & Tailwind -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#0f2b48',
+              950: '#0a1d33',
+            },
+            sidebar: '#1e293b'
+          }
+        }
+      }
+    }
+  </script>
+<!-- END: External Fonts & Tailwind -->
+<!-- BEGIN: Custom CSS -->
+<style data-purpose="custom-enhancements">
+    /* Subtle shadows and scrollbar smoothing */
+    html {
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+<!-- END: Custom CSS -->
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+<!-- BEGIN: Navbar -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<!-- Logo Container -->
+<a class="flex items-center gap-3.5 group" href="#">
+<div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200/80 p-1 flex items-center justify-center overflow-hidden">
+<img alt="Kosmos Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMPgVmK-i7kiOh9lk6HeVJH3DwcPbjy0xZcIHR3JeMwW1i-efYJL1hAVOSmXDimZwnmEXC7ZlmQv1dyDdt_YPBH81VEuZvKIa9wNw7si1c8laiYPrg94QL_nBN-1hZK3O2tO-ukxBLMB7csUKMFBLemAn2NPSIj8z6HQhETjKX7brGFM5qc4BKF78Y4z99vQLBBUuyyWNaOOXOrytSDRigQfdnpWT-2MtgS1CsJId5XHn2bx9wxmhuCYdLatKa5HY7aQ"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-tight text-brand-900 leading-none group-hover:text-brand-600 transition-colors">KOSMOS</span>
+<span class="text-[10px] uppercase font-semibold text-slate-500 tracking-wider mt-0.5">Gestão Financeira</span>
+</div>
+</a>
+<!-- Desktop Navigation Links -->
+<nav aria-label="Navegação Principal" class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+<a class="hover:text-brand-900 transition-colors" href="#recursos">Recursos</a>
+<a class="hover:text-brand-900 transition-colors" href="#como-funciona">Como funciona</a>
+<a class="hover:text-brand-900 transition-colors" href="#gestao-unidades">Gestão de Unidades</a>
+<a class="hover:text-brand-900 transition-colors" href="#seguranca">Segurança</a>
+<a class="hover:text-brand-900 transition-colors" href="#demonstracao">Demonstração</a>
+</nav>
+<!-- Action Buttons -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-brand-900 hover:text-brand-700 hover:bg-slate-100 rounded-lg transition" onclick="openDemoModal()" type="button">
+            Solicitar demonstração
+          </button>
+<a class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-brand-900 hover:bg-brand-950 rounded-lg shadow-sm shadow-brand-950/20 transition-all active:scale-[0.98]" href="#demonstracao">
+            Acessar Sistema
+          </a>
+</div>
+</div>
+</div>
+</header>
+<!-- END: Navbar -->
+<main>
+<!-- BEGIN: Hero Section -->
+<section class="relative pt-12 pb-20 md:pt-16 md:pb-28 overflow-hidden bg-gradient-to-b from-white via-slate-50/70 to-slate-100/50 border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Hero Text Block -->
+<div class="max-w-3xl mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-semibold uppercase tracking-wider mb-6">
+<span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+            Sistema de Gestão Financeira Organizacional
+          </div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-900 tracking-tight leading-[1.12]">
+            Gestão financeira simples, organizada e centralizada.
+          </h1>
+<p class="mt-6 text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            Controle movimentações, acompanhe resultados e organize diferentes unidades ou congregações em uma única plataforma confiável.
+          </p>
+<!-- CTAs -->
+<div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+<a class="w-full sm:w-auto px-6 py-3.5 text-base font-semibold text-white bg-brand-900 hover:bg-brand-950 rounded-lg shadow-md hover:shadow-lg transition-all" href="#demonstracao">
+              Conheça a plataforma
+            </a>
+<button class="w-full sm:w-auto px-6 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 hover:text-slate-900 rounded-lg shadow-sm transition-all" onclick="openDemoModal()" type="button">
+              Solicitar demonstração
+            </button>
+</div>
+</div>
+<!-- Hero Browser Mockup -->
+<div class="mt-14 max-w-5xl mx-auto">
+<div class="rounded-2xl border border-slate-200/90 bg-white shadow-2xl shadow-slate-300/40 overflow-hidden ring-1 ring-slate-900/5">
+<!-- Window Topbar -->
+<div class="bg-slate-100/90 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-400"></span>
+<span class="w-3 h-3 rounded-full bg-amber-400"></span>
+<span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+<span class="ml-2 text-xs font-medium text-slate-500 hidden sm:inline">Kosmos — Painel Integrado de Controle</span>
+</div>
+<div class="bg-white border border-slate-200 px-3 py-1 rounded text-xs text-slate-500 font-mono flex items-center gap-1.5 shadow-xs">
+<svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" fill-rule="evenodd"></path></svg>
+                app.kosmos.com.br/dashboard
+              </div>
+</div>
+<!-- Internal Dashboard Layout (Fidelity to Image 3) -->
+<div class="grid grid-cols-1 md:grid-cols-12 min-h-[460px] bg-slate-50 text-slate-800">
+<!-- Mini Sidebar -->
+<div class="hidden md:flex md:col-span-3 bg-slate-900 p-5 flex-col justify-between text-white">
+<div>
+<div class="text-lg font-bold tracking-tight text-white mb-8 pb-3 border-b border-slate-800">Controlador Caixa</div>
+<nav class="space-y-1.5 text-sm font-medium">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-800 text-white font-semibold">
+<span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                      Dashboard
+                    </div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition">
+                      Lançamentos
+                    </div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition">
+                      Relatórios
+                    </div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition">
+                      Usuários
+                    </div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/50 transition">
+                      Congregações
+                    </div>
+</nav>
+</div>
+<div>
+<div class="w-full text-center py-2 px-3 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold text-white tracking-wide uppercase transition">
+                    Sair
+                  </div>
+</div>
+</div>
+<!-- Main Dashboard Area -->
+<div class="p-6 md:p-8 md:col-span-9 bg-white">
+<div class="border-b border-slate-200 pb-4 mb-6">
+<h3 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard</h3>
+<div class="mt-3">
+<label class="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Congregação / Unidade Selecionada</label>
+<div class="relative max-w-sm">
+<select class="w-full rounded-md border-slate-300 text-sm font-medium text-slate-700 bg-slate-50/50 focus:border-brand-500 focus:ring-brand-500" disabled="">
+<option>Todas as congregações (Consolidado)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Metrics Grid inspired by Image 3 -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Créditos Card -->
+<div class="bg-white rounded-xl border border-slate-200 p-4 relative shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-emerald-500"></div>
+<div>
+<span class="text-xs font-bold text-emerald-600 uppercase tracking-wide">Créditos</span>
+<p class="text-2xl font-extrabold text-emerald-600 mt-2">R$ 28.450,00</p>
+</div>
+<span class="text-[11px] text-slate-400 mt-2 font-medium">Entradas acumuladas</span>
+</div>
+<!-- Débitos Card -->
+<div class="bg-white rounded-xl border border-slate-200 p-4 relative shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-rose-500"></div>
+<div>
+<span class="text-xs font-bold text-rose-600 uppercase tracking-wide">Débitos</span>
+<p class="text-2xl font-extrabold text-rose-600 mt-2">R$ 12.180,00</p>
+</div>
+<span class="text-[11px] text-slate-400 mt-2 font-medium">Saídas do mês</span>
+</div>
+<!-- Saldo Card -->
+<div class="bg-white rounded-xl border border-slate-200 p-4 relative shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600"></div>
+<div>
+<span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Saldo Líquido</span>
+<p class="text-2xl font-extrabold text-blue-600 mt-2">R$ 16.270,00</p>
+</div>
+<span class="text-[11px] text-slate-400 mt-2 font-medium">Disponível em caixa</span>
+</div>
+<!-- Lançamentos Card -->
+<div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+<div>
+<span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Lançamentos</span>
+<p class="text-2xl font-extrabold text-slate-900 mt-2">142</p>
+</div>
+<span class="text-[11px] text-slate-400 mt-2 font-medium">Movimentações no período</span>
+</div>
+</div>
+<!-- Recent Summary Sub-table Preview -->
+<div class="mt-8 bg-slate-50 border border-slate-200 rounded-lg p-4">
+<div class="flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+<span>Atividades recentes registradas</span>
+<span class="text-brand-700">Ver todas</span>
+</div>
+<div class="space-y-2 text-xs text-slate-600">
+<div class="flex items-center justify-between bg-white px-3 py-2 rounded border border-slate-200">
+<span class="font-medium text-slate-800">Dízimo / Ofertas - Sede Regional</span>
+<span class="font-semibold text-emerald-600">+ R$ 1.850,00</span>
+</div>
+<div class="flex items-center justify-between bg-white px-3 py-2 rounded border border-slate-200">
+<span class="font-medium text-slate-800">Manutenção Predial e Reparos</span>
+<span class="font-semibold text-rose-600">- R$ 420,00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: Problem & Context Section -->
+<section class="py-20 bg-white border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-14">
+<span class="text-xs font-bold uppercase tracking-wider text-rose-600">Cenário Habitual</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Os desafios na rotina financeira de instituições e congregações
+          </h2>
+<p class="mt-4 text-base sm:text-lg text-slate-600">
+            A gestão contábil e de tesouraria frequentemente sofre com processos fragmentados e falta de transparência em tempo real.
+          </p>
+</div>
+<!-- 5 Challenge Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
+<div>
+<div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm mb-4">
+                01
+              </div>
+<h3 class="text-base font-bold text-slate-900">Informações espalhadas</h3>
+<p class="mt-2 text-sm text-slate-600">Dados divididos entre papéis, cadernos de anotação e múltiplas planilhas locais sujeitas a perdas.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
+<div>
+<div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm mb-4">
+                02
+              </div>
+<h3 class="text-base font-bold text-slate-900">Controle manual</h3>
+<p class="mt-2 text-sm text-slate-600">Retrabalho frequente para somar lançamentos, alto risco de erro humano e digitação redundante.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
+<div>
+<div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm mb-4">
+                03
+              </div>
+<h3 class="text-base font-bold text-slate-900">Acompanhamento diário</h3>
+<p class="mt-2 text-sm text-slate-600">Dificuldade em saber o saldo real atualizado sem depender de fechamentos demorados.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
+<div>
+<div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm mb-4">
+                04
+              </div>
+<h3 class="text-base font-bold text-slate-900">Pouca visibilidade</h3>
+<p class="mt-2 text-sm text-slate-600">Falta de relatórios consolidados que permitam à liderança visualizar a saúde contábil total.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
+<div>
+<div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm mb-4">
+                05
+              </div>
+<h3 class="text-base font-bold text-slate-900">Múltiplas unidades</h3>
+<p class="mt-2 text-sm text-slate-600">Complexidade em conciliar finanças de congregações filiais e prestar contas com rapidez.</p>
+</div>
+</div>
+</div>
+<!-- Solution Banner -->
+<div class="mt-12 p-6 sm:p-8 rounded-2xl bg-brand-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="max-w-2xl">
+<h4 class="text-xl sm:text-2xl font-bold tracking-tight">O Kosmos foi desenvolvido para resolver isso na raiz.</h4>
+<p class="mt-2 text-slate-300 text-sm sm:text-base">
+              Reunimos todas as informações financeiras em um ambiente seguro, com permissões precisas, sem burocracia e com absoluta clareza operacional.
+            </p>
+</div>
+<a class="whitespace-nowrap px-5 py-3 rounded-lg bg-white text-brand-900 font-semibold text-sm hover:bg-slate-100 transition shadow-sm" href="#recursos">
+            Ver recursos do sistema
+          </a>
+</div>
+</div>
+</section>
+<!-- END: Problem & Context Section -->
+<!-- BEGIN: Main Features Section -->
+<section class="py-20 bg-slate-50 border-b border-slate-200" id="recursos">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-16">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Funcionalidades Essenciais</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Recursos projetados para organização rigorosa
+          </h2>
+<p class="mt-3 text-base text-slate-600">
+            Ferramentas diretas ao ponto que eliminam planilhas e simplificam o controle financeiro de ponta a ponta.
+          </p>
+</div>
+<!-- Features Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Controle de Créditos e Débitos</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Registre entradas e saídas de caixa de forma organizada, com categorização precisa (dízimos, ofertas, manutenção, despesas correntes).
+            </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-700 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Dashboard Financeiro</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Visualize créditos totais, débitos acumulados e saldo líquido de maneira rápida e descomplicada em cards visuais claros.
+            </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Filtros Inteligentes</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Consulte movimentações com filtros por intervalo de datas, tipo (crédito/débito), categorias personalizadas e ordenação cronológica.
+            </p>
+</div>
+<!-- Card 4 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Relatórios Consolidados</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Emita resumos para prestação de contas com ações integradas para exportação em PDF e planilhas eletrônicas.
+            </p>
+</div>
+<!-- Card 5 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Múltiplas Unidades</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Administre diferentes congregações, filiais ou setores em um só sistema com relatórios individualizados ou agregados.
+            </p>
+</div>
+<!-- Card 6 -->
+<div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm hover:border-brand-500/50 hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center mb-5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-lg font-bold text-slate-900">Usuários e Permissões</h3>
+<p class="mt-2 text-sm text-slate-600 leading-relaxed">
+              Defina perfis com controle rigoroso: administradores com visão ampla e tesoureiros com acesso restrito à sua congregação.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Main Features Section -->
+<!-- BEGIN: How It Works Section -->
+<section class="py-20 bg-white border-b border-slate-200" id="como-funciona">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-16">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Fluxo Operacional</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Como funciona na prática
+          </h2>
+<p class="mt-3 text-base text-slate-600">
+            Quatro passos objetivos para manter sua escrituração financeira em conformidade.
+          </p>
+</div>
+<!-- 4 Steps -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+<!-- Step 1 -->
+<div class="relative bg-slate-50 p-6 rounded-2xl border border-slate-200">
+<div class="text-4xl font-extrabold text-brand-900/20 mb-3">01</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Registrar</h3>
+<p class="text-sm text-slate-600">
+              Lance créditos e débitos com categorização ágil, data e descrição objetiva em formulários simplificados.
+            </p>
+</div>
+<!-- Step 2 -->
+<div class="relative bg-slate-50 p-6 rounded-2xl border border-slate-200">
+<div class="text-4xl font-extrabold text-brand-900/20 mb-3">02</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Organizar</h3>
+<p class="text-sm text-slate-600">
+              Classifique movimentações por tipo e unidade, mantendo todo o histórico devidamente catalogado.
+            </p>
+</div>
+<!-- Step 3 -->
+<div class="relative bg-slate-50 p-6 rounded-2xl border border-slate-200">
+<div class="text-4xl font-extrabold text-brand-900/20 mb-3">03</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Acompanhar</h3>
+<p class="text-sm text-slate-600">
+              Monitore saldos parciais e totais pelo painel inicial atualizado em tempo real a cada lançamento.
+            </p>
+</div>
+<!-- Step 4 -->
+<div class="relative bg-slate-50 p-6 rounded-2xl border border-slate-200">
+<div class="text-4xl font-extrabold text-brand-900/20 mb-3">04</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Analisar</h3>
+<p class="text-sm text-slate-600">
+              Filtre períodos específicos e gere relatórios claros para reuniões de diretoria e assembleias gerais.
+            </p>
+</div>
+</div>
+<!-- Connection indicator -->
+<div class="hidden md:flex justify-center items-center mt-10 text-xs font-semibold text-slate-400 gap-2">
+<span>Registrar</span>
+<span class="text-brand-600 font-bold">→</span>
+<span>Organizar</span>
+<span class="text-brand-600 font-bold">→</span>
+<span>Acompanhar</span>
+<span class="text-brand-600 font-bold">→</span>
+<span>Analisar</span>
+</div>
+</div>
+</section>
+<!-- END: How It Works Section -->
+<!-- BEGIN: Unit Management Section -->
+<section class="py-20 bg-slate-50 border-b border-slate-200" id="gestao-unidades">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-5">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Hierarquia e Governança</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+              Estrutura hierárquica clara para matriz e congregações
+            </h2>
+<p class="mt-4 text-base text-slate-600 leading-relaxed">
+              O Kosmos centraliza diferentes congregações sem perder a segregação rigorosa de cada lançamento. Permite que cada responsável veja exclusivamente o que lhe compete.
+            </p>
+<div class="mt-8 space-y-4">
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-white border border-slate-200">
+<div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-900 flex items-center justify-center font-bold text-sm shrink-0">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-slate-900">Administradores Gerais</h4>
+<p class="text-xs text-slate-600 mt-1">Visão global consolidada, controle de todas as unidades, gestão de perfis e relatórios analíticos globais.</p>
+</div>
+</div>
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-white border border-slate-200">
+<div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-sm shrink-0">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-slate-900">Tesoureiros Locais</h4>
+<p class="text-xs text-slate-600 mt-1">Acesso estrito e focado nos lançamentos, saldos e comprovantes da sua respectiva congregação.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Hierarchy Architecture Diagram -->
+<div class="lg:col-span-7">
+<div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+<div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 text-center">Topologia de Acesso Multi-Unidade</div>
+<!-- Top Node: Admin -->
+<div class="max-w-md mx-auto bg-brand-900 text-white rounded-xl p-4 shadow-sm border border-brand-800 text-center">
+<div class="inline-block px-2 py-0.5 rounded bg-brand-700 text-[10px] uppercase font-bold tracking-wider mb-1">Nível Superior</div>
+<div class="font-bold text-base">Administração Geral / Matriz</div>
+<div class="text-xs text-slate-300 mt-1">Acesso irrestrito a todas as congregações e consolidados</div>
+</div>
+<!-- Branch lines -->
+<div class="flex flex-col items-center my-3">
+<div class="w-0.5 h-6 bg-slate-300"></div>
+<div class="w-48 sm:w-80 h-0.5 bg-slate-300"></div>
+<div class="w-full flex justify-around">
+<div class="w-0.5 h-6 bg-slate-300"></div>
+<div class="w-0.5 h-6 bg-slate-300"></div>
+<div class="w-0.5 h-6 bg-slate-300"></div>
+</div>
+</div>
+<!-- Bottom Nodes: Congregações -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mb-1"></span>
+<div class="font-semibold text-xs text-slate-900">Congregação Sede</div>
+<div class="text-[11px] text-slate-500 mt-1">Tesouraria Local</div>
+</div>
+<div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-blue-500 mb-1"></span>
+<div class="font-semibold text-xs text-slate-900">Congregação Norte</div>
+<div class="text-[11px] text-slate-500 mt-1">Tesouraria Local</div>
+</div>
+<div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-indigo-500 mb-1"></span>
+<div class="font-semibold text-xs text-slate-900">Congregação Sul</div>
+<div class="text-[11px] text-slate-500 mt-1">Tesouraria Local</div>
+</div>
+</div>
+<div class="mt-6 text-center">
+<span class="inline-flex items-center gap-1.5 text-xs text-slate-500">
+<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                  Segurança de dados com isolamento por perfil e congregação
+                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Unit Management Section -->
+<!-- BEGIN: Interactive Demo Showcase -->
+<section class="py-20 bg-white border-b border-slate-200" id="demonstracao">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-10">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Conheça a Plataforma</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Telas reais, objetivas e projetadas para o uso diário
+          </h2>
+<p class="mt-3 text-base text-slate-600">
+            Navegue pelas abas abaixo e confira a estrutura das telas do sistema Kosmos.
+          </p>
+</div>
+<!-- Interactive Tabs Navigation -->
+<div class="flex items-center justify-center">
+<div class="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto max-w-full">
+<button class="demo-tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-slate-900 shadow-xs transition" onclick="switchDemoTab('tab-dashboard', this)" type="button">
+              Dashboard
+            </button>
+<button class="demo-tab-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition" onclick="switchDemoTab('tab-lancamentos', this)" type="button">
+              Lançamentos
+            </button>
+<button class="demo-tab-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition" onclick="switchDemoTab('tab-relatorios', this)" type="button">
+              Relatórios
+            </button>
+<button class="demo-tab-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition" onclick="switchDemoTab('tab-login', this)" type="button">
+              Controle de Acesso
+            </button>
+</div>
+</div>
+<!-- Tab Panes Container -->
+<div class="mt-8 max-w-6xl mx-auto">
+<!-- TAB 1: DASHBOARD (Ref: Image 3) -->
+<div class="demo-tab-content block" id="tab-dashboard">
+<div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-lg">
+<div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+<span class="font-bold text-base">Controlador Caixa — Dashboard Principal</span>
+<span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300">Modo Administrador</span>
+</div>
+<div class="p-6 bg-slate-50 space-y-6">
+<!-- Dropdown selector -->
+<div class="bg-white p-4 rounded-lg border border-slate-200">
+<label class="block text-xs font-bold text-slate-600 uppercase mb-1">Congregação</label>
+<div class="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm text-slate-700">
+                    Todas as congregações
+                  </div>
+</div>
+<!-- 4 Metrics Cards from Image 3 -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white rounded-lg border border-slate-200 p-4 relative shadow-xs">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500 rounded-l"></div>
+<span class="text-xs font-bold text-emerald-600">Créditos</span>
+<p class="text-xl font-bold text-emerald-600 mt-2">R$ 24.850,00</p>
+</div>
+<div class="bg-white rounded-lg border border-slate-200 p-4 relative shadow-xs">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-rose-500 rounded-l"></div>
+<span class="text-xs font-bold text-rose-600">Débitos</span>
+<p class="text-xl font-bold text-rose-600 mt-2">R$ 11.320,00</p>
+</div>
+<div class="bg-white rounded-lg border border-slate-200 p-4 relative shadow-xs">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-l"></div>
+<span class="text-xs font-bold text-blue-600">Saldo</span>
+<p class="text-xl font-bold text-blue-600 mt-2">R$ 13.530,00</p>
+</div>
+<div class="bg-white rounded-lg border border-slate-200 p-4 shadow-xs">
+<span class="text-xs font-bold text-slate-700">Lançamentos</span>
+<p class="text-xl font-bold text-slate-900 mt-2">128</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: LANÇAMENTOS (Ref: Image 2) -->
+<div class="demo-tab-content hidden" id="tab-lancamentos">
+<div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-lg">
+<div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+<span class="font-bold text-base">Controlador de Caixa - Lançamentos</span>
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-emerald-600 text-white text-xs font-semibold rounded">+ Novo Crédito</span>
+<span class="px-3 py-1 bg-rose-600 text-white text-xs font-semibold rounded">- Novo Débito</span>
+</div>
+</div>
+<div class="p-6 bg-slate-50 space-y-6">
+<!-- Metrics Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-white rounded-lg border border-slate-200 p-3.5 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500 rounded-l"></div>
+<span class="text-xs font-bold text-emerald-600">Entradas</span>
+<p class="text-lg font-bold text-emerald-600">R$ 24.850,00</p>
+</div>
+<div class="bg-white rounded-lg border border-slate-200 p-3.5 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-rose-500 rounded-l"></div>
+<span class="text-xs font-bold text-rose-600">Saídas</span>
+<p class="text-lg font-bold text-rose-600">R$ 11.320,00</p>
+</div>
+<div class="bg-white rounded-lg border border-slate-200 p-3.5 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-l"></div>
+<span class="text-xs font-bold text-blue-600">Saldo</span>
+<p class="text-lg font-bold text-blue-600">R$ 13.530,00</p>
+</div>
+</div>
+<!-- Filters Simulation -->
+<div class="bg-white p-4 rounded-lg border border-slate-200">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs mb-3">
+<div>
+<label class="block text-slate-500 font-semibold mb-1">Pesquisar</label>
+<input class="w-full text-xs rounded border-slate-300" disabled="" placeholder="Descrição do lançamento" type="text"/>
+</div>
+<div>
+<label class="block text-slate-500 font-semibold mb-1">Tipo</label>
+<select class="w-full text-xs rounded border-slate-300" disabled=""><option>Todos</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-semibold mb-1">Categoria</label>
+<select class="w-full text-xs rounded border-slate-300" disabled=""><option>Todas</option></select>
+</div>
+</div>
+<div class="flex justify-end gap-2">
+<span class="px-3 py-1 bg-slate-900 text-white text-xs rounded font-medium">Filtrar</span>
+<span class="px-3 py-1 bg-slate-200 text-slate-700 text-xs rounded font-medium">Limpar</span>
+</div>
+</div>
+<!-- Table Simulation -->
+<div class="bg-white rounded-lg border border-slate-200 overflow-x-auto">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 text-slate-600 font-bold border-b border-slate-200">
+<tr>
+<th class="p-3">Data</th>
+<th class="p-3">Tipo</th>
+<th class="p-3">Categoria</th>
+<th class="p-3">Descrição</th>
+<th class="p-3">Valor</th>
+<th class="p-3 text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 font-medium">
+<tr>
+<td class="p-3 text-slate-600">12/10/2026</td>
+<td class="p-3 font-semibold text-emerald-600">crédito</td>
+<td class="p-3">Dízimo</td>
+<td class="p-3 text-slate-800">Contribuinte Registrado</td>
+<td class="p-3 text-emerald-600 font-bold">R$ 450,00</td>
+<td class="p-3 text-right text-slate-400">✏️ 🗑️</td>
+</tr>
+<tr>
+<td class="p-3 text-slate-600">10/10/2026</td>
+<td class="p-3 font-semibold text-emerald-600">crédito</td>
+<td class="p-3">Oferta Especial</td>
+<td class="p-3 text-slate-800">Campanha de Missões</td>
+<td class="p-3 text-emerald-600 font-bold">R$ 1.200,00</td>
+<td class="p-3 text-right text-slate-400">✏️ 🗑️</td>
+</tr>
+<tr>
+<td class="p-3 text-slate-600">08/10/2026</td>
+<td class="p-3 font-semibold text-rose-600">débito</td>
+<td class="p-3">Ajuda de custo</td>
+<td class="p-3 text-slate-800">Pregador Convidado</td>
+<td class="p-3 text-rose-600 font-bold">R$ 350,00</td>
+<td class="p-3 text-right text-slate-400">✏️ 🗑️</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 3: RELATÓRIOS (Ref: Image 1) -->
+<div class="demo-tab-content hidden" id="tab-relatorios">
+<div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-lg">
+<div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+<span class="font-bold text-base">Controlador de Caixa - Relatórios e Fechamento</span>
+<span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300">Auditoria &amp; Balanço</span>
+</div>
+<div class="p-6 bg-slate-50 space-y-6">
+<!-- Filters Section -->
+<div class="bg-white p-5 rounded-lg border border-slate-200">
+<h4 class="text-sm font-bold text-slate-800 mb-3">Filtros de Período</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs mb-3">
+<div>
+<label class="block text-slate-600 font-semibold mb-1">Data Inicial</label>
+<input class="w-full text-xs rounded border-slate-300" disabled="" type="text" value="01/10/2026"/>
+</div>
+<div>
+<label class="block text-slate-600 font-semibold mb-1">Data Final</label>
+<input class="w-full text-xs rounded border-slate-300" disabled="" type="text" value="31/10/2026"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+<div>
+<label class="block text-slate-600 font-semibold mb-1">Tipo</label>
+<select class="w-full text-xs rounded border-slate-300" disabled=""><option>Todos</option></select>
+</div>
+<div>
+<label class="block text-slate-600 font-semibold mb-1">Congregação</label>
+<select class="w-full text-xs rounded border-slate-300" disabled=""><option>Todas as congregações</option></select>
+</div>
+</div>
+<div class="mt-4 flex justify-end">
+<span class="px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded">Gerar Relatório</span>
+</div>
+</div>
+<!-- Export Bar -->
+<div class="bg-white p-5 rounded-lg border border-slate-200">
+<h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-3">Ações do relatório</h4>
+<div class="flex flex-wrap gap-2.5">
+<span class="px-3.5 py-2 bg-rose-600 text-white text-xs font-semibold rounded flex items-center gap-1.5">
+                      📄 Exportar PDF
+                    </span>
+<span class="px-3.5 py-2 bg-emerald-600 text-white text-xs font-semibold rounded flex items-center gap-1.5">
+                      📊 Exportar Excel
+                    </span>
+<span class="px-3.5 py-2 bg-blue-600 text-white text-xs font-semibold rounded flex items-center gap-1.5">
+                      🖨️ Imprimir
+                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 4: LOGIN / ACESSO (Ref: Image 4) -->
+<div class="demo-tab-content hidden" id="tab-login">
+<div class="max-w-md mx-auto rounded-2xl border border-slate-200 bg-white p-8 shadow-xl">
+<div class="text-center mb-6">
+<div class="w-12 h-12 mx-auto mb-3 bg-slate-100 rounded-lg p-2 border border-slate-200 flex items-center justify-center">
+<img alt="Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEnt-5eEFOpQfkJiKUqVOiYSsn-xj-YXTI2Ai1Pk3a4QvR-fovRWRyZpuIWLCPC67IRwpVFwyH4OeqB_Sdu0NaijWmUWte4sPMYzFadAOnWk1jT-99SzU7pBKuXP4cCbdGEdDe9F2sNtnXDpFEyfbu34kpm4SoZV_xHWPHPvMiaGxPC8V9Qb91iF3YjWWqv1Af28NXR2Y2tAxmbvu36CVwcS6NkbFzjg3gXfmLWvqjC_Ii8KmrRCOb83ZlrQYy8xsc1w"/>
+</div>
+<h3 class="text-2xl font-bold text-slate-900">Controlador de Caixa</h3>
+<p class="text-xs text-slate-500 mt-1">Acesso exclusivo a usuários autorizados</p>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-slate-700 uppercase mb-1">Login</label>
+<input class="w-full rounded-lg border-slate-300 text-sm" disabled="" type="text" value="tesouraria.central"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-700 uppercase mb-1">Senha</label>
+<input class="w-full rounded-lg border-slate-300 text-sm" disabled="" type="password" value="••••••••••••"/>
+</div>
+<button class="w-full py-2.5 px-4 bg-slate-900 text-white font-semibold text-sm rounded-lg hover:bg-slate-950 transition" type="button">
+                  Entrar
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Interactive Demo Showcase -->
+<!-- BEGIN: Security & Control Section -->
+<section class="py-20 bg-slate-50 border-b border-slate-200" id="seguranca">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-16">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Segurança &amp; Confiabilidade</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Cada usuário acessa estritamente o que precisa
+          </h2>
+<p class="mt-3 text-base text-slate-600">
+            Permissões e níveis de acesso mantêm as finanças organizadas entre administradores gerais e tesoureiros locais.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+<div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-800 flex items-center justify-center font-bold mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-base font-bold text-slate-900">Autenticação Individual</h3>
+<p class="mt-2 text-sm text-slate-600">
+              Credenciais únicas e rastreáveis para cada operador, garantindo a responsabilização precisa sobre cada entrada ou saída lançada.
+            </p>
+</div>
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+<div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-800 flex items-center justify-center font-bold mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-base font-bold text-slate-900">Separação Estrita de Unidades</h3>
+<p class="mt-2 text-sm text-slate-600">
+              O tesoureiro de uma congregação filial tem acesso restrito às suas contas, sem interferência em outras unidades da rede.
+            </p>
+</div>
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+<div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-800 flex items-center justify-center font-bold mb-4">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-base font-bold text-slate-900">Histórico e Rastreabilidade</h3>
+<p class="mt-2 text-sm text-slate-600">
+              Registro auditável de edições e exclusões para dar conformidade em prestações de contas oficiais e conselhos fiscais.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Security & Control Section -->
+<!-- BEGIN: Benefits Section -->
+<section class="py-20 bg-white border-b border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto text-center mb-14">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-700">Vantagens Reais</span>
+<h2 class="mt-2 text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            Por que optar pelo Kosmos?
+          </h2>
+<p class="mt-3 text-base text-slate-600">
+            A união perfeita entre rigor contábil e simplicidade operacional diária.
+          </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+<span class="text-brand-900 font-extrabold text-2xl">01</span>
+<h4 class="text-base font-bold text-slate-900 mt-2">Mais Organização</h4>
+<p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              Informações financeiras centralizadas em um só lugar, substituindo cadernos e múltiplos arquivos soltos.
+            </p>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+<span class="text-brand-900 font-extrabold text-2xl">02</span>
+<h4 class="text-base font-bold text-slate-900 mt-2">Mais Visibilidade</h4>
+<p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              Acompanhamento rápido e objetivo da situação real de caixa a qualquer momento, sem surpresas de fechamento.
+            </p>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+<span class="text-brand-900 font-extrabold text-2xl">03</span>
+<h4 class="text-base font-bold text-slate-900 mt-2">Menos Retrabalho</h4>
+<p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              Elimine a necessidade de recalcular somas ou consolidar manualmente planilhas vindas de cada unidade.
+            </p>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+<span class="text-brand-900 font-extrabold text-2xl">04</span>
+<h4 class="text-base font-bold text-slate-900 mt-2">Controle Adequado</h4>
+<p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              Cada tesoureiro e administrador opera estritamente dentro da sua alçada e responsabilidade.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Benefits Section -->
+<!-- BEGIN: Final Call to Action -->
+<section class="py-20 bg-brand-900 text-white">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          Uma forma mais simples de organizar sua gestão financeira.
+        </h2>
+<p class="mt-5 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto">
+          Centralize informações, acompanhe movimentações com transparência e tenha uma visão mais clara da sua organização ou congregação.
+        </p>
+<div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto px-8 py-4 bg-white text-brand-900 hover:bg-slate-100 font-bold text-base rounded-xl shadow-lg transition active:scale-[0.98]" onclick="openDemoModal()" type="button">
+            Solicitar demonstração
+          </button>
+</div>
+<p class="mt-4 text-xs text-slate-400">
+          Apresentação guiada e sem compromisso para líderes e diretores financeiros.
+        </p>
+</div>
+</section>
+<!-- END: Final Call to Action -->
+</main>
+<!-- BEGIN: Footer -->
+<footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800 text-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+<!-- Brand Column -->
+<div class="space-y-4 md:col-span-2">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-white p-1 flex items-center justify-center">
+<img alt="Kosmos Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3iX3N0eroR6oFgyzbVKyJTmg4CtBO1KX6KNKtNdgntBl05TRyvHotXcrHYlIYje5s3CB27Kzs8GCWV-or_xPES7JThZ5FPh2GGm6RtygvuSm2fSA0ha1ro4_-qIS3Yhq9icqiBRRcHbScoMg9LSkx--OTsIwTMYvK2T-aRUm8XbbuFzhYwqHP2WPREc7Btk8_pn1Syp_10_pYNnHZlxMuai2wGE0-HePjoC-QSAT22N64QAdnM3_Y_4GCD-rRvLXO1g"/>
+</div>
+<span class="text-xl font-bold text-white tracking-tight">KOSMOS</span>
+</div>
+<p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            Kosmos – Sistema de Gerenciamento Financeiro.<br/>
+            Plataforma corporativa para controle de caixa, congregações, receitas, despesas e auditoria.
+          </p>
+</div>
+<!-- Links: Navegação -->
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">Navegação</h4>
+<ul class="space-y-2.5 text-xs">
+<li><a class="hover:text-white transition" href="#recursos">Recursos</a></li>
+<li><a class="hover:text-white transition" href="#como-funciona">Como funciona</a></li>
+<li><a class="hover:text-white transition" href="#gestao-unidades">Gestão de Unidades</a></li>
+<li><a class="hover:text-white transition" href="#demonstracao">Demonstração Interativa</a></li>
+</ul>
+</div>
+<!-- Links: Institucional & Governança -->
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">Governança</h4>
+<ul class="space-y-2.5 text-xs">
+<li><a class="hover:text-white transition" href="#seguranca">Segurança de Dados</a></li>
+<li><a class="hover:text-white transition" href="#">Termos de Uso</a></li>
+<li><a class="hover:text-white transition" href="#">Política de Privacidade</a></li>
+<li><button class="hover:text-white text-left transition" onclick="openDemoModal()" type="button">Agendar Apresentação</button></li>
+</ul>
+</div>
+</div>
+<!-- Copyright Bar -->
+<div class="mt-12 pt-8 border-t border-slate-800 text-xs flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-4">
+<div>
+          © <span id="current-year"></span> Kosmos — Sistema de Gerenciamento Financeiro. Todos os direitos reservados.
+        </div>
+<div>
+          Ambiente em nuvem seguro e estruturado para tesourarias institucionais.
+        </div>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: Demo Request Modal -->
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 hidden" id="demoModal" role="dialog">
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs transition-opacity" onclick="closeDemoModal()"></div>
+<div class="fixed inset-0 z-10 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+<!-- Close Button -->
+<button aria-label="Fechar formulário" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 transition" onclick="closeDemoModal()" type="button">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="mb-5">
+<div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-900 flex items-center justify-center mb-3">
+<img alt="Logo" class="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfesH19I5M8OBx6Zl5xyQIVNoul0YVkCSn6oqtukKgQc4q5jgk5pfUAqfvZEEz-6UK69NW458YH0Jbjnm2BCo6u0bQHB2pXIJx2CeCE5C1TyCOmk7EudsgzxDrjd9eLalpqIzs5IyyihSc3z4BTxy9jk-2FAd4XuJnULkWvfjCPHAoJNqo09CU5F_Auzoe9d3OdNglYJCmglOub7zQ4T-TwiBPzokNOd8u6DxrODXAljFzZr0o3VYh4pygEuVT61Iv6w"/>
+</div>
+<h3 class="text-xl font-bold text-slate-900" id="modal-title">Solicitar Demonstração do Kosmos</h3>
+<p class="text-xs text-slate-500 mt-1">
+            Preencha os campos abaixo para que nossa equipe apresente a plataforma às lideranças da sua organização.
+          </p>
+</div>
+<form class="space-y-3.5" onsubmit="handleDemoSubmit(event)">
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1">Seu Nome Completo</label>
+<input class="w-full text-xs rounded-lg border-slate-300 focus:ring-brand-500 focus:border-brand-500 py-2 px-3" placeholder="Ex: Roberto Silva" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1">E-mail Institucional ou Pessoal</label>
+<input class="w-full text-xs rounded-lg border-slate-300 focus:ring-brand-500 focus:border-brand-500 py-2 px-3" placeholder="seuemail@exemplo.com" required="" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1">Nome da Organização / Congregação</label>
+<input class="w-full text-xs rounded-lg border-slate-300 focus:ring-brand-500 focus:border-brand-500 py-2 px-3" placeholder="Ex: Congregação Central / Associação" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1">Mensagem ou Necessidade Específica (Opcional)</label>
+<textarea class="w-full text-xs rounded-lg border-slate-300 focus:ring-brand-500 focus:border-brand-500 py-2 px-3" placeholder="Ex: Gostaria de conhecer o controle para 4 congregações..." rows="2"></textarea>
+</div>
+<div class="hidden text-xs text-emerald-700 bg-emerald-50 p-2.5 rounded border border-emerald-200 text-center font-medium" id="formSuccessMessage">
+            Solicitação registrada com sucesso! Entraremos em contato em breve.
+          </div>
+<div class="pt-2 flex items-center justify-end gap-2.5">
+<button class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800" onclick="closeDemoModal()" type="button">
+              Cancelar
+            </button>
+<button class="px-5 py-2.5 text-xs font-semibold text-white bg-brand-900 hover:bg-brand-950 rounded-lg shadow-sm transition" id="submitBtn" type="submit">
+              Enviar Solicitação
+            </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- END: Demo Request Modal -->
+<!-- BEGIN: Interactive Scripts -->
+<script data-purpose="tabs-interaction">
+    function switchDemoTab(paneId, clickedBtn) {
+      // Hide all panes
+      const allPanes = document.querySelectorAll('.demo-tab-content');
+      allPanes.forEach(pane => {
+        pane.classList.add('hidden');
+        pane.classList.remove('block');
+      });
+
+      // Show target pane
+      const targetPane = document.getElementById(paneId);
+      if (targetPane) {
+        targetPane.classList.remove('hidden');
+        targetPane.classList.add('block');
+      }
+
+      // Reset all buttons
+      const allButtons = document.querySelectorAll('.demo-tab-btn');
+      allButtons.forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs', 'font-semibold');
+        btn.classList.add('text-slate-600', 'font-medium');
+      });
+
+      // Highlight active button
+      if (clickedBtn) {
+        clickedBtn.classList.remove('text-slate-600', 'font-medium');
+        clickedBtn.classList.add('bg-white', 'text-slate-900', 'shadow-xs', 'font-semibold');
+      }
+    }
+  </script>
+<script data-purpose="modal-handlers">
+    function openDemoModal() {
+      const modal = document.getElementById('demoModal');
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeDemoModal() {
+      const modal = document.getElementById('demoModal');
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function handleDemoSubmit(e) {
+      e.preventDefault();
+      const successBox = document.getElementById('formSuccessMessage');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      setTimeout(() => {
+        successBox.classList.remove('hidden');
+        submitBtn.textContent = 'Enviado';
+        setTimeout(() => {
+          closeDemoModal();
+          successBox.classList.add('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar Solicitação';
+          e.target.reset();
+        }, 1800);
+      }, 700);
+    }
+
+    // Set current copyright year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+<!-- END: Interactive Scripts -->
+</body></html>
